@@ -20,14 +20,13 @@
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class='bx bx-cookie'></i>
+                <div class="parent-icon">
+                    <i class="bx bx-category"></i>
                 </div>
-                <div class="menu-title">Others</div>
+                <div class="menu-title">Categories</div>
             </a>
             <ul>
-                <li> <a href="#"><i class='bx bx-radio-circle'></i>Default</a>
-                </li>
-                <li> <a href="#"><i class='bx bx-radio-circle'></i>Alternate</a>
+                <li> <a href="{{ route('category.index') }}"><i class='bx bx-radio-circle'></i>Category List</a>
                 </li>
             </ul>
         </li>

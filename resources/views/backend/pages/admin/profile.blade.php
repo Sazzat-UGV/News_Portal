@@ -26,7 +26,7 @@
                         <div class="card-body py-4">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img src="{{ asset('uploads/users') }}/{{ Auth::user()->image }}" alt="Admin"
-                                    class="rounded-circle p-1 bg-secondary" width="110">
+                                    class="rounded-circle p-1 bg-secondary" width="160">
                                 <div class="mt-3">
                                     <h4>{{ Auth::user()->name }}</h4>
                                     <p class="text-secondary mb-1">

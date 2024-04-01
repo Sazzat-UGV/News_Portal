@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\auth\LoginController;
+use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +26,9 @@ Route::prefix('/admin')->group(function () {
         Route::get('change/password',[AdminController::class,'changePasswordPage'])->name('admin.changePasswordPage');
         Route::post('change/password',[AdminController::class,'changePassword'])->name('admin.changePassword');
         Route::post('change/image',[AdminController::class,'changeImage'])->name('admin.changeImage');
+        // resource routes
+        Route::resource('category',CategoryController::class);
+        //ajax routes
+        Route::get('change/category/status/{id}',[CategoryController::class,'changeStatus']);
     });
 });
