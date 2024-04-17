@@ -34,7 +34,7 @@
                             <tbody>
                                 @foreach ($categories as $index => $category)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
+                                        <th>{{ $index + 1 }}.</th>
                                         <td>{{ $category->created_at->diffForHumans() }}</td>
                                         <td>{{ $category->category_name_en }}</td>
                                         <td>{{ $category->category_name_bn }}</td>
@@ -246,11 +246,11 @@
                     method: "GET",
                     success: function(data) {
                         if ($live_text.text() === 'Active') {
-                            toastr.success('Product deactivated!');
+                            toastr.success('Category deactivated!');
                             $live_text.text('Deactive').removeClass('bg-success').addClass(
                                 'bg-danger');
                         } else {
-                            toastr.success('Product activated!');
+                            toastr.success('Category activated!');
                             $live_text.text('Active').removeClass('bg-danger').addClass(
                                 'bg-success');
                         }
