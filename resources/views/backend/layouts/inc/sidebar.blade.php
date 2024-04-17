@@ -33,7 +33,7 @@
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon">
-                    <i class="bx bx-category"></i>
+                    <i class="bx bx-category-alt"></i>
                 </div>
                 <div class="menu-title">Subcategories</div>
             </a>
@@ -41,6 +41,20 @@
                 <li> <a href="{{ route('subcategory.index') }}"><i class='bx bx-radio-circle'></i>Subcategory List</a>
                 </li>
                 <li> <a href="{{ route('subcategory.create') }}"><i class='bx bx-radio-circle'></i>Add Subcategory</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Divisions</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('division.index') }}"><i class='bx bx-radio-circle'></i>Division List</a>
+                </li>
+                <li> <a href="{{ route('division.create') }}"><i class='bx bx-radio-circle'></i>Add Division</a>
                 </li>
             </ul>
         </li>

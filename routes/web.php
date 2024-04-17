@@ -4,9 +4,8 @@ use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\auth\LoginController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\DashboardController;
+use App\Http\Controllers\backend\DivisionController;
 use App\Http\Controllers\backend\SubcategoryController;
-use App\Http\Controllers\backend\SubcategoryControllery;
-use App\Http\Controllers\backend\SubcategoyrControllery;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,6 +31,7 @@ Route::prefix('/admin')->group(function () {
         // resource routes
         Route::resource('category',CategoryController::class);
         Route::resource('subcategory',SubcategoryController::class);
+        Route::resource('division',DivisionController::class);
         //ajax routes
         Route::get('change/category/status/{id}',[CategoryController::class,'changeStatus']);
         Route::get('change/subcategory/status/{id}',[SubcategoryController::class,'changeStatus']);
