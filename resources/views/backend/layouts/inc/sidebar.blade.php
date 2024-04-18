@@ -58,6 +58,22 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class="bx bx-category-alt"></i>
+                </div>
+                <div class="menu-title">Districts</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{{ route('district.index') }}"><i class='bx bx-radio-circle'></i>District List</a>
+                </li>
+                <li>
+                    <a href="{{ route('district.create') }}"><i class='bx bx-radio-circle'></i>Add District</a>
+                </li>
+            </ul>
+        </li>
 
     </ul>
     <!--end navigation-->
