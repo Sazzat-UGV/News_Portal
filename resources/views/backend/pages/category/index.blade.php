@@ -15,12 +15,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-end mb-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCategory"><i
-                                class="bx bx-plus"></i>Add New Category</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newCategory"><i
+                                class="fa-solid fa-circle-plus"></i> Add New Category</button>
+
                     </div>
 
                     <div class="table-responsive">
-                        <table id="example" class="table table-striped datatable" style="width:100%">
+                        <table id="example" class="table datatable" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -51,16 +52,16 @@
                                                 </a>
                                             @endif
                                         </td>
-                                        <td class="d-flex justify-content-around">
-                                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                                data-bs-target="#editCategory{{ $category->id }}"><i
+                                        <td class="d-flex justify-content-center">
+                                            <button type="button" class="btn btn-warning pl-1 p-0 rounded mr-1"
+                                                data-toggle="modal" data-target="#editCategory{{ $category->id }}"><i
                                                     class="fa-solid fa-pen-to-square"></i></button>
 
                                             <form action="{{ route('category.destroy', ['category' => $category->id]) }}"
                                                 method="POST" class="show_confirm">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                <button type="submit" class="btn btn-danger pl-1 p-0 rounded">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </form>
@@ -68,13 +69,15 @@
                                     </tr>
                                     {{-- edit category modal --}}
                                     <div class="modal fade" id="editCategory{{ $category->id }}" tabindex="-1"
-                                        style="display: none;" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
+                                        role="dialog">
+                                        <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Edit Category</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                                    <h4 class="modal-title">Edit Category</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                 </div>
                                                 <form action="{{ route('category.update', ['category' => $category->id]) }}"
                                                     method="POST">
@@ -88,8 +91,8 @@
                                                                     English<span class="text-danger">*</span></label>
                                                                 <input type="text"
                                                                     class="form-control @error('category_name_english')
-                                                                    is-invalid
-                                                                    @enderror"
+                                                                is-invalid
+                                                                @enderror"
                                                                     id="category_name_english" name="category_name_english"
                                                                     value="{{ $category->category_name_en }}"
                                                                     placeholder="Enter category name english">
@@ -105,8 +108,8 @@
                                                                     Bangla<span class="text-danger">*</span></label>
                                                                 <input type="text"
                                                                     class="form-control @error('category_name_bangla')
-                                                                    is-invalid
-                                                                    @enderror"
+                                                                is-invalid
+                                                                @enderror"
                                                                     id="category_name_bangla" name="category_name_bangla"
                                                                     value="{{ $category->category_name_bn }}"
                                                                     placeholder="Enter category name bangla">
@@ -118,9 +121,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                        <button type="button" class="btn btn-default waves-effect "
+                                                            data-dismiss="modal">Close</button>
+                                                        <button type="submit"
+                                                            class="btn btn-primary waves-effect waves-light ">Save
+                                                            changes</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -132,13 +137,14 @@
                         </table>
                     </div>
                     {{-- add category modal --}}
-                    <div class="modal fade" id="newCategory" tabindex="-1" style="display: none;" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal fade" id="newCategory" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Add New Category</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <h4 class="modal-title">Add New Category</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                                 <form action="{{ route('category.store') }}" method="POST" id="category_insert">
                                     @csrf
@@ -150,8 +156,8 @@
                                                     English<span class="text-danger">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('category_name_english')
-                                                is-invalid
-                                                @enderror"
+                                            is-invalid
+                                            @enderror"
                                                     id="category_name_english" name="category_name_english"
                                                     value="{{ old('category_name_english') }}"
                                                     placeholder="Enter category name english">
@@ -166,8 +172,8 @@
                                                     Bangla<span class="text-danger">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('category_name_bangla')
-                                                is-invalid
-                                                @enderror"
+                                            is-invalid
+                                            @enderror"
                                                     id="category_name_bangla" name="category_name_bangla"
                                                     value="{{ old('category_name_bangla') }}"
                                                     placeholder="Enter category name bangla">
@@ -179,15 +185,15 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <button type="button" class="btn btn-default waves-effect "
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light ">Save
+                                            changes</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -196,7 +202,6 @@
     </div>
 @endsection
 @push('admin_script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
 

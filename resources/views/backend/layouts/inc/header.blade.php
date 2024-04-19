@@ -1,66 +1,56 @@
-<header>
-    <div class="topbar d-flex align-items-center">
-        <nav class="navbar navbar-expand gap-3">
-            <div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
-            </div>
+<nav class="navbar header-navbar pcoded-header">
+    <div class="navbar-wrapper">
+        <div class="navbar-logo">
+            <a class="mobile-menu" id="mobile-collapse" href="#!">
+                <i class="feather icon-menu"></i>
+            </a>
+            <a href="{{ route('admin.dashboard') }}">
+                <img class="img-fluid" src="{{ asset('assets/backend') }}/images/logo.png" alt="Theme-Logo" />
+            </a>
+            <a class="mobile-options">
+                <i class="feather icon-more-horizontal"></i>
+            </a>
+        </div>
+        <div class="navbar-container">
+            <ul class="nav-left">
 
-            <div class="top-menu ms-auto">
-                <ul class="navbar-nav align-items-center gap-1">
-
-                    <li class="nav-item dropdown dropdown-app">
-                        <div class="dropdown-menu dropdown-menu-end p-0">
-                            <div class="app-container p-2 my-2">
-
-                            </div>
+                <li>
+                    <a href="#!" onclick="javascript:toggleFullScreen()">
+                        <i class="feather icon-maximize full-screen"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-right">
+                <li class="user-profile header-notification">
+                    <div class="dropdown-primary dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ asset('uploads/users') }}/{{ Auth::user()->image }}" class="img-radius"
+                                alt="User-Profile-Image">
+                            <span>{{ Auth::user()->name }}</span>
+                            <i class="feather icon-chevron-down"></i>
                         </div>
-                    </li>
-
-                    <li class="nav-item dropdown dropdown-large">
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <div class="header-notifications-list">
-
-                            </div>
-
-                        </div>
-                    </li>
-
-                    <li class="nav-item dropdown dropdown-large">
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <div class="header-message-list">
-
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="user-box dropdown px-3">
-                <a class="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret"
-                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ asset('uploads/users') }}/{{ Auth::user()->image }}" class="user-img"
-                        alt="user avatar">
-                    <div class="user-info">
-                        <p class="user-name mb-0">{{ Auth::user()->name }}</p>
-                        <p class="designattion mb-0">
-                            @if (Auth::user()->is_admin == 1)
-                                Admin
-                            @endif
-                        </p>
+                        <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn"
+                            data-dropdown-out="fadeOut">
+                            <li>
+                                <a href="{{ route('admin.profilePage') }}">
+                                    <i class="feather icon-user"></i>My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.changePasswordPage') }}">
+                                    <i class="feather icon-settings"></i> Change
+                                    Password
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.logout') }}" id="logout">
+                                    <i class="feather icon-log-out"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item d-flex align-items-center" href="{{ route('admin.profilePage') }}"><i
-                                class="bx bx-user fs-5"></i><span>My Profile</span></a>
-                    </li>
-                    <li><a class="dropdown-item d-flex align-items-center"
-                            href="{{ route('admin.changePasswordPage') }}"><i class="bx bx-cog fs-5"></i><span>Change
-                                Password</span></a>
-                    </li>
-
-                    <li><a class="dropdown-item d-flex align-items-center" href="{{ route('admin.logout') }}"
-                            id="logout"><i class="bx bx-log-out fs-5"></i><span>Logout</span></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+                </li>
+            </ul>
+        </div>
     </div>
-</header>
+</nav>

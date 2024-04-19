@@ -1,80 +1,84 @@
-<div class="sidebar-wrapper" data-simplebar="true">
-    <div class="sidebar-header">
-        <div>
-            <img src="{{ asset('assets/backend') }}/images/logo-icon.png" class="logo-icon" alt="logo icon">
-        </div>
-        <div>
-            <h4 class="logo-text">Admin</h4>
-        </div>
-        <div class="toggle-icon ms-auto"><i class='bx bx-arrow-back'></i>
-        </div>
-    </div>
-    <!--navigation-->
-    <ul class="metismenu" id="menu">
-        <li>
-            <a href="{{ route('admin.dashboard') }}">
-                <div class="parent-icon"><i class='bx bx-home-alt'></i>
-                </div>
-                <div class="menu-title">Dashboard</div>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon">
-                    <i class="bx bx-category"></i>
-                </div>
-                <div class="menu-title">Categories</div>
-            </a>
-            <ul>
-                <li> <a href="{{ route('category.index') }}"><i class='bx bx-radio-circle'></i>Category List</a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon">
-                    <i class="bx bx-category-alt"></i>
-                </div>
-                <div class="menu-title">Subcategories</div>
-            </a>
-            <ul>
-                <li> <a href="{{ route('subcategory.index') }}"><i class='bx bx-radio-circle'></i>Subcategory List</a>
-                </li>
-                <li> <a href="{{ route('subcategory.create') }}"><i class='bx bx-radio-circle'></i>Add Subcategory</a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon">
-                    <i class="bx bx-category"></i>
-                </div>
-                <div class="menu-title">Divisions</div>
-            </a>
-            <ul>
-                <li> <a href="{{ route('division.index') }}"><i class='bx bx-radio-circle'></i>Division List</a>
-                </li>
-                <li> <a href="{{ route('division.create') }}"><i class='bx bx-radio-circle'></i>Add Division</a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon">
-                    <i class="bx bx-category-alt"></i>
-                </div>
-                <div class="menu-title">Districts</div>
-            </a>
-            <ul>
-                <li>
-                    <a href="{{ route('district.index') }}"><i class='bx bx-radio-circle'></i>District List</a>
-                </li>
-                <li>
-                    <a href="{{ route('district.create') }}"><i class='bx bx-radio-circle'></i>Add District</a>
-                </li>
-            </ul>
-        </li>
+<nav class="pcoded-navbar">
+    <div class="pcoded-inner-navbar main-menu">
+        <ul class="pcoded-item pcoded-left-item">
+            <li class>
+                <a href="{{ route('admin.dashboard') }}">
+                    <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                    <span class="pcoded-mtext">Dashboard</span>
+                </a>
+            </li>
 
-    </ul>
-    <!--end navigation-->
-</div>
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                    <span class="pcoded-mtext">Categories</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a href="{{ route('category.index') }}">
+                            <span class="pcoded-mtext">Category List</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                    <span class="pcoded-mtext">Subcategories</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a href="{{ route('subcategory.index') }}">
+                            <span class="pcoded-mtext">Subcategory List</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="{{ route('subcategory.create') }}">
+                            <span class="pcoded-mtext">Add Subcategory</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                    <span class="pcoded-mtext">Divisions</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a href="{{ route('division.index') }}">
+                            <span class="pcoded-mtext">Division List</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="{{ route('division.create') }}">
+                            <span class="pcoded-mtext">Add Division</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                    <span class="pcoded-mtext">Districts</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a href="{{ route('district.index') }}">
+                            <span class="pcoded-mtext">District List</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="{{ route('district.create') }}">
+                            <span class="pcoded-mtext">Add District</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>

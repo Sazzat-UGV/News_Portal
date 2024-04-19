@@ -22,7 +22,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-end mb-3">
-                        <a href="{{ route('district.create') }}" class="btn btn-primary"><i class="bx bx-plus"></i>Add New
+                        <a href="{{ route('district.create') }}" class="btn btn-primary"><i
+                                class="fa-solid fa-circle-plus"></i> Add New
                             District</a>
 
                     </div>
@@ -47,15 +48,16 @@
                                         <td class="wrap">{{ $district->division->division_name_en }}</td>
                                         <td class="wrap">{{ $district->district_name_en }}</td>
                                         <td class="wrap">{{ $district->district_name_bn }}</td>
-                                        <td class="d-flex justify-content-around">
+                                        <td class="d-flex justify-content-center">
                                             <a href="{{ route('district.edit', ['district' => $district->id]) }}"
-                                                class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                class="btn btn-warning  pl-1 p-0 rounded mr-1"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
 
                                             <form action="{{ route('district.destroy', ['district' => $district->id]) }}"
                                                 method="POST" class="show_confirm">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                <button type="submit" class="btn btn-danger pl-1 p-0 rounded">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </form>
@@ -75,7 +77,6 @@
     </div>
 @endsection
 @push('admin_script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
 

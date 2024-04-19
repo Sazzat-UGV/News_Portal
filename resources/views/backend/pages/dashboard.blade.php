@@ -5,68 +5,80 @@
 @push('admin_style')
 @endpush
 @section('content')
-    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
-        <div class="col">
-            <div class="card radius-10 border-start border-0 border-4 border-info">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <p class="mb-0 text-secondary">Total Orders</p>
-                            <h4 class="my-1 text-info">4805</h4>
-                            <p class="mb-0 font-13">+2.5% from last week</p>
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-c-yellow update-card">
+                <div class="card-block">
+                    <div class="row align-items-end">
+                        <div class="col-8">
+                            <h4 class="text-white">$30200</h4>
+                            <h6 class="text-white m-b-0">All Earnings</h6>
                         </div>
-                        <div class="widgets-icons-2 rounded-circle bg-gradient-blues text-white ms-auto"><i
-                                class='bx bxs-cart'></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card radius-10 border-start border-0 border-4 border-danger">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <p class="mb-0 text-secondary">Total Revenue</p>
-                            <h4 class="my-1 text-danger">$84,245</h4>
-                            <p class="mb-0 font-13">+5.4% from last week</p>
-                        </div>
-                        <div class="widgets-icons-2 rounded-circle bg-gradient-burning text-white ms-auto">
-                            <i class='bx bxs-wallet'></i>
+                        <div class="col-4 text-right">
+                            <canvas id="update-chart-1" height="50"></canvas>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card radius-10 border-start border-0 border-4 border-success">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <p class="mb-0 text-secondary">Bounce Rate</p>
-                            <h4 class="my-1 text-success">34.6%</h4>
-                            <p class="mb-0 font-13">-4.5% from last week</p>
-                        </div>
-                        <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                            <i class='bx bxs-bar-chart-alt-2'></i>
-                        </div>
-                    </div>
+                <div class="card-footer">
+                    <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update
+                        : 2:15 am</p>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card radius-10 border-start border-0 border-4 border-warning">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <p class="mb-0 text-secondary">Total Customers</p>
-                            <h4 class="my-1 text-warning">8.4K</h4>
-                            <p class="mb-0 font-13">+8.4% from last week</p>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-c-green update-card">
+                <div class="card-block">
+                    <div class="row align-items-end">
+                        <div class="col-8">
+                            <h4 class="text-white">290+</h4>
+                            <h6 class="text-white m-b-0">Page Views</h6>
                         </div>
-                        <div class="widgets-icons-2 rounded-circle bg-gradient-orange text-white ms-auto"><i
-                                class='bx bxs-group'></i>
+                        <div class="col-4 text-right">
+                            <canvas id="update-chart-2" height="50"></canvas>
                         </div>
                     </div>
+                </div>
+                <div class="card-footer">
+                    <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update
+                        : 2:15 am</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-c-pink update-card">
+                <div class="card-block">
+                    <div class="row align-items-end">
+                        <div class="col-8">
+                            <h4 class="text-white">145</h4>
+                            <h6 class="text-white m-b-0">Task Completed</h6>
+                        </div>
+                        <div class="col-4 text-right">
+                            <canvas id="update-chart-3" height="50"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update
+                        : 2:15 am</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-c-lite-green update-card">
+                <div class="card-block">
+                    <div class="row align-items-end">
+                        <div class="col-8">
+                            <h4 class="text-white">500</h4>
+                            <h6 class="text-white m-b-0">Downloads</h6>
+                        </div>
+                        <div class="col-4 text-right">
+                            <canvas id="update-chart-4" height="50"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="text-white m-b-0"><i class="feather icon-clock text-white f-14 m-r-10"></i>update
+                        : 2:15 am</p>
                 </div>
             </div>
         </div>

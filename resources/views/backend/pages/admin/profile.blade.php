@@ -20,6 +20,7 @@
 
     <div class="container">
         <div class="main-body">
+
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card">
@@ -28,15 +29,15 @@
                                 <img src="{{ asset('uploads/users') }}/{{ Auth::user()->image }}" alt="Admin"
                                     class="rounded-circle p-1 bg-secondary" width="160">
                                 <div class="mt-3">
-                                    <h4>{{ Auth::user()->name }}</h4>
+                                    <h4 style="font-weight: 800">{{ Auth::user()->name }}</h4>
                                     <p class="text-secondary mb-1">
                                         @if (Auth::user()->is_admin == 1)
                                             Admin
                                         @endif
                                     </p>
                                     <p class="text-muted font-size-sm">{{ Auth::user()->address }}</p>
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#changeImageModal">Change Image</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#changeImageModal">Change Image</button>
                                 </div>
 
                             </div>
@@ -98,18 +99,20 @@
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#editModal">Edit Profile</button>
+                                    <button type="button" class="btn  btn-primary" data-toggle="modal"
+                                        data-target="#editModal">Edit Profile</button>
                                 </div>
                                 {{-- edit modal --}}
-                                <div class="modal fade" id="editModal" tabindex="-1" style="display: none;"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
+
+                                <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Edit Profile</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
+                                                <h4 class="modal-title">Edit Profile</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
                                             <div class="modal-body">
                                                 <form action="{{ route('admin.profile') }}" method="POST">
@@ -121,8 +124,8 @@
                                                                     class="text-danger">*</span></label>
                                                             <input type="text"
                                                                 class="form-control @error('name')
-                                                            is-invalid
-                                                            @enderror"
+                                                is-invalid
+                                                @enderror"
                                                                 id="name" name="name"
                                                                 value="{{ old('name', Auth::user()->name) }}"
                                                                 placeholder="Enter name">
@@ -137,8 +140,8 @@
                                                                     class="text-danger">*</span></label>
                                                             <input type="email"
                                                                 class="form-control @error('email')
-                                                            is-invalid
-                                                            @enderror"
+                                                is-invalid
+                                                @enderror"
                                                                 id="email" name="email"
                                                                 value="{{ old('email', Auth::user()->email) }}"
                                                                 placeholder="Enter email">
@@ -153,8 +156,8 @@
                                                                 Phone<span class="text-danger">*</span></label>
                                                             <input type="text"
                                                                 class="form-control @error('primary_phone')
-                                                            is-invalid
-                                                            @enderror"
+                                                is-invalid
+                                                @enderror"
                                                                 id="primary_phone" name="primary_phone"
                                                                 value="{{ old('primary_phone', Auth::user()->primary_phone) }}"
                                                                 placeholder="Enter primary phone">
@@ -169,8 +172,8 @@
                                                                 Phone</label>
                                                             <input type="text"
                                                                 class="form-control @error('secondary_phone')
-                                                            is-invalid
-                                                            @enderror"
+                                                is-invalid
+                                                @enderror"
                                                                 id="secondary_phone" name="secondary_phone"
                                                                 value="{{ old('secondary_phone', Auth::user()->secondary_phone) }}"
                                                                 placeholder="Enter secondary phone">
@@ -185,8 +188,8 @@
                                                                     class="text-danger">*</span></label>
                                                             <input type="text"
                                                                 class="form-control @error('address')
-                                                            is-invalid
-                                                            @enderror"
+                                                is-invalid
+                                                @enderror"
                                                                 id="address" name="address"
                                                                 value="{{ old('address', Auth::user()->address) }}"
                                                                 placeholder="Enter address">
@@ -200,8 +203,8 @@
                                                             <label for="dob" class="form-label">Date of Birth</label>
                                                             <input type="date"
                                                                 class="form-control @error('dob')
-                                                            is-invalid
-                                                            @enderror"
+                                                is-invalid
+                                                @enderror"
                                                                 id="dob" name="dob"
                                                                 value="{{ old('dob', Auth::user()->dob) }}"
                                                                 placeholder="Enter dob">
@@ -214,9 +217,11 @@
                                                     </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="sub,it" class="btn btn-primary">Update</button>
+                                                <button type="button" class="btn btn-default waves-effect "
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit"
+                                                    class="btn btn-primary waves-effect waves-light ">Save
+                                                    changes</button>
                                             </div>
                                             </form>
                                         </div>
@@ -224,14 +229,15 @@
                                 </div>
 
                                 {{-- image modal --}}
-                                <div class="modal fade" id="changeImageModal" tabindex="-1" style="display: none;"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal fade" id="changeImageModal" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Change Image</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
+                                                <h4 class="modal-title">Change Image</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
                                             <form action="{{ route('admin.changeImage') }}" method="POST"
                                                 enctype="multipart/form-data">
@@ -239,8 +245,8 @@
                                                 <div class="modal-body">
                                                     <input type="file"
                                                         class="dropify @error('image')
-                                                                is-invalid
-                                                    @enderror"
+                                                        is-invalid
+                                            @enderror"
                                                         data-default-file="{{ asset('uploads/users') }}/{{ Auth::user()->image }}"
                                                         name="image" data-max-file-size="10M">
                                                     @error('image')
@@ -249,9 +255,11 @@
                                                     @enderror
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Change</button>
+                                                    <button type="button" class="btn btn-default waves-effect "
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary waves-effect waves-light ">Save
+                                                        changes</button>
                                                 </div>
                                             </form>
                                         </div>

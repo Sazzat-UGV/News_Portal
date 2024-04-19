@@ -50,7 +50,6 @@
                         <div class="col-12">
                             <div class="d-md-flex d-grid align-items-center gap-3">
                                 <button type="submit" class="btn btn-primary px-4">Add</button>
-                                <button type="reset" class="btn btn-outline-secondary px-4">Reset</button>
                             </div>
                         </div>
                     </form>

@@ -22,7 +22,7 @@
                         <div class="col-12 mb-2">
                             <label for="category_name" class="form-label">Select Category<span
                                     class="text-danger">*</span></label>
-                            <select class="form-select @error('category_name') is-invalid @enderror"
+                            <select class="form-control @error('category_name') is-invalid @enderror"
                                 aria-label="category_name" class="js-example-basic-single" name="category_name">
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
@@ -74,7 +74,6 @@
                         <div class="col-12">
                             <div class="d-md-flex d-grid align-items-center gap-3">
                                 <button type="submit" class="btn btn-primary px-4">Update</button>
-                                <button type="reset" class="btn btn-outline-secondary px-4">Reset</button>
                             </div>
                         </div>
                     </form>

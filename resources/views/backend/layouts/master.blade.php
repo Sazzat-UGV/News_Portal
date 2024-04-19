@@ -1,51 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    @include('backend.layouts.inc.style')
-
     <title>@yield('title')</title>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="#">
+    <meta name="keywords" content="#">
+    <meta name="author" content="#">
+    @include('backend.layouts.inc.style')
 </head>
 
 <body>
-    <!--wrapper-->
-    <div class="wrapper">
+    @include('backend.layouts.inc.loader')
 
-        <!--sidebar wrapper -->
-        @include('backend.layouts.inc.sidebar')
-        <!--end sidebar wrapper -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
 
-        <!--start header -->
-        @include('backend.layouts.inc.header')
-        <!--end header -->
+            @include('backend.layouts.inc.header')
 
-        <!--start page wrapper -->
-        <div class="page-wrapper">
-            <div class="page-content">
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    @include('backend.layouts.inc.sidebar')
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <div class="page-body">
 
-                @yield('content')
-
+                                        @yield('content')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!--end page wrapper -->
-
-        <!--start overlay-->
-        <div class="overlay toggle-icon"></div>
-        <!--end overlay-->
-
-        <!--Start Back To Top Button-->
-        <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-        <!--End Back To Top Button-->
-
-        @include('backend.layouts.inc.footer')
-
     </div>
-    <!--end wrapper-->
+
 
     @include('backend.layouts.inc.script')
 </body>

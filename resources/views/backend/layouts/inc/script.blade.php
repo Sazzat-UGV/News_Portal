@@ -1,23 +1,25 @@
-<!-- Bootstrap JS -->
-<script src="{{ asset('assets/backend') }}/js/bootstrap.bundle.min.js"></script>
-<!--plugins-->
-<script src="{{ asset('assets/backend') }}/js/jquery.min.js"></script>
-<script src="{{ asset('assets/backend') }}/plugins/simplebar/js/simplebar.min.js"></script>
-<script src="{{ asset('assets/backend') }}/plugins/metismenu/js/metisMenu.min.js"></script>
-<script src="{{ asset('assets/backend') }}/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-<script src="{{ asset('assets/backend') }}/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
-<script src="{{ asset('assets/backend') }}/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
-<script src="{{ asset('assets/backend') }}/plugins/chartjs/js/chart.js"></script>
-<script src="{{ asset('assets/backend') }}/js/index.js"></script>
-<!--app JS-->
-<script src="{{ asset('assets/backend') }}/js/app.js"></script>
-<script>
-    new PerfectScrollbar(".app-container")
-</script>
-<!-- jQuery-->
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+<script type="text/javascript" src="{{ asset('assets/backend') }}/bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets/backend') }}/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets/backend') }}/bower_components/popper.js/dist/umd/popper.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets/backend') }}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="{{ asset('assets/backend') }}/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+<script type="text/javascript" src="{{ asset('assets/backend') }}/bower_components/modernizr/modernizr.js"></script>
+
+<script type="text/javascript" src="{{ asset('assets/backend') }}/bower_components/chart.js/dist/Chart.js"></script>
+
+<script src="{{ asset('assets/backend') }}/pages/widget/amchart/amcharts.js"></script>
+<script src="{{ asset('assets/backend') }}/pages/widget/amchart/serial.js"></script>
+<script src="{{ asset('assets/backend') }}/pages/widget/amchart/light.js"></script>
+<script src="{{ asset('assets/backend') }}/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets/backend') }}/js/SmoothScroll.js"></script>
+<script src="{{ asset('assets/backend') }}/js/pcoded.min.js"></script>
+
+<script src="{{ asset('assets/backend') }}/js/vartical-layout.min.js"></script>
+<script type="text/javascript" src="{{ asset('assets/backend') }}/pages/dashboard/custom-dashboard.js"></script>
+<script type="text/javascript" src="{{ asset('assets/backend') }}/js/script.min.js"></script>
+
 <!-- Toastr-->
 {{-- <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script> --}}
 <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>

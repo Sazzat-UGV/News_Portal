@@ -22,7 +22,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-end mb-3">
-                        <a href="{{ route('division.create') }}" class="btn btn-primary"><i class="bx bx-plus"></i>Add New
+                        <a href="{{ route('division.create') }}" class="btn btn-primary"><i
+                            class="fa-solid fa-circle-plus"></i> Add New
                             Division</a>
                     </div>
 
@@ -44,15 +45,15 @@
                                         <td>{{ $division->created_at->diffForHumans() }}</td>
                                         <td class="wrap">{{ $division->division_name_en }}</td>
                                         <td class="wrap">{{ $division->division_name_bn }}</td>
-                                        <td class="d-flex justify-content-around">
+                                        <td class="d-flex justify-content-center">
                                             <a href="{{ route('division.edit', ['division' => $division->id]) }}"
-                                                class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                class="btn btn-warning  pl-1 p-0 rounded mr-1"><i class="fa-solid fa-pen-to-square"></i></a>
 
                                             <form action="{{ route('division.destroy', ['division' => $division->id]) }}"
                                                 method="POST" class="show_confirm">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                <button type="submit" class="btn btn-danger pl-1 p-0 rounded">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </form>
@@ -72,7 +73,6 @@
     </div>
 @endsection
 @push('admin_script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
 
