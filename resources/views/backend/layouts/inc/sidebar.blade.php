@@ -78,6 +78,25 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
+                    <span class="pcoded-mtext">Posts</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a href="{{ route('post.index') }}">
+                            <span class="pcoded-mtext">Post List</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="{{ route('post.create') }}">
+                            <span class="pcoded-mtext">Add Post</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
 
     </div>

@@ -20,7 +20,7 @@
                         <div class="col-12 mb-2">
                             <label for="category_name" class="form-label">Select Category<span
                                     class="text-danger">*</span></label>
-                            <select class=form-control @error('category_name') is-invalid @enderror"
+                            <select class="form-control @error('category_name') is-invalid @enderror"
                                 aria-label="category_name" class="js-example-basic-single" name="category_name">
                                 <option value="">Select Category</option>
                                 @foreach ($categories as $category)

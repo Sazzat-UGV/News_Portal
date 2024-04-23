@@ -21,7 +21,7 @@
                             <label for="division_name" class="form-label">Select Division<span
                                     class="text-danger">*</span></label>
                             <select class="form-control @error('division_name') is-invalid @enderror"
-                                aria-label="division_name" class="js-example-basic-single" name="division_name">
+                                aria-label="division_name"  name="division_name">
                                 <option value="">Select Division</option>
                                 @foreach ($divisions as $division)
                                     <option value="{{ $division->id }}"
