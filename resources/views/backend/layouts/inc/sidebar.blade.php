@@ -109,6 +109,11 @@
                             <span class="pcoded-mtext">Prayer Time</span>
                         </a>
                     </li>
+                    <li class=" ">
+                        <a href="{{ route('liveTV.widgetPage') }}">
+                            <span class="pcoded-mtext">Live TV</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="pcoded-hasmenu">
