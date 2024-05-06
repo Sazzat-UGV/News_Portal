@@ -110,7 +110,7 @@
                         </a>
                     </li>
                     <li class=" ">
-                        <a href="#">
+                        <a href="{{ route('seo.settingPage') }}">
                             <span class="pcoded-mtext">SEO Setting</span>
                         </a>
                     </li>

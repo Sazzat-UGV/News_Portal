@@ -45,7 +45,13 @@ Route::prefix('/admin')->group(function () {
         Route::get('get/district/{id}', [PostController::class, 'getDistrict']);
 
         // setting routes
-        Route::get('social/setting', [SettingController::class, 'socialSettingPage'])->name('social.settingPage');
-        Route::post('social/setting', [SettingController::class, 'socialSettingUpdate'])->name('social.settingUpdate');
+        Route::prefix('/setting')->group(function () {
+            // social setting routes
+            Route::get('social', [SettingController::class, 'socialSettingPage'])->name('social.settingPage');
+            Route::post('social', [SettingController::class, 'socialSettingUpdate'])->name('social.settingUpdate');
+            // seo setting routes
+            Route::get('seo', [SettingController::class, 'seoSettingPage'])->name('seo.settingPage');
+            Route::post('seo', [SettingController::class, 'seoSettingUpdate'])->name('seo.settingUpdate');
+        });
     });
 });

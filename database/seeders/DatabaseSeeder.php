@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             DivisionSeeder::class,
             SocialSeeder::class,
+            SeoSeeder::class,
         ]);
     }
 }
