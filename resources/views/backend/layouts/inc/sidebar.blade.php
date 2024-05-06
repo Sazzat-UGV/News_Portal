@@ -97,6 +97,25 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
+                    <span class="pcoded-mtext">Settings</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a href="{{ route('social.settingPage') }}">
+                            <span class="pcoded-mtext">Social Setting</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="#">
+                            <span class="pcoded-mtext">SEO Setting</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
 
     </div>

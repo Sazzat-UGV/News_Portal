@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\DistrictController;
 use App\Http\Controllers\backend\DivisionController;
 use App\Http\Controllers\backend\PostController;
+use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\backend\SubcategoryController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
@@ -42,5 +43,9 @@ Route::prefix('/admin')->group(function () {
         Route::get('change/subcategory/status/{id}', [SubcategoryController::class, 'changeStatus']);
         Route::get('get/subcategory/{id}', [PostController::class, 'getSubcategory']);
         Route::get('get/district/{id}', [PostController::class, 'getDistrict']);
+
+        // setting routes
+        Route::get('social/setting', [SettingController::class, 'socialSettingPage'])->name('social.settingPage');
+        Route::post('social/setting', [SettingController::class, 'socialSettingUpdate'])->name('social.settingUpdate');
     });
 });
