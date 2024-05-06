@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             DivisionSeeder::class,
             SocialSeeder::class,
             SeoSeeder::class,
+            PrayerTimeSeeder::class,
         ]);
     }
 }

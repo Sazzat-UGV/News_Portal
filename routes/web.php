@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\DistrictController;
 use App\Http\Controllers\backend\DivisionController;
 use App\Http\Controllers\backend\PostController;
+use App\Http\Controllers\backend\PrayerTimeController;
 use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\backend\SubcategoryController;
 use App\Models\Post;
@@ -52,6 +53,12 @@ Route::prefix('/admin')->group(function () {
             // seo setting routes
             Route::get('seo', [SettingController::class, 'seoSettingPage'])->name('seo.settingPage');
             Route::post('seo', [SettingController::class, 'seoSettingUpdate'])->name('seo.settingUpdate');
+        });
+        // widget routes
+        Route::prefix('/widget')->group(function () {
+            // prauer time routes
+            Route::get('prayer/time', [PrayerTimeController::class, 'prayerTimeWidgetPage'])->name('prayerTime.widgetPage');
+            Route::post('prayer/time', [PrayerTimeController::class, 'prayerTimeWidgetUpdate'])->name('prayerTime.widgetUpdate');
         });
     });
 });
