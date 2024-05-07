@@ -133,7 +133,7 @@
                         </a>
                     </li>
                     <li class=" ">
-                        <a href="#">
+                        <a href="{{ route('video.index') }}">
                             <span class="pcoded-mtext">Video Gallery</span>
                         </a>
                     </li>

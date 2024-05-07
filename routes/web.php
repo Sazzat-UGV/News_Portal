@@ -14,6 +14,7 @@ use App\Http\Controllers\backend\PostController;
 use App\Http\Controllers\backend\PrayerTimeController;
 use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\backend\SubcategoryController;
+use App\Http\Controllers\backend\VideoGalleryController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,7 @@ Route::prefix('/admin')->group(function () {
         Route::resource('post', PostController::class);
         Route::resource('setting/importent/website', ImportentWebsiteController::class);
         Route::resource('gallery/photo', PhotoGalleryController::class);
+        Route::resource('gallery/video', VideoGalleryController::class);
         //ajax routes
         Route::get('change/category/status/{id}', [CategoryController::class, 'changeStatus']);
         Route::get('change/subcategory/status/{id}', [SubcategoryController::class, 'changeStatus']);
