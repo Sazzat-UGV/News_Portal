@@ -123,6 +123,25 @@
             </li>
             <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="feather icon-grid"></i></span>
+                    <span class="pcoded-mtext">Galleries</span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class=" ">
+                        <a href="{{ route('photo.index') }}">
+                            <span class="pcoded-mtext">Photo Gallery</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="#">
+                            <span class="pcoded-mtext">Video Gallery</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="pcoded-hasmenu">
+                <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
                     <span class="pcoded-mtext">Settings</span>
                 </a>

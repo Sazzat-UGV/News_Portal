@@ -9,6 +9,7 @@ use App\Http\Controllers\backend\DivisionController;
 use App\Http\Controllers\backend\ImportentWebsiteController;
 use App\Http\Controllers\backend\LiveTVController;
 use App\Http\Controllers\backend\NoticeController;
+use App\Http\Controllers\backend\PhotoGalleryController;
 use App\Http\Controllers\backend\PostController;
 use App\Http\Controllers\backend\PrayerTimeController;
 use App\Http\Controllers\backend\SettingController;
@@ -43,6 +44,7 @@ Route::prefix('/admin')->group(function () {
         Route::resource('district', DistrictController::class);
         Route::resource('post', PostController::class);
         Route::resource('setting/importent/website', ImportentWebsiteController::class);
+        Route::resource('gallery/photo', PhotoGalleryController::class);
         //ajax routes
         Route::get('change/category/status/{id}', [CategoryController::class, 'changeStatus']);
         Route::get('change/subcategory/status/{id}', [SubcategoryController::class, 'changeStatus']);
