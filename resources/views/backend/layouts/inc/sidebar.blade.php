@@ -137,6 +137,11 @@
                             <span class="pcoded-mtext">SEO Setting</span>
                         </a>
                     </li>
+                    <li class=" ">
+                        <a href="{{ route('website.index') }}">
+                            <span class="pcoded-mtext">Importent Website</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

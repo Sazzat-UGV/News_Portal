@@ -6,6 +6,7 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\DistrictController;
 use App\Http\Controllers\backend\DivisionController;
+use App\Http\Controllers\backend\ImportentWebsiteController;
 use App\Http\Controllers\backend\LiveTVController;
 use App\Http\Controllers\backend\NoticeController;
 use App\Http\Controllers\backend\PostController;
@@ -41,6 +42,7 @@ Route::prefix('/admin')->group(function () {
         Route::resource('division', DivisionController::class);
         Route::resource('district', DistrictController::class);
         Route::resource('post', PostController::class);
+        Route::resource('setting/importent/website', ImportentWebsiteController::class);
         //ajax routes
         Route::get('change/category/status/{id}', [CategoryController::class, 'changeStatus']);
         Route::get('change/subcategory/status/{id}', [SubcategoryController::class, 'changeStatus']);
