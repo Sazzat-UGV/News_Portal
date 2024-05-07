@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('title')
-    Live TV
+    Notice
 @endsection
 @push('admin_style')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -8,39 +8,39 @@
 @section('content')
     @include('backend.layouts.inc.breadcrumb', [
         'main_page' => 'Widgets',
-        'sub_page' => 'Live TV',
+        'sub_page' => 'Notice',
     ])
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body p-4">
-                    <form class="row g-3" action="{{ route('liveTV.widgetUpdate') }}" method="POST">
+                    <form class="row g-3" action="{{ route('notice.widgetUpdate') }}" method="POST">
                         @csrf
 
                         <div class="col-12 mb-2">
-                            <label for="embed_code" class="form-label">Embed Code</label>
-                            <textarea rows="5" cols="30"
-                                class="form-control @error('embed_code')
-                            is-invalid
-                            @enderror"
-                                id="editor2" placeholder="Enter embed code" name="embed_code">{{ old('embed_code', $livetv->embed_code) }}</textarea>
-                            @error('embed_code')
+                            <label for="notice" class="form-label">Notice<span class="text-danger">*</span></label>
+                            <input type="text" name="notice"
+                                class="form-control @error('notice')
+                                 is-invalid
+                                @enderror"
+                                id="notice" value="{{ old('notice', $notice->notice) }}">
+                            @error('notice')
                                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            @if ($livetv->active == 1)
-                                <h6 class="text-success" style="font-size: 12px">Live is now active</h6>
+                            @if ($notice->active == 1)
+                                <h6 class="text-success" style="font-size: 12px">Notice is now active</h6>
                             @else
-                                <h6 class="text-danger" style="font-size: 12px">Live is now deactive</h6>
+                                <h6 class="text-danger" style="font-size: 12px">Notice is now deactive</h6>
                             @endif
                         </div>
                         <div class="col-6 mb-2">
-                            @if ($livetv->active == 1)
-                                <a href="{{ route('liveTV.changeStatus') }}" class="btn btn-danger px-4 ml-3">
+                            @if ($notice->active == 1)
+                                <a href="{{ route('notice.changeStatus') }}" class="btn btn-danger px-4 ml-3">
                                     Deactive</a>
                             @else
-                                <a href="{{ route('liveTV.changeStatus') }}" class="btn btn-primary px-4 ml-3">
+                                <a href="{{ route('notice.changeStatus') }}" class="btn btn-primary px-4 ml-3">
                                     Active</a>
                             @endif
                         </div>

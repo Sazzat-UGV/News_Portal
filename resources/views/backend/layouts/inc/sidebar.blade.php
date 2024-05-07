@@ -114,6 +114,11 @@
                             <span class="pcoded-mtext">Live TV</span>
                         </a>
                     </li>
+                    <li class=" ">
+                        <a href="{{ route('notice.widgetPage') }}">
+                            <span class="pcoded-mtext">Notice</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="pcoded-hasmenu">

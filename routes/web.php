@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\DistrictController;
 use App\Http\Controllers\backend\DivisionController;
 use App\Http\Controllers\backend\LiveTVController;
+use App\Http\Controllers\backend\NoticeController;
 use App\Http\Controllers\backend\PostController;
 use App\Http\Controllers\backend\PrayerTimeController;
 use App\Http\Controllers\backend\SettingController;
@@ -60,10 +61,14 @@ Route::prefix('/admin')->group(function () {
             // prauer time routes
             Route::get('prayer/time', [PrayerTimeController::class, 'prayerTimeWidgetPage'])->name('prayerTime.widgetPage');
             Route::post('prayer/time', [PrayerTimeController::class, 'prayerTimeWidgetUpdate'])->name('prayerTime.widgetUpdate');
-            // live tvroutes
+            // live tv routes
             Route::get('live/tv', [LiveTVController::class, 'liveTVWidgetPage'])->name('liveTV.widgetPage');
             Route::post('live/tv', [LiveTVController::class, 'liveTVWidgetUpdate'])->name('liveTV.widgetUpdate');
             Route::get('live/tv/status', [LiveTVController::class, 'changeStatus'])->name('liveTV.changeStatus');
+            // notice routes
+            Route::get('notice', [NoticeController::class, 'noticePage'])->name('notice.widgetPage');
+            Route::post('notice', [NoticeController::class, 'noticeUpdate'])->name('notice.widgetUpdate');
+            Route::get('notice/status', [NoticeController::class, 'changeStatus'])->name('notice.changeStatus');
         });
     });
 });
