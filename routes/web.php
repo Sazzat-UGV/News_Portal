@@ -15,12 +15,18 @@ use App\Http\Controllers\backend\PrayerTimeController;
 use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\backend\SubcategoryController;
 use App\Http\Controllers\backend\VideoGalleryController;
+use App\Http\Controllers\fronted\LanguageController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function () {
+    // main route
     Route::get('', [HomeController::class, 'homePage'])->name('homepage');
+
+    // language route
+    Route::get('language/bangla',[LanguageController::class,'languageBangla'])->name('lang.bangla');
+    Route::get('language/english',[LanguageController::class,'languageEnglish'])->name('lang.english');
 });
 
 Route::prefix('/admin')->group(function () {
