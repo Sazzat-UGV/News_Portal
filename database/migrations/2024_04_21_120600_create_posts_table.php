@@ -25,10 +25,11 @@ return new class extends Migration
             $table->longText('details_bn');
             $table->string('tags_en')->nullable();
             $table->string('tags_bn');
-            $table->boolean('heading')->nullable();
+            $table->boolean('breaking_news')->nullable();
             $table->boolean('first_section')->nullable();
             $table->boolean('first_section_thumbnail')->nullable();
             $table->boolean('bigthumbnail')->nullable();
+            $table->boolean('status')->default(true);
             $table->string('post_date')->nullable();
             $table->string('post_month')->nullable();
             $table->timestamps();

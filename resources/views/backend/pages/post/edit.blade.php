@@ -192,13 +192,13 @@
                         </div>
                         <div class="col-6 mb-2">
                             <div class="form-check mb-2 mt-2">
-                                <input class="form-check-input" name="headline" type="checkbox" value="1"
-                                    @if (old('headline')) checked
-                                    @elseif ($post->heading == 1)
+                                <input class="form-check-input" name="breaking_news" type="checkbox" value="1"
+                                    @if (old('breaking_news')) checked
+                                    @elseif ($post->breaking_news == 1)
                                     checked @endif
-                                    id="headline">
-                                <label class="form-check-label" for="headline">
-                                    Headline
+                                    id="breaking_news">
+                                <label class="form-check-label" for="breaking_news">
+                                    Breaking News
                                 </label>
                             </div>
                             <div class="form-check mb-2">
@@ -209,6 +209,16 @@
                                     id="firstSection">
                                 <label class="form-check-label" for="firstSection">
                                     First Section
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" value="1" name="status"
+                                    @if (old('status')) checked
+                                    @elseif ($post->status == 1)
+                                    checked @endif
+                                    id="status">
+                                <label class="form-check-label" for="status">
+                                   Post Active
                                 </label>
                             </div>
                         </div>

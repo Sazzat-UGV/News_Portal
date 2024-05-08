@@ -18,11 +18,13 @@ class NoticeController extends Controller
     public function noticeUpdate(Request $request)
     {
         $request->validate([
-            'notice' => 'required|string',
+            'notice_bangla' => 'required|string',
+            'notice_english' => 'required|string',
         ]);
         $notice = Notice::first();
         $notice->update([
-            'notice' => $request->notice,
+            'notice_bn' => $request->notice_bangla,
+            'notice_en' => $request->notice_english,
         ]);
         Toastr::success('Notice updated successfully!');
         return back();

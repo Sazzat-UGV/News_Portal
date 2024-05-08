@@ -25,13 +25,27 @@
                         @csrf
 
                         <div class="col-12 mb-2">
-                            <label for="notice" class="form-label">Notice<span class="text-danger">*</span></label>
-                            <input type="text" name="notice"
-                                class="form-control @error('notice')
+                            <label for="notice_bangla" class="form-label">Notice Bangla<span class="text-danger">*</span></label>
+                            <input type="text" name="notice_bangla"
+                                class="form-control @error('notice_bangla')
                                  is-invalid
                                 @enderror"
-                                id="notice" value="{{ old('notice', $notice->notice) }}">
-                            @error('notice')
+                                id="notice_bangla" value="{{ old('notice_bangla', $notice->notice_bn) }}">
+                            @error('notice_bangla')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            
+                        </div>
+
+                        <div class="col-12 mb-2">
+                            <label for="notice_english" class="form-label">Notice English<span class="text-danger">*</span></label>
+                            <input type="text" name="notice_english"
+                                class="form-control @error('notice_english')
+                                 is-invalid
+                                @enderror"
+                                id="notice_english" value="{{ old('notice_english', $notice->notice_en) }}">
+                            @error('notice_english')
                                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong>
                                 </span>
                             @enderror

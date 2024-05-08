@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 @section('title')
-    hehehe
+    Home
 @endsection
 @push('style')
 @endpush
@@ -9,23 +9,55 @@
     <div>
         <div class="container">
             <div class="news-area">
-                <div class="title">Breaking News :</div>
+                @php
+                    $breaking_news = App\Models\Post::where('breaking_news', 1)
+                        ->latest('id')
+                        ->limit(20)
+                        ->select('title_en', 'title_bn')
+                        ->get();
+                @endphp
+                @if (session()->get('lang') == 'english')
+                    <div class="title">Breaking News :</div>
+                @else
+                    <div class="title">ব্রেকিং নিউজ :</div>
+                @endif
                 <div class="news-wrap">
                     <div class="row slick-marquee">
-                        <div class="col-auto"><a href="blog-details.html" class="breaking-news">Relaxation redefined,
-                                your beach resort sanctuary.</a></div>
-                        <div class="col-auto"><a href="blog-details.html" class="breaking-news">From health to
-                                fashion, lifestyle news curated.</a></div>
-                        <div class="col-auto"><a href="blog-details.html" class="breaking-news">Sun, sand, and luxury
-                                at our resort</a></div>
-                        <div class="col-auto"><a href="blog-details.html" class="breaking-news">Relaxation redefined,
-                                your beach resort sanctuary.</a></div>
+                        @foreach ($breaking_news as $news)
+                            @if (session()->get('lang') == 'english')
+                                <div class="col-auto"><a href="#" class="breaking-news">{{ $news->title_en }}</a></div>
+                            @else
+                                <div class="col-auto"><a href="#" class="breaking-news">{{ $news->title_bn }}</a></div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
+@if ($notice->active==1)
+<div class="container mt-1">
+    <div class="news-area">
+   
+        @if (session()->get('lang') == 'english')
+            <div class="title">Notice :</div>
+        @else
+            <div class="title">নোটিশ :</div>
+        @endif
+        <div class="news-wrap">
+            <div class="row slick-marquee">
+                    @if (session()->get('lang') == 'english')
+                        <div class="col-auto"><a href="#" class="breaking-news">{{ $notice->notice_en }}</a></div>
+                    @else
+                        <div class="col-auto"><a href="#" class="breaking-news">{{ $notice->notice_bn }}</a></div>
+                    @endif
+            </div>
+        </div>
     </div>
-    
+</div>
+@endif
+       
+    </div>
+
 
     <section class="space">
         <div class="container">
@@ -93,8 +125,8 @@
                                 <div class="col-xl-12 col-md-6 border-blog">
                                     <div class="blog-style2">
                                         <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_1.jpg"
-                                                alt="blog image"></div>
+                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_1.jpg" alt="blog image">
+                                        </div>
                                         <div class="blog-content"><a data-theme-color="#FF9500" href="blog.html"
                                                 class="category">Politics</a>
                                             <h3 class="box-title-18"><a class="hover-line" href="blog-details.html">Stay
@@ -574,7 +606,8 @@
                             type="button" role="tab" aria-controls="nav2-two" aria-selected="false">Recent</button>
                         <button class="tab-btn" id="nav2-three-tab" data-bs-toggle="tab" data-bs-target="#nav2-three"
                             type="button" role="tab" aria-controls="nav2-three"
-                            aria-selected="false">Popular</button></div>
+                            aria-selected="false">Popular</button>
+                    </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="nav2-one" role="tabpanel"
                             aria-labelledby="nav2-one-tab">
@@ -1206,69 +1239,6 @@
             </div>
         </div>
     </section>
-    <div class="space-bottom">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col">
-                    <h2 class="sec-title has-line">Featured Post</h2>
-                </div>
-                <div class="col-auto">
-                    <div class="sec-btn">
-                        <div class="icon-box"><button data-slick-prev="#blog-slide3" class="slick-arrow default"><i
-                                    class="far fa-arrow-left"></i></button> <button data-slick-next="#blog-slide3"
-                                class="slick-arrow default"><i class="far fa-arrow-right"></i></button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row th-carousel" id="blog-slide3" data-slide-show="3" data-lg-slide-show="2"
-                data-md-slide-show="2" data-sm-slide-show="1">
-                <div class="col-sm-6 col-xl-4">
-                    <div class="blog-style1">
-                        <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_4_1.jpg"
-                                alt="blog image"> <a data-theme-color="#FF9500" href="blog.html"
-                                class="category">Politics</a></div>
-                        <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">Relaxation
-                                redefined, your beach Resort sanctuary</a></h3>
-                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By - Tnews</a> <a
-                                href="blog.html"><i class="fal fa-calendar-days"></i>24 Mar, 2023</a></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-4">
-                    <div class="blog-style1">
-                        <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_4_2.jpg"
-                                alt="blog image"> <a data-theme-color="#4E4BD0" href="blog.html"
-                                class="category">Sports</a></div>
-                        <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">Game on! Embrace
-                                the spirit of Competition them</a></h3>
-                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By - Tnews</a> <a
-                                href="blog.html"><i class="fal fa-calendar-days"></i>30 Mar, 2023</a></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-4">
-                    <div class="blog-style1">
-                        <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_4_3.jpg"
-                                alt="blog image"> <a data-theme-color="#E7473C" href="blog.html"
-                                class="category">Fitness</a></div>
-                        <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">Adventure awaits,
-                                let your Wanderlust guide you</a></h3>
-                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By - Tnews</a> <a
-                                href="blog.html"><i class="fal fa-calendar-days"></i>10 Mar, 2023</a></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-4">
-                    <div class="blog-style1">
-                        <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_4_4.jpg"
-                                alt="blog image"> <a data-theme-color="#4E4BD0" href="blog.html"
-                                class="category">Sports</a></div>
-                        <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">Excellence in
-                                business our Passion your success</a></h3>
-                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By - Tnews</a> <a
-                                href="blog.html"><i class="fal fa-calendar-days"></i>27 Mar, 2023</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 @push('script')
 @endpush
