@@ -5,12 +5,15 @@
 @push('style')
 @endpush
 @section('content')
-
+@php
+    $category=App\Models\Category::select('id')->get();
+@endphp
     <div>
         <div class="container">
             <div class="news-area">
                 @php
                     $breaking_news = App\Models\Post::where('breaking_news', 1)
+                        ->where('status', 1)
                         ->latest('id')
                         ->limit(20)
                         ->select('title_en', 'title_bn')
@@ -34,84 +37,118 @@
                 </div>
             </div>
         </div>
-@if ($notice->active==1)
-<div class="container mt-1">
-    <div class="news-area">
-   
-        @if (session()->get('lang') == 'english')
-            <div class="title">Notice :</div>
-        @else
-            <div class="title">নোটিশ :</div>
-        @endif
-        <div class="news-wrap">
-            <div class="row slick-marquee">
-                    @if (session()->get('lang') == 'english')
-                        <div class="col-auto"><a href="#" class="breaking-news">{{ $notice->notice_en }}</a></div>
-                    @else
-                        <div class="col-auto"><a href="#" class="breaking-news">{{ $notice->notice_bn }}</a></div>
-                    @endif
-            </div>
-        </div>
-    </div>
-</div>
-@endif
-       
-    </div>
+        @if ($notice->active == 1)
+            <div class="container mt-1">
+                <div class="news-area">
 
+                    @if (session()->get('lang') == 'english')
+                        <div class="title">Notice :</div>
+                    @else
+                        <div class="title">নোটিশ :</div>
+                    @endif
+                    <div class="news-wrap">
+                        <div class="row slick-marquee">
+                            @if (session()->get('lang') == 'english')
+                                <div class="col-auto"><a href="#" class="breaking-news">{{ $notice->notice_en }}</a>
+                                </div>
+                            @else
+                                <div class="col-auto"><a href="#" class="breaking-news">{{ $notice->notice_bn }}</a>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
 
     <section class="space">
         <div class="container">
             <div class="row">
                 <div class="col-xl-3">
-                    <div class="row gy-4">
-                        <div class="col-xl-12 col-sm-6 border-blog dark-theme img-overlay2">
-                            <div class="blog-style3">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_5_16.jpg"
-                                        alt="blog image">
-                                </div>
-                                <div class="blog-content"><a data-theme-color="#00D084" href="blog.html"
-                                        class="category">Business</a>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Leadership
-                                            for the People By the people</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>12 Mar,
-                                            2023</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-12 col-sm-6 border-blog dark-theme img-overlay2">
-                            <div class="blog-style3">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_5_17.jpg"
-                                        alt="blog image">
-                                </div>
-                                <div class="blog-content"><a data-theme-color="#4E4BD0" href="blog.html"
-                                        class="category">Sports</a>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Game on!
-                                            Stay ahead with Sports updates</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>11 Mar,
-                                            2023</a></div>
+                    <div class="row ">
+                        @foreach ($first_sections as $first_section)
+                            <div class="col-xl-12 col-sm-6 border-blog dark-theme img-overlay2">
+                                <div class="blog-style3">
+                                    <div class="blog-img"><img src="{{ asset('uploads/thumbnail') }}/{{ $first_section->thumbnail }}"
+                                            alt="blog image">
+                                    </div>
+                                    <div class="blog-content"><a data-theme-color="#00D084" href="#"
+                                            class="category">@if (session()->get('lang') == 'english')
+                                            {{ $first_section->category->category_name_en }}
+                                        @else
+                                            {{ $first_section->category->category_name_bn }}
+                                        @endif</a>
+                                        <h3 class="box-title-22"><a class="hover-line" href="#">@if (session()->get('lang') == 'english')
+                                            {{ $first_section->title_en }}
+                                        @else
+                                            {{ $first_section->title_bn }}
+                                        @endif</a></h3>
+                                        <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
+                                            {{ $first_section->user->name }}</a> <a href="#"><i class="fal fa-calendar-days"></i>{{ $first_section->created_at->format('d M, Y') }}</a></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
+
                     </div>
                 </div>
+
+
                 <div class="col-xl-6 mt-4 mt-xl-0">
                     <div class="dark-theme img-overlay2">
                         <div class="blog-style3">
-                            <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_5_18.jpg"
+                            <div class="blog-img"><img
+                                    src="{{ asset('uploads/thumbnail') }}/{{ $firstSectionBigThumbnail->thumbnail }}"
                                     alt="blog image"></div>
-                            <div class="blog-content"><a data-theme-color="#FF9500" href="blog.html"
-                                    class="category">Politics</a>
-                                <h3 class="box-title-30"><a class="hover-line" href="blog-details.html">Following the
-                                        Moon, they are in Close space. choose the best</a></h3>
-                                <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                        Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>25 Mar,
-                                        2023</a></div>
+                            <div class="blog-content"><a data-theme-color="#FF9500" href="#" class="category">
+                                    @if (session()->get('lang') == 'english')
+                                        {{ $firstSectionBigThumbnail->category->category_name_en }}
+                                    @else
+                                        {{ $firstSectionBigThumbnail->category->category_name_bn }}
+                                    @endif
+                                </a>
+                                <h3 class="box-title-30"><a class="hover-line" href="#">
+                                        @if (session()->get('lang') == 'english')
+                                            {{ $firstSectionBigThumbnail->title_en }}
+                                        @else
+                                            {{ $firstSectionBigThumbnail->title_bn }}
+                                        @endif
+                                    </a></h3>
+                                <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
+                                        {{ $firstSectionBigThumbnail->user->name }}</a> <a href="#"><i
+                                            class="fal fa-calendar-days"></i>{{ $firstSectionBigThumbnail->created_at->format('d M, Y') }}</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <div class="col-xl-3 mt-35 mt-xl-0">
                     <div class="nav tab-menu indicator-active" role="tablist"><button class="tab-btn active"
                             id="nav-one-tab" data-bs-toggle="tab" data-bs-target="#nav-one" type="button" role="tab"
@@ -125,7 +162,8 @@
                                 <div class="col-xl-12 col-md-6 border-blog">
                                     <div class="blog-style2">
                                         <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_1.jpg" alt="blog image">
+                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_1.jpg"
+                                                alt="blog image">
                                         </div>
                                         <div class="blog-content"><a data-theme-color="#FF9500" href="blog.html"
                                                 class="category">Politics</a>
