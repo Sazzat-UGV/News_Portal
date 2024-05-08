@@ -3,7 +3,6 @@
     Prayer Time
 @endsection
 @push('admin_style')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
     @include('backend.layouts.inc.breadcrumb', [
@@ -15,6 +14,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body p-4">
+                    <div class="d-flex justify-content-end">
+                        @if ($prayerTime->active == 1)
+                            <a href="{{ route('prayerTime.changeStatus') }}" class="btn btn-danger">Deactive</a>
+                        @else
+                            <a href="{{ route('prayerTime.changeStatus') }}" class="btn btn-success">Active</a>
+                        @endif
+                    </div>
                     <form class="row g-3" action="{{ route('prayerTime.widgetUpdate') }}" method="POST">
                         @csrf
 
@@ -96,16 +102,11 @@
                             @enderror
                         </div>
                         <div class="col-6 mb-2">
-                            <div class="form-check mb-2 mt-2">
-                                <input class="form-check-input" name="active" type="checkbox" value="1"
-                                    @if (old('active')) checked
-                                @elseif ($prayerTime->active == 1)
-                                checked @endif
-                                    id="active">
-                                <label class="form-check-label" for="active">
-                                    Active
-                                </label>
-                            </div>
+                            @if ($prayerTime->active == 1)
+                                <h6 class="text-success" style="font-size: 13px">Prayer Time is now active</h6>
+                            @else
+                                <h6 class="text-danger" style="font-size: 13px">Prayer Time is now deactive</h6>
+                            @endif
                         </div>
 
                         <div class="col-12">

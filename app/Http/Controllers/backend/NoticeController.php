@@ -39,7 +39,7 @@ class NoticeController extends Controller
         $notice->update([
             'active' => $active,
         ]);
-        Toastr::success('Notice status updated!');
+        Toastr::success('Status updated!');
         return back();
     }
 }

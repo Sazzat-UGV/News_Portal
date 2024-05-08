@@ -16,7 +16,7 @@ class PhotoGalleryController extends Controller
     public function index()
     {
         $photos = Photo::latest()->get();
-        return view('backend.pages.setting.photo-gallery', compact('photos'));
+        return view('backend.pages.gallery.photo-gallery', compact('photos'));
     }
 
     /**
@@ -33,7 +33,7 @@ class PhotoGalleryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255|unique:photos,title',
             'photo' => 'required|mimes:jpg,jpeg,png|max:10240',
         ]);
         if ($request->hasFile('photo')) {
@@ -46,7 +46,7 @@ class PhotoGalleryController extends Controller
                 'title' => $request->title,
                 'photo' => $new_photo_name,
             ]);
-            Toastr::success('Phoot added successfully!');
+            Toastr::success('Photo added successfully!');
             return back();
         }
     }
@@ -72,14 +72,13 @@ class PhotoGalleryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'photo' => 'required|mimes:jpg,jpeg,png|max:10240',
-        ]);
         $photo = Photo::findOrFail($id);
-        dd($request->all());
+        $request->validate([
+            'title' => 'required|string|max:255|unique:photos,title,' . $photo->id,
+            'photo' => 'nullable|mimes:jpg,jpeg,png|max:10240',
+        ]);
         if ($request->hasFile('photo')) {
-            //delete old photo
+            // delete old
             $photo_location = 'public/uploads/photo-gallery/';
             $old_photo_location = $photo_location . $photo->photo;
             unlink(base_path($old_photo_location));
@@ -89,11 +88,14 @@ class PhotoGalleryController extends Controller
             $new_photo_name = time() . '.' . $uploaded_photo->getClientOriginalExtension();
             $new_photo_location = $photo_loation . $new_photo_name;
             Image::make($uploaded_photo)->resize(500, 310)->save(base_path($new_photo_location));
-            $check = $photo->update([
+            $photo->update([
                 'title' => $request->title,
                 'photo' => $new_photo_name,
             ]);
+            Toastr::success('Photo updated successfully!');
+            return back();
         }
+        return back();
     }
 
     /**
@@ -107,6 +109,21 @@ class PhotoGalleryController extends Controller
         unlink(base_path($old_photo_location));
         $photo->delete();
         Toastr::success('Photo delete successfully!');
+        return back();
+    }
+
+    public function changeStatus($id)
+    {
+        $photo = Photo::findOrFail($id);
+        if ($photo->status == 1) {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+        $photo->update([
+            'status' => $status,
+        ]);
+        Toastr::success('Status updated!');
         return back();
     }
 }

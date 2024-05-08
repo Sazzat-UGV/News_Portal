@@ -89,4 +89,18 @@ class ImportentWebsiteController extends Controller
         Toastr::success('Website deleted successfully!');
         return back();
     }
+    public function changeStatus($id)
+    {
+        $website = Importentwebsite::findOrFail($id);
+        if ($website->status == 1) {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+        $website->update([
+            'status' => $status,
+        ]);
+        Toastr::success('Status updated!');
+        return back();
+    }
 }

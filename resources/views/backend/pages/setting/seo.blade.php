@@ -18,7 +18,7 @@
                     <form class="row g-3" action="{{ route('seo.settingUpdate') }}" method="POST">
                         @csrf
 
-                        <div class="col-4 mb-2">
+                        <div class="col-3 mb-2">
                             <label for="meta_author" class="form-label">Meta Author </label>
                             <input type="text" name="meta_author"
                                 class="form-control @error('meta_author')
@@ -32,7 +32,7 @@
                             @enderror
                         </div>
 
-                        <div class="col-4 mb-2">
+                        <div class="col-3 mb-2">
                             <label for="meta_title" class="form-label">Meta Title </label>
                             <input type="text" name="meta_title"
                                 class="form-control @error('meta_title')
@@ -45,7 +45,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-4 mb-2">
+                        <div class="col-3 mb-2">
                             <label for="meta_keyword" class="form-label">Meta Keyword </label>
                             <input type="text" name="meta_keyword"
                                 class="form-control @error('meta_keyword')
@@ -58,7 +58,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-6 mb-2">
+                        <div class="col-3 mb-2">
                             <label for="google_verification" class="form-label">Google Verification</label>
                             <input type="text" name="google_verification"
                                 class="form-control @error('google_verification')
@@ -71,18 +71,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-6 mb-2">
-                            <label for="meta_description" class="form-label">Meta Description </label>
-                            <textarea rows="5" cols="30"
-                                class="form-control @error('meta_description')
-                            is-invalid
-                           @enderror"
-                                id="editor2" placeholder="Enter meta description" name="meta_description">{{ old('meta_description', $seo->meta_description) }}</textarea>
-                            @error('meta_description')
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+
                         <div class="col-6 mb-2">
                             <label for="google_analytics" class="form-label">Google Analytics </label>
                             <textarea rows="5" cols="30"
@@ -107,7 +96,18 @@
                                 </span>
                             @enderror
                         </div>
-
+                        <div class="col-12 mb-2">
+                            <label for="meta_description" class="form-label">Meta Description </label>
+                            <textarea rows="5" cols="30"
+                                class="form-control @error('meta_description')
+                            is-invalid
+                           @enderror"
+                                id="editor2" placeholder="Enter meta description" name="meta_description">{{ old('meta_description', $seo->meta_description) }}</textarea>
+                            @error('meta_description')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
 
                         <div class="col-12">
                             <div class="d-md-flex d-grid align-items-center gap-3">

@@ -3,7 +3,6 @@
     Notice
 @endsection
 @push('admin_style')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
     @include('backend.layouts.inc.breadcrumb', [
@@ -15,6 +14,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body p-4">
+                    <div class="d-flex justify-content-end">
+                        @if ($notice->active == 1)
+                            <a href="{{ route('notice.changeStatus') }}" class="btn btn-danger">Deactive</a>
+                        @else
+                            <a href="{{ route('notice.changeStatus') }}" class="btn btn-success">Active</a>
+                        @endif
+                    </div>
                     <form class="row g-3" action="{{ route('notice.widgetUpdate') }}" method="POST">
                         @csrf
 
@@ -30,18 +36,9 @@
                                 </span>
                             @enderror
                             @if ($notice->active == 1)
-                                <h6 class="text-success" style="font-size: 12px">Notice is now active</h6>
+                                <h6 class="text-success" style="font-size: 13px">Notice is now active</h6>
                             @else
-                                <h6 class="text-danger" style="font-size: 12px">Notice is now deactive</h6>
-                            @endif
-                        </div>
-                        <div class="col-6 mb-2">
-                            @if ($notice->active == 1)
-                                <a href="{{ route('notice.changeStatus') }}" class="btn btn-danger px-4 ml-3">
-                                    Deactive</a>
-                            @else
-                                <a href="{{ route('notice.changeStatus') }}" class="btn btn-primary px-4 ml-3">
-                                    Active</a>
+                                <h6 class="text-danger" style="font-size: 13px">Notice is now deactive</h6>
                             @endif
                         </div>
 

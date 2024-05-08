@@ -15,7 +15,7 @@ class VideoGalleryController extends Controller
     public function index()
     {
         $videos = Video::latest()->get();
-        return view('backend.pages.setting.video-gallery', compact('videos'));
+        return view('backend.pages.gallery.video-gallery', compact('videos'));
     }
 
     /**
@@ -32,7 +32,7 @@ class VideoGalleryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string',
+            'title' => 'required|string|unique:videos,title',
             'embed_code' => 'required|string',
         ]);
         Video::create([
@@ -64,11 +64,11 @@ class VideoGalleryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $video = Video::findOrFail($id);
         $request->validate([
-            'title' => 'required|string',
+            'title' => 'required|string|unique:videos,title,'.$video->id,
             'embed_code' => 'required|string',
         ]);
-        $video = Video::findOrFail($id);
         $video->update([
             'title' => $request->title,
             'embed_code' => $request->embed_code,
@@ -86,6 +86,20 @@ class VideoGalleryController extends Controller
         $video->delete();
         Toastr::success('Video delete successfully!');
         return back();
-        //
+    }
+
+    public function changeStatus($id)
+    {
+        $video = Video::findOrFail($id);
+        if ($video->status == 1) {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+        $video->update([
+            'status' => $status,
+        ]);
+        Toastr::success('Status updated!');
+        return back();
     }
 }

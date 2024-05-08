@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('embed_code');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

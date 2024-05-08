@@ -33,9 +33,23 @@ class PrayerTimeController extends Controller
             'maghrib' => $request->maghrib,
             "isha_a" => $request->isha_a,
             "jumu_ah" => $request->jumu_ah,
-            'active' => filled($request->active),
         ]);
         Toastr::success('Prayer time updated successfully!');
+        return back();
+    }
+
+    public function changeStatus()
+    {
+        $prayerTime = PrayerTime::findOrFail(1);
+        if ($prayerTime->active == 1) {
+            $active = 0;
+        } else {
+            $active = 1;
+        }
+        $prayerTime->update([
+            'active' => $active,
+        ]);
+        Toastr::success('Status updated!');
         return back();
     }
 }

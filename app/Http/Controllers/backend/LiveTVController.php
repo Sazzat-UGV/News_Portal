@@ -18,7 +18,7 @@ class LiveTVController extends Controller
     public function liveTVWidgetUpdate(Request $request)
     {
         $request->validate([
-            'embed_code' => 'nullable|string',
+            'embed_code' => 'required|string',
         ]);
         $livetv = Livetv::first();
         $livetv->update([
@@ -39,7 +39,7 @@ class LiveTVController extends Controller
         $livetv->update([
             'active' => $active,
         ]);
-        Toastr::success('Live TV status updated!');
+        Toastr::success('Status updated!');
         return back();
     }
 }

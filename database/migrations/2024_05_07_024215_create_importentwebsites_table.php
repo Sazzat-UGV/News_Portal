@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('website_name');
             $table->string('website_link');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

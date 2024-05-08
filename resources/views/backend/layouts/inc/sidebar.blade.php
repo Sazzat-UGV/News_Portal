@@ -158,7 +158,7 @@
                     </li>
                     <li class=" ">
                         <a href="{{ route('website.index') }}">
-                            <span class="pcoded-mtext">Importent Website</span>
+                            <span class="pcoded-mtext">Important Website</span>
                         </a>
                     </li>
                 </ul>

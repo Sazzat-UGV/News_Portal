@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('title')
-    Importent Website List
+    Important Website List
 @endsection
 @push('admin_style')
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
@@ -8,7 +8,7 @@
 @section('content')
     @include('backend.layouts.inc.breadcrumb', [
         'main_page' => 'Settings',
-        'sub_page' => 'Importent Website List',
+        'sub_page' => 'Important Website List',
     ])
     <div class="row">
         <div class="col-12">
@@ -28,6 +28,7 @@
                                     <th>Date</th>
                                     <th>Website Name</th>
                                     <th>Website Link</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -39,6 +40,15 @@
                                         <td>{{ $website->website_name }}</td>
                                         <td><a target="blank"
                                                 href="{{ $website->website_link }}">{{ $website->website_link }}</a></td>
+                                        <td>
+                                            @if ($website->status == 1)
+                                                <a href="{{ route('importantWebsite.changeStatus', ['id' => $website->id]) }}"
+                                                    class="badge bg-danger">Deactive</a>
+                                            @else
+                                                <a href="{{ route('importantWebsite.changeStatus', ['id' => $website->id]) }}"
+                                                    class="badge bg-success">Active</a>
+                                            @endif
+                                        </td>
                                         <td class="d-flex justify-content-center">
                                             <button type="button" class="btn btn-warning pl-1 p-0 rounded mr-1"
                                                 data-toggle="modal" data-target="#editlink{{ $website->id }}"><i
@@ -219,33 +229,6 @@
                         Swal.fire({
                             title: "Canceled!",
                         });
-                    }
-                });
-            });
-
-            // Event handler for elements with class .status
-            $('.datatable').on('click', '.status', function(event) {
-                event.preventDefault();
-                var id = $(this).data('id');
-                var $live_text = $(this).find('.live_text');
-
-                $.ajax({
-                    url: "/admin/change/category/status/" + id,
-                    method: "GET",
-                    success: function(data) {
-                        if ($live_text.text() === 'Active') {
-                            toastr.success('Category deactivated!');
-                            $live_text.text('Deactive').removeClass('bg-success').addClass(
-                                'bg-danger');
-                        } else {
-                            toastr.success('Category activated!');
-                            $live_text.text('Active').removeClass('bg-danger').addClass(
-                                'bg-success');
-                        }
-                        console.log('done');
-                    },
-                    error: function(err) {
-                        console.log(err);
                     }
                 });
             });
