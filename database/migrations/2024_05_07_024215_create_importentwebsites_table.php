@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('importentwebsites', function (Blueprint $table) {
             $table->id();
-            $table->string('website_name');
+            $table->string('website_name_en');
+            $table->string('website_name_bn');
             $table->string('website_link');
             $table->boolean('status')->default(true);
             $table->timestamps();

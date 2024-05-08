@@ -4,6 +4,12 @@
 @endsection
 @push('admin_style')
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
+    <style>
+        .wrap {
+            white-space: normal !important;
+            word-wrap: break-word;
+        }
+    </style>
 @endpush
 @section('content')
     @include('backend.layouts.inc.breadcrumb', [
@@ -26,7 +32,8 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Date</th>
-                                    <th>Website Name</th>
+                                    <th>Website Name English</th>
+                                    <th>Website Name Bangla</th>
                                     <th>Website Link</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -37,16 +44,17 @@
                                     <tr>
                                         <th>{{ $index + 1 }}.</th>
                                         <td>{{ $website->created_at->diffForHumans() }}</td>
-                                        <td>{{ $website->website_name }}</td>
-                                        <td><a target="blank"
+                                        <td class="wrap">{{ $website->website_name_en }}</td>
+                                        <td class="wrap">{{ $website->website_name_bn }}</td>
+                                        <td class="wrap"><a target="blank"
                                                 href="{{ $website->website_link }}">{{ $website->website_link }}</a></td>
                                         <td>
                                             @if ($website->status == 1)
                                                 <a href="{{ route('importantWebsite.changeStatus', ['id' => $website->id]) }}"
-                                                    class="badge bg-danger">Deactive</a>
+                                                    class="badge bg-success">Active</a>
                                             @else
                                                 <a href="{{ route('importantWebsite.changeStatus', ['id' => $website->id]) }}"
-                                                    class="badge bg-success">Active</a>
+                                                    class="badge bg-danger">Deactive</a>
                                             @endif
                                         </td>
                                         <td class="d-flex justify-content-center">
@@ -82,16 +90,31 @@
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-12 mb-2">
-                                                                <label for="website_name" class="form-label">Website
-                                                                    Name<span class="text-danger">*</span></label>
+                                                                <label for="website_name_english" class="form-label">Website
+                                                                    Name English<span class="text-danger">*</span></label>
                                                                 <input type="text"
-                                                                    class="form-control @error('website_name')
+                                                                    class="form-control @error('website_name_english')
                                                                 is-invalid
                                                                 @enderror"
-                                                                    id="website_name" name="website_name"
-                                                                    value="{{ $website->website_name }}"
-                                                                    placeholder="Enter website name">
-                                                                @error('website_name')
+                                                                    id="website_name_english" name="website_name_english"
+                                                                    value="{{ old('website_name_english', $website->website_name_en) }}"
+                                                                    placeholder="Enter website name english">
+                                                                @error('website_name_english')
+                                                                    <span class="invalid-feedback"
+                                                                        role="alert"><strong>{{ $message }}</strong></span>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-12 mb-2">
+                                                                <label for="website_name_bangla" class="form-label">Website
+                                                                    Name Bangla<span class="text-danger">*</span></label>
+                                                                <input type="text"
+                                                                    class="form-control @error('website_name_bangla')
+                                                                is-invalid
+                                                                @enderror"
+                                                                    id="website_name_bangla" name="website_name_bangla"
+                                                                    value="{{ old('website_name_bangla', $website->website_name_bn) }}"
+                                                                    placeholder="Enter website name bangla">
+                                                                @error('website_name_bangla')
                                                                     <span class="invalid-feedback"
                                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                                 @enderror
@@ -147,19 +170,36 @@
                                         <div class="row">
 
                                             <div class="col-12 mb-2">
-                                                <label for="website_name" class="form-label">Website Name
+                                                <label for="website_name_english" class="form-label">Website Name English
                                                     <span class="text-danger">*</span></label>
                                                 <input type="text"
-                                                    class="form-control @error('website_name')
+                                                    class="form-control @error('website_name_english')
                                             is-invalid
                                             @enderror"
-                                                    id="website_name" name="website_name"
-                                                    value="{{ old('website_name') }}" placeholder="Enter website name ">
-                                                @error('website_name')
+                                                    id="website_name_english" name="website_name_english"
+                                                    value="{{ old('website_name_english') }}"
+                                                    placeholder="Enter website name english">
+                                                @error('website_name_english')
                                                     <span class="invalid-feedback"
                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                 @enderror
                                             </div>
+                                            <div class="col-12 mb-2">
+                                                <label for="website_name_bangla" class="form-label">Website Name Bangla
+                                                    <span class="text-danger">*</span></label>
+                                                <input type="text"
+                                                    class="form-control @error('website_name_bangla')
+                                            is-invalid
+                                            @enderror"
+                                                    id="website_name_bangla" name="website_name_bangla"
+                                                    value="{{ old('website_name_bangla') }}"
+                                                    placeholder="Enter website name bangla">
+                                                @error('website_name_bangla')
+                                                    <span class="invalid-feedback"
+                                                        role="alert"><strong>{{ $message }}</strong></span>
+                                                @enderror
+                                            </div>
+
                                             <div class="col-12 mb-2">
                                                 <label for="website_link" class="form-label">Website Link
                                                     <span class="text-danger">*</span></label>

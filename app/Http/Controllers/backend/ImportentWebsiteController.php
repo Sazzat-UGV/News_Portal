@@ -15,7 +15,7 @@ class ImportentWebsiteController extends Controller
 
     public function index()
     {
-        $websites = Importentwebsite::latest()->get();
+        $websites = Importentwebsite::latest('id')->get();
         return view('backend.pages.setting.importent-website', compact('websites'));
     }
 
@@ -33,12 +33,14 @@ class ImportentWebsiteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'website_name' => 'required|string',
+            'website_name_english' => 'required|string|max:50',
+            'website_name_bangla' => 'required|string|max:50',
             'website_link' => 'required|string',
         ]);
 
         $website = Importentwebsite::create([
-            'website_name' => $request->website_name,
+            'website_name_en' => $request->website_name_english,
+            'website_name_bn' => $request->website_name_bangla,
             'website_link' => $request->website_link,
         ]);
         Toastr::success('Website added successfully!');
@@ -67,12 +69,14 @@ class ImportentWebsiteController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'website_name' => 'required|string',
+            'website_name_english' => 'required|string|max:50',
+            'website_name_bangla' => 'required|string|max:50',
             'website_link' => 'required|string',
         ]);
         $website = Importentwebsite::findOrFail($id);
         $website->update([
-            'website_name' => $request->website_name,
+            'website_name_en' => $request->website_name_english,
+            'website_name_bn' => $request->website_name_bangla,
             'website_link' => $request->website_link,
         ]);
         Toastr::success('Website updated successfully!');

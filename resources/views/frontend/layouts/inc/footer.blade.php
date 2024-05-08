@@ -25,15 +25,30 @@
                 </div>
                 <div class="col-md-6 col-xl-auto">
                     <div class="widget widget_nav_menu footer-widget">
-                        <h3 class="widget_title">Categories</h3>
+                        @php
+                            $importantWebsits = App\Models\Importentwebsite::where('status', 1)
+                                ->latest('id')
+                                ->limit(6)
+                                ->get();
+                        @endphp
+                        @if (session()->get('lang') == 'english')
+                            <h3 class="widget_title">Important Website</h3>
+                        @else
+                            <h4 class="widget_title">গুরুত্বপূর্ণ ওয়েবসাইট</h4>
+                        @endif
+
                         <div class="menu-all-pages-container">
                             <ul class="menu">
-                                <li><a href="blog.html">Political</a></li>
-                                <li><a href="blog.html">Business</a></li>
-                                <li><a href="blog.html">Health</a></li>
-                                <li><a href="blog.html">Technology</a></li>
-                                <li><a href="blog.html">Sports</a></li>
-                                <li><a href="blog.html">Entertainment</a></li>
+                                @foreach ($importantWebsits as $website)
+                                    @if (session()->get('lang') == 'english')
+                                        <li><a href="{{ $website->website_link }}">{{ $website->website_name_en }}</a>
+                                        </li>
+                                    @else
+                                        <li><a href="{{ $website->website_link }}">{{ $website->website_name_bn }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+
                             </ul>
                         </div>
                     </div>
@@ -91,16 +106,6 @@
                 <div class="col-lg-5">
                     <p class="copyright-text">Copyright <i class="fal fa-copyright"></i> 2023 <a
                             href="home-newspaper.html">Tnews</a>. All Rights Reserved.</p>
-                </div>
-                <div class="col-lg-auto ms-auto d-none d-lg-block">
-                    <div class="footer-links">
-                        <ul>
-                            <li><a href="home-newspaper.html">Home</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="about.html">Faq</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>

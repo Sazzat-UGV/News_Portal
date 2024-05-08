@@ -12,7 +12,6 @@ class HomeController extends Controller
     $liveTV=Livetv::select('id','embed_code','active')->first();
     return view('frontend.pages.home',compact(
         'liveTV',
-
     ));
    }
 }
