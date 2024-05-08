@@ -10,11 +10,11 @@
 
                 @foreach ($categories as $category)
                     <li class="menu-item-has-children"><a href="#">
-                        @if (session()->get('lang')=='english')
-                        {{ $category->category_name_en }}
-                        @else
-                        {{ $category->category_name_bn }}
-                        @endif
+                            @if (session()->get('lang') == 'english')
+                                {{ $category->category_name_en }}
+                            @else
+                                {{ $category->category_name_bn }}
+                            @endif
                         </a>
                         <ul class="sub-menu">
                             @php
@@ -24,12 +24,13 @@
                                     ->get();
                             @endphp
                             @foreach ($subcategories as $subcategory)
-                                <li><a href="#">  @if (session()->get('lang')=='english')
-                                    {{ $subcategory->subcategory_name_en }}
-                                    @else
-                                    {{ $subcategory->subcategory_name_bn }}
-                                    @endif
-                                   </a></li>
+                                <li><a href="#">
+                                        @if (session()->get('lang') == 'english')
+                                            {{ $subcategory->subcategory_name_en }}
+                                        @else
+                                            {{ $subcategory->subcategory_name_bn }}
+                                        @endif
+                                    </a></li>
                             @endforeach
                         </ul>
                     </li>
@@ -59,13 +60,13 @@
                     <div class="header-links">
                         <ul>
                             <li><i class="fal fa-calendar-days"></i><a href="#">{{ date('l') }}
-                                {{ date('d M, Y') }}</a>
-                        </li>
-                        @if (session()->get('lang')=='english')
-                        <li><a href="{{ route('lang.bangla') }}">বাংলা</a></li>
-                        @else
-                        <li><a href="{{ route('lang.english') }}">English</a></li>
-                        @endif
+                                    {{ date('d M, Y') }}</a>
+                            </li>
+                            @if (session()->get('lang') == 'english')
+                                <li><a href="{{ route('lang.bangla') }}">বাংলা</a></li>
+                            @else
+                                <li><a href="{{ route('lang.english') }}">English</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -89,26 +90,30 @@
 
                                 @foreach ($categories as $category)
                                     <li class="menu-item-has-children"><a href="#">
-                                        @if (session()->get('lang')=='english')
-                                        {{ $category->category_name_en }}
-                                        @else
-                                        {{ $category->category_name_bn }}
-                                        @endif
+                                            @if (session()->get('lang') == 'english')
+                                                {{ $category->category_name_en }}
+                                            @else
+                                                {{ $category->category_name_bn }}
+                                            @endif
                                         </a>
                                         <ul class="sub-menu">
                                             @php
-                                                $subcategories = App\Models\SubCategory::where('category_id', $category->id)
+                                                $subcategories = App\Models\SubCategory::where(
+                                                    'category_id',
+                                                    $category->id,
+                                                )
                                                     ->where('status', 1)
                                                     ->select('id', 'subcategory_name_bn', 'subcategory_name_en')
                                                     ->get();
                                             @endphp
                                             @foreach ($subcategories as $subcategory)
-                                                <li><a href="#">  @if (session()->get('lang')=='english')
-                                                    {{ $subcategory->subcategory_name_en }}
-                                                    @else
-                                                    {{ $subcategory->subcategory_name_bn }}
-                                                    @endif
-                                                   </a></li>
+                                                <li><a href="#">
+                                                        @if (session()->get('lang') == 'english')
+                                                            {{ $subcategory->subcategory_name_en }}
+                                                        @else
+                                                            {{ $subcategory->subcategory_name_bn }}
+                                                        @endif
+                                                    </a></li>
                                             @endforeach
                                         </ul>
                                     </li>

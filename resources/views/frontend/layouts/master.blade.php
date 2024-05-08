@@ -20,7 +20,6 @@
 
     @include('frontend.layouts.inc.header')
 
-    @include('frontend.layouts.inc.breaking-news')
 
     @yield('content')
 
