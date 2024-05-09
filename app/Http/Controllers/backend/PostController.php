@@ -19,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['category:id,category_name_en,category_name_bn', 'subcategory:id,subcategory_name_bn,subcategory_name_en'])->select('id', 'category_id', 'subcategory_id', 'title_en', 'title_bn', 'thumbnail', 'created_at', )->get();
+        $posts = Post::with(['category:id,category_name_en,category_name_bn', 'subcategory:id,subcategory_name_bn,subcategory_name_en'])->latest('id')->select('id', 'category_id', 'subcategory_id', 'title_en', 'title_bn', 'thumbnail', 'created_at', )->get();
         return view('backend.pages.post.index', compact('posts'));
     }
 
@@ -41,7 +41,7 @@ class PostController extends Controller
         $request->validate([
             'category_name' => 'required|numeric',
             'subcategory_name' => 'nullable|numeric',
-            'division_name' => 'required|numeric',
+            'division_name' => 'nullable|numeric',
             'district_name' => 'nullable|numeric',
             'title_english' => 'required|string|max:255',
             'title_bangla' => 'required|string|max:255',
@@ -68,6 +68,7 @@ class PostController extends Controller
             'first_section' => filled($request->firstSection),
             'first_section_thumbnail' => filled($request->generalBigThumbnail),
             'bigthumbnail' => filled($request->firstSectionBigThumbnail),
+
             'post_date' => date('Y'),
             'post_month' => date('M'),
         ]);
@@ -103,7 +104,7 @@ class PostController extends Controller
         $request->validate([
             'category_name' => 'required|numeric',
             'subcategory_name' => 'nullable|numeric',
-            'division_name' => 'required|numeric',
+            'division_name' => 'nullable|numeric',
             'district_name' => 'nullable|numeric',
             'title_english' => 'required|string|max:255',
             'title_bangla' => 'required|string|max:255',
@@ -130,6 +131,7 @@ class PostController extends Controller
             'first_section' => filled($request->firstSection),
             'status' => filled($request->status),
             'first_section_thumbnail' => filled($request->generalBigThumbnail),
+
             'bigthumbnail' => filled($request->firstSectionBigThumbnail),
             'post_date' => date('Y'),
             'post_month' => date('M'),

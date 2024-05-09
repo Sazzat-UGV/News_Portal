@@ -5,9 +5,45 @@
 @push('style')
 @endpush
 @section('content')
-@php
-    $category=App\Models\Category::select('id')->get();
-@endphp
+    @php
+        $categories = App\Models\Category::all();
+        $category_colors = [];
+
+        foreach ($categories as $category) {
+            switch ($category->id) {
+                case 1:
+                    $category_colors[$category->id] = '#00D084';
+                    break;
+                case 2:
+                    $category_colors[$category->id] = '#FF9500';
+                    break;
+                case 3:
+                    $category_colors[$category->id] = '#4E4BD0';
+                    break;
+                case 4:
+                    $category_colors[$category->id] = '#868101';
+                    break;
+                case 5:
+                    $category_colors[$category->id] = '#007BFF';
+                    break;
+                case 6:
+                    $category_colors[$category->id] = '#E7473C';
+                    break;
+                case 7:
+                    $category_colors[$category->id] = '#59C2D6';
+                    break;
+                case 8:
+                    $category_colors[$category->id] = '#4E4BD0';
+                    break;
+                default:
+                    $category_colors[$category->id] = '#59C2D6';
+                    break;
+            }
+        }
+    @endphp
+
+
+
     <div>
         <div class="container">
             <div class="news-area">
@@ -37,6 +73,9 @@
                 </div>
             </div>
         </div>
+
+
+
         @if ($notice->active == 1)
             <div class="container mt-1">
                 <div class="news-area">
@@ -60,7 +99,9 @@
                 </div>
             </div>
         @endif
+
     </div>
+
 
     <section class="space">
         <div class="container">
@@ -70,22 +111,30 @@
                         @foreach ($first_sections as $first_section)
                             <div class="col-xl-12 col-sm-6 border-blog dark-theme img-overlay2">
                                 <div class="blog-style3">
-                                    <div class="blog-img"><img src="{{ asset('uploads/thumbnail') }}/{{ $first_section->thumbnail }}"
+                                    <div class="blog-img"><img
+                                            src="{{ asset('uploads/thumbnail') }}/{{ $first_section->thumbnail }}"
                                             alt="blog image">
                                     </div>
-                                    <div class="blog-content"><a data-theme-color="#00D084" href="#"
-                                            class="category">@if (session()->get('lang') == 'english')
-                                            {{ $first_section->category->category_name_en }}
-                                        @else
-                                            {{ $first_section->category->category_name_bn }}
-                                        @endif</a>
-                                        <h3 class="box-title-22"><a class="hover-line" href="#">@if (session()->get('lang') == 'english')
-                                            {{ $first_section->title_en }}
-                                        @else
-                                            {{ $first_section->title_bn }}
-                                        @endif</a></h3>
+                                    <div class="blog-content"><a
+                                            data-theme-color=" {{ $category_colors[$first_section->category->id] }}"
+                                            href="#" class="category">
+                                            @if (session()->get('lang') == 'english')
+                                                {{ $first_section->category->category_name_en }}
+                                            @else
+                                                {{ $first_section->category->category_name_bn }}
+                                            @endif
+                                        </a>
+                                        <h3 class="box-title-22"><a class="hover-line" href="#">
+                                                @if (session()->get('lang') == 'english')
+                                                    {{ $first_section->title_en }}
+                                                @else
+                                                    {{ $first_section->title_bn }}
+                                                @endif
+                                            </a></h3>
                                         <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
-                                            {{ $first_section->user->name }}</a> <a href="#"><i class="fal fa-calendar-days"></i>{{ $first_section->created_at->format('d M, Y') }}</a></div>
+                                                {{ $first_section->user->name }}</a> <a href="#"><i
+                                                    class="fal fa-calendar-days"></i>{{ $first_section->created_at->format('d M, Y') }}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +150,9 @@
                             <div class="blog-img"><img
                                     src="{{ asset('uploads/thumbnail') }}/{{ $firstSectionBigThumbnail->thumbnail }}"
                                     alt="blog image"></div>
-                            <div class="blog-content"><a data-theme-color="#FF9500" href="#" class="category">
+                            <div class="blog-content"><a
+                                    data-theme-color=" {{ $category_colors[$firstSectionBigThumbnail->category->id] }}"
+                                    href="#" class="category">
                                     @if (session()->get('lang') == 'english')
                                         {{ $firstSectionBigThumbnail->category->category_name_en }}
                                     @else
@@ -125,163 +176,91 @@
                 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <div class="col-xl-3 mt-35 mt-xl-0">
                     <div class="nav tab-menu indicator-active" role="tablist"><button class="tab-btn active"
                             id="nav-one-tab" data-bs-toggle="tab" data-bs-target="#nav-one" type="button" role="tab"
-                            aria-controls="nav-one" aria-selected="true">Top News</button> <button class="tab-btn"
-                            id="nav-two-tab" data-bs-toggle="tab" data-bs-target="#nav-two" type="button" role="tab"
-                            aria-controls="nav-two" aria-selected="false">Recent
-                            News</button></div>
+                            aria-controls="nav-one" aria-selected="true">
+                            @if (session()->get('lang') == 'english')
+                                Favourite
+                            @else
+                                জনপ্রিয়
+                            @endif
+                        </button> <button class="tab-btn" id="nav-two-tab" data-bs-toggle="tab" data-bs-target="#nav-two"
+                            type="button" role="tab" aria-controls="nav-two" aria-selected="false">
+                            @if (session()->get('lang') == 'english')
+                                Recent News
+                            @else
+                                সাম্প্রতিক খবর
+                            @endif
+                        </button></div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
                             <div class="row gy-4">
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_1.jpg"
-                                                alt="blog image">
-                                        </div>
-                                        <div class="blog-content"><a data-theme-color="#FF9500" href="blog.html"
-                                                class="category">Politics</a>
-                                            <h3 class="box-title-18"><a class="hover-line" href="blog-details.html">Stay
-                                                    informed, Navigate the world</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>30 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_2.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#007BFF" href="blog.html"
-                                                class="category">Travel</a>
-                                            <h3 class="box-title-18"><a class="hover-line" href="blog-details.html">Your
-                                                    beach resort Sanctuary.</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>17 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_3.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#00D084" href="blog.html"
-                                                class="category">Life Style</a>
-                                            <h3 class="box-title-18"><a class="hover-line" href="blog-details.html">Style
-                                                    your life news For modern living</a>
-                                            </h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>19 Mar, 2023</a></div>
+                                @foreach ($favourites as $favourite)
+                                    <div class="col-xl-12 col-md-6 border-blog">
+                                        <div class="blog-style2">
+                                            <div class="blog-img"><img
+                                                    src="{{ asset('uploads/thumbnail') }}/{{ $favourite->thumbnail }}"
+                                                    alt="#"></div>
+                                            <div class="blog-content"><a
+                                                    data-theme-color="{{ $category_colors[$favourite->category->id] }}"
+                                                    href="blog.html" class="category">
+                                                    @if (session()->get('lang') == 'english')
+                                                        {{ $favourite->category->category_name_en }}
+                                                    @else
+                                                        {{ $favourite->category->category_name_bn }}
+                                                    @endif
+                                                </a>
+                                                <h3 class="box-title-18"><a class="hover-line" href="#">
+                                                        @if (session()->get('lang') == 'english')
+                                                            {{ $favourite->title_en }}
+                                                        @else
+                                                            {{ $favourite->title_bn }}
+                                                        @endif
+                                                    </a>
+                                                </h3>
+                                                <div class="blog-meta"><a href="#"><i
+                                                            class="fal fa-calendar-days"></i>{{ $favourite->created_at->format('d M, Y') }}</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_4.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#4E4BD0" href="blog.html"
-                                                class="category">Sports</a>
-                                            <h3 class="box-title-18"><a class="hover-line" href="blog-details.html">Score
-                                                    big with the Latest sports news.</a>
-                                            </h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>29 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
                             <div class="row gy-4">
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_3.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#00D084" href="blog.html"
-                                                class="category">Life Style</a>
-                                            <h3 class="box-title-18"><a class="hover-line" href="blog-details.html">Style
-                                                    your life news For modern living</a>
-                                            </h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>10 Mar, 2023</a></div>
+                                @foreach ($recent_news as $recent)
+                                    <div class="col-xl-12 col-md-6 border-blog">
+                                        <div class="blog-style2">
+                                            <div class="blog-img"><img
+                                                    src="{{ asset('uploads/thumbnail') }}/{{ $recent->thumbnail }}"
+                                                    alt="#"></div>
+                                            <div class="blog-content"><a
+                                                    data-theme-color="{{ $category_colors[$recent->category->id] }}"
+                                                    href="#" class="category">
+                                                    @if (session()->get('lang') == 'english')
+                                                        {{ $recent->category->category_name_en }}
+                                                    @else
+                                                        {{ $recent->category->category_name_bn }}
+                                                    @endif
+                                                </a>
+                                                <h3 class="box-title-18"><a class="hover-line" href="#">
+                                                        @if (session()->get('lang') == 'english')
+                                                            {{ $recent->title_en }}
+                                                        @else
+                                                            {{ $recent->title_bn }}
+                                                        @endif
+                                                    </a>
+                                                </h3>
+                                                <div class="blog-meta"><a href="#"><i
+                                                            class="fal fa-calendar-days"></i>{{ $recent->created_at->format('d M, Y') }}</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_4.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#4E4BD0" href="blog.html"
-                                                class="category">Sports</a>
-                                            <h3 class="box-title-18"><a class="hover-line" href="blog-details.html">Score
-                                                    big with the Latest sports news.</a>
-                                            </h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>13 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_5.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#868101" href="blog.html"
-                                                class="category">Action</a>
-                                            <h3 class="box-title-18"><a class="hover-line"
-                                                    href="blog-details.html">Adventure awaits, seize the moment</a>
-                                            </h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>18 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_6.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#868101" href="blog.html"
-                                                class="category">Thriller</a>
-                                            <h3 class="box-title-18"><a class="hover-line" href="blog-details.html">brace
-                                                    yourself for thrilling
-                                                    adventure.</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>27 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -289,11 +268,739 @@
             </div>
         </div>
     </section>
-    <div class="">
+
+
+
+    <div class="mb-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col">
-                    <h2 class="sec-title has-line">Trending News</h2>
+                    <h2 class="sec-title has-line">
+                        @php
+                            $firstcategory = App\Models\Category::where('status', 1)
+                                ->select('id', 'category_name_en', 'category_name_bn')
+                                ->first();
+                        @endphp
+                        @if (session()->get('lang') == 'english')
+                            {{ $firstcategory->category_name_en }}
+                        @else
+                            {{ $firstcategory->category_name_bn }}
+                        @endif
+                    </h2>
+                </div>
+                <div class="col-auto">
+                    <div class="sec-btn">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                                @if (session()->get('lang') == 'english')
+                                    More
+                                @else
+                                    আরও
+                                @endif
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-active-cat1">
+                <div class="row filter-item active-filter game">
+                    <div class="col-xl-6 mb-35 mb-xl-0">
+                        <div class="">
+                            <div class="blog-style1 style-big">
+                                @php
+
+                                    $firstcatbigpost = App\Models\Post::where('status', 1)
+                                        ->where('category_id', $firstcategory->id)
+                                        ->where('bigthumbnail', 1)
+                                        ->latest('id')
+                                        ->select(
+                                            'id',
+                                            'category_id',
+                                            'user_id',
+                                            'title_en',
+                                            'title_bn',
+                                            'thumbnail',
+                                            'created_at',
+                                        )
+                                        ->first();
+
+                                @endphp
+                                <div class="blog-img"><img
+                                        src="{{ asset('uploads/thumbnail') }}/{{ $firstcatbigpost->thumbnail }}"
+                                        alt="blog image"> <a
+                                        data-theme-color="{{ $category_colors[$firstcatbigpost->category->id] }}"
+                                        href="#" class="category">
+                                        @if (session()->get('lang') == 'english')
+                                            {{ $firstcatbigpost->category->category_name_en }}
+                                        @else
+                                            {{ $firstcatbigpost->category->category_name_bn }}
+                                        @endif
+                                    </a>
+                                </div>
+                                <h3 class="box-title-30"><a class="hover-line" href="#">
+                                        @if (session()->get('lang') == 'english')
+                                            {{ $firstcatbigpost->title_en }}
+                                        @else
+                                            {{ $firstcatbigpost->title_bn }}
+                                        @endif
+                                    </a>
+                                </h3>
+                                <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
+                                        {{ $firstcatbigpost->user->name }}</a> <a href="#"><i
+                                            class="fal fa-calendar-days"></i>{{ $firstcatbigpost->created_at->format('d M, Y') }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6">
+                        <div class="row gy-4">
+                            @php
+
+                                $firstcatsmallpost = App\Models\Post::where('status', 1)
+                                    ->where('category_id', $firstcategory->id)
+                                    ->where('bigthumbnail', 0)
+                                    ->latest('id')
+                                    ->select(
+                                        'id',
+                                        'category_id',
+                                        'user_id',
+                                        'title_en',
+                                        'title_bn',
+                                        'thumbnail',
+                                        'created_at',
+                                    )
+                                    ->limit(4)
+                                    ->get();
+
+                            @endphp
+                            @foreach ($firstcatsmallpost as $firstsmallpost)
+                                <div class="col-xl-6 col-sm-6 border-blog two-column">
+                                    <div class="blog-style1">
+                                        <div class="blog-img"><img
+                                                src="{{ asset('uploads/thumbnail') }}/{{ $firstsmallpost->thumbnail }}"
+                                                alt="blog image"> <a
+                                                data-theme-color="{{ $category_colors[$firstsmallpost->category->id] }}"
+                                                href="#" class="category">
+                                                @if (session()->get('lang') == 'english')
+                                                    {{ $firstsmallpost->category->category_name_en }}
+                                                @else
+                                                    {{ $firstsmallpost->category->category_name_bn }}
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <h3 class="box-title-22"><a class="hover-line" href="#">
+                                                @if (session()->get('lang') == 'english')
+                                                    {{ $firstsmallpost->title_en }}
+                                                @else
+                                                    {{ $firstsmallpost->title_bn }}
+                                                @endif
+                                            </a>
+                                        </h3>
+                                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
+                                                {{ $firstsmallpost->user->name }}</a> <a href="#"><i
+                                                    class="fal fa-calendar-days"></i>{{ $firstsmallpost->created_at->format('d M, Y') }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container"><a href="https://themeforest.net/user/themeholy/portfolio"><img
+                src="{{ asset('assets/frontend') }}/img/ads/ads_1.jpg" alt="ads" class="w-100"></a></div>
+
+
+    <section class="space">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="sec-title has-line"> @php
+                        $secondcategory = App\Models\Category::where('status', 1)
+                            ->select('id', 'category_name_en', 'category_name_bn')
+                            ->skip(1)
+                            ->first();
+                    @endphp
+                        @if (session()->get('lang') == 'english')
+                            {{ $secondcategory->category_name_en }}
+                        @else
+                            {{ $secondcategory->category_name_bn }}
+                        @endif
+                    </h2>
+
+                </div>
+                <div class="col-auto">
+                    <div class="sec-btn">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                                @if (session()->get('lang') == 'english')
+                                    More
+                                @else
+                                    আরও
+                                @endif
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row gy-4">
+                        @php
+
+                            $secondcatsmallpost = App\Models\Post::where('status', 1)
+                                ->where('category_id', $secondcategory->id)
+                                ->where('bigthumbnail', 0)
+                                ->latest('id')
+                                ->select(
+                                    'id',
+                                    'category_id',
+                                    'user_id',
+                                    'title_en',
+                                    'title_bn',
+                                    'thumbnail',
+                                    'created_at',
+                                )
+                                ->limit(4)
+                                ->get();
+
+                        @endphp
+                        @foreach ($secondcatsmallpost as $secondsmallpost)
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="blog-style1">
+                                    <div class="blog-img"><img
+                                            src="{{ asset('uploads/thumbnail') }}/{{ $secondsmallpost->thumbnail }}"
+                                            alt="blog image"> <a
+                                            data-theme-color="{{ $category_colors[$secondsmallpost->category->id] }}"
+                                            href="#" class="category">
+                                            @if (session()->get('lang') == 'english')
+                                                {{ $secondsmallpost->category->category_name_en }}
+                                            @else
+                                                {{ $secondsmallpost->category->category_name_bn }}
+                                            @endif
+                                        </a></div>
+                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">
+                                            @if (session()->get('lang') == 'english')
+                                                {{ $secondsmallpost->title_en }}
+                                            @else
+                                                {{ $secondsmallpost->title_bn }}
+                                            @endif
+                                        </a></h3>
+                                    <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
+                                            {{ $secondsmallpost->user->name }}</a> <a href="blog.html"><i
+                                                class="fal fa-calendar-days"></i>{{ $secondsmallpost->created_at->format('d M, Y') }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <div class="mb-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h2 class="sec-title has-line">
+                        @php
+                            $thirdcategory = App\Models\Category::where('status', 1)
+                                ->select('id', 'category_name_en', 'category_name_bn')
+                                ->skip(2)
+                                ->first();
+                        @endphp
+                        @if (session()->get('lang') == 'english')
+                            {{ $thirdcategory->category_name_en }}
+                        @else
+                            {{ $thirdcategory->category_name_bn }}
+                        @endif
+                    </h2>
+                </div>
+                <div class="col-auto">
+                    <div class="sec-btn">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                                @if (session()->get('lang') == 'english')
+                                    More
+                                @else
+                                    আরও
+                                @endif
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-active-cat1">
+                <div class="row filter-item active-filter game">
+                    <div class="col-xl-6 mb-35 mb-xl-0">
+                        <div class="">
+                            <div class="blog-style1 style-big">
+                                @php
+
+                                    $thirdcatbigpost = App\Models\Post::where('status', 1)
+                                        ->where('category_id', $thirdcategory->id)
+                                        ->where('bigthumbnail', 1)
+                                        ->latest('id')
+                                        ->select(
+                                            'id',
+                                            'category_id',
+                                            'user_id',
+                                            'title_en',
+                                            'title_bn',
+                                            'thumbnail',
+                                            'created_at',
+                                        )
+                                        ->first();
+
+                                @endphp
+                                <div class="blog-img"><img
+                                        src="{{ asset('uploads/thumbnail') }}/{{ $thirdcatbigpost->thumbnail }}"
+                                        alt="blog image"> <a
+                                        data-theme-color="{{ $category_colors[$thirdcatbigpost->category->id] }}"
+                                        href="#" class="category">
+                                        @if (session()->get('lang') == 'english')
+                                            {{ $thirdcatbigpost->category->category_name_en }}
+                                        @else
+                                            {{ $thirdcatbigpost->category->category_name_bn }}
+                                        @endif
+                                    </a>
+                                </div>
+                                <h3 class="box-title-30"><a class="hover-line" href="#">
+                                        @if (session()->get('lang') == 'english')
+                                            {{ $thirdcatbigpost->title_en }}
+                                        @else
+                                            {{ $thirdcatbigpost->title_bn }}
+                                        @endif
+                                    </a>
+                                </h3>
+                                <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
+                                        {{ $thirdcatbigpost->user->name }}</a> <a href="#"><i
+                                            class="fal fa-calendar-days"></i>{{ $thirdcatbigpost->created_at->format('d M, Y') }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6">
+                        <div class="row gy-4">
+                            @php
+
+                                $thirdcatsmallpost = App\Models\Post::where('status', 1)
+                                    ->where('category_id', $thirdcategory->id)
+                                    ->where('bigthumbnail', 0)
+                                    ->latest('id')
+                                    ->select(
+                                        'id',
+                                        'category_id',
+                                        'user_id',
+                                        'title_en',
+                                        'title_bn',
+                                        'thumbnail',
+                                        'created_at',
+                                    )
+                                    ->limit(4)
+                                    ->get();
+
+                            @endphp
+                            @foreach ($thirdcatsmallpost as $thirdsmallpost)
+                                <div class="col-xl-6 col-sm-6 border-blog two-column">
+                                    <div class="blog-style1">
+                                        <div class="blog-img"><img
+                                                src="{{ asset('uploads/thumbnail') }}/{{ $thirdsmallpost->thumbnail }}"
+                                                alt="blog image"> <a
+                                                data-theme-color="{{ $category_colors[$thirdsmallpost->category->id] }}"
+                                                href="#" class="category">
+                                                @if (session()->get('lang') == 'english')
+                                                    {{ $thirdsmallpost->category->category_name_en }}
+                                                @else
+                                                    {{ $thirdsmallpost->category->category_name_bn }}
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <h3 class="box-title-22"><a class="hover-line" href="#">
+                                                @if (session()->get('lang') == 'english')
+                                                    {{ $thirdsmallpost->title_en }}
+                                                @else
+                                                    {{ $thirdsmallpost->title_bn }}
+                                                @endif
+                                            </a>
+                                        </h3>
+                                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
+                                                {{ $thirdsmallpost->user->name }}</a> <a href="#"><i
+                                                    class="fal fa-calendar-days"></i>{{ $thirdsmallpost->created_at->format('d M, Y') }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="container"><a href="https://themeforest.net/user/themeholy/portfolio"><img
+                src="{{ asset('assets/frontend') }}/img/ads/ads_1.jpg" alt="ads" class="w-100"></a></div>
+
+
+
+
+
+    <section class="space">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="sec-title has-line">
+                        @php
+                            $forthcategory = App\Models\Category::where('status', 1)
+                                ->select('id', 'category_name_en', 'category_name_bn')
+                                ->skip(3)
+                                ->first();
+                        @endphp
+                        @if (session()->get('lang') == 'english')
+                            {{ $forthcategory->category_name_en }}
+                        @else
+                            {{ $forthcategory->category_name_bn }}
+                        @endif
+                    </h2>
+
+                </div>
+                <div class="col-auto">
+                    <div class="sec-btn">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                                @if (session()->get('lang') == 'english')
+                                    More
+                                @else
+                                    আরও
+                                @endif
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row gy-4">
+                        @php
+
+                            $forthcatsmallpost = App\Models\Post::where('status', 1)
+                                ->where('category_id', $forthcategory->id)
+                                ->where('bigthumbnail', 0)
+                                ->latest('id')
+                                ->select(
+                                    'id',
+                                    'category_id',
+                                    'user_id',
+                                    'title_en',
+                                    'title_bn',
+                                    'thumbnail',
+                                    'created_at',
+                                )
+                                ->limit(4)
+                                ->get();
+
+                        @endphp
+                        @foreach ($forthcatsmallpost as $forthsmallpost)
+                            <div class="col-sm-6 col-xl-4">
+                                <div class="blog-style1">
+                                    <div class="blog-img"><img
+                                            src="{{ asset('uploads/thumbnail') }}/{{ $forthsmallpost->thumbnail }}"
+                                            alt="blog image"> <a
+                                            data-theme-color="{{ $category_colors[$forthsmallpost->category->id] }}"
+                                            href="#" class="category">
+                                            @if (session()->get('lang') == 'english')
+                                                {{ $forthsmallpost->category->category_name_en }}
+                                            @else
+                                                {{ $forthsmallpost->category->category_name_bn }}
+                                            @endif
+                                        </a></div>
+                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">
+                                            @if (session()->get('lang') == 'english')
+                                                {{ $forthsmallpost->title_en }}
+                                            @else
+                                                {{ $forthsmallpost->title_bn }}
+                                            @endif
+                                        </a></h3>
+                                    <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
+                                            {{ $forthsmallpost->user->name }}</a> <a href="blog.html"><i
+                                                class="fal fa-calendar-days"></i>{{ $forthsmallpost->created_at->format('d M, Y') }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="space">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h2 class="sec-title has-line"> @php
+                                $sixthcategory = App\Models\Category::where('status', 1)
+                                    ->select('id', 'category_name_en', 'category_name_bn')
+                                    ->skip(5)
+                                    ->first();
+                            @endphp
+                                @if (session()->get('lang') == 'english')
+                                    {{ $sixthcategory->category_name_en }}
+                                @else
+                                    {{ $sixthcategory->category_name_bn }}
+                                @endif
+                            </h2>
+                        </div>
+                        <div class="col-auto">
+                            <div class="sec-btn">
+                                <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                                        @if (session()->get('lang') == 'english')
+                                            More
+                                        @else
+                                            আরও
+                                        @endif
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-active">
+                        @php
+
+                            $sixthcatsmallpost = App\Models\Post::where('status', 1)
+                                ->where('category_id', $sixthcategory->id)
+                                ->latest('id')
+                                ->select(
+                                    'id',
+                                    'category_id',
+                                    'user_id',
+                                    'title_en',
+                                    'title_bn',
+                                    'thumbnail',
+                                    'details_en',
+                                    'details_bn',
+                                    'created_at',
+                                )
+                                ->limit(4)
+                                ->get();
+
+                        @endphp
+                        @foreach ($sixthcatsmallpost as $sixthPost)
+                            <div class="border-blog2 filter-item cat1">
+                                <div class="blog-style4">
+                                    <div class="blog-img"><img
+                                            src="{{ asset('uploads/thumbnail') }}/{{ $sixthPost->thumbnail }}"
+                                            alt="blog image">
+                                    </div>
+                                    <div class="blog-content"><a
+                                            data-theme-color="{{ $category_colors[$sixthPost->category->id] }}"
+                                            href="#" class="category">
+                                            @if (session()->get('lang') == 'english')
+                                                {{ $sixthPost->category->category_name_en }}
+                                            @else
+                                                {{ $sixthPost->category->category_name_bn }}
+                                            @endif
+                                        </a>
+                                        <h3 class="box-title-24"><a class="hover-line" href="#">
+                                                @if (session()->get('lang') == 'english')
+                                                    {{ $sixthPost->title_en }}
+                                                @else
+                                                    {{ $sixthPost->title_bn }}
+                                                @endif
+                                            </a></h3>
+                                        <p class="blog-text">
+                                            @if (session()->get('lang') == 'english')
+                                                {!! Str::limit($sixthPost->details_en, 100, '...') !!}
+                                            @else
+                                                {!! Str::limit($sixthPost->details_bn, 100, '...') !!}
+                                            @endif
+                                        </p>
+                                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
+                                                {{ $sixthPost->user->name }}</a> <a href="blog.html"><i
+                                                    class="fal fa-calendar-days"></i>{{ $sixthPost->created_at->format('d M, Y') }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="col-xl-3 mt-35 mt-xl-0 mb-10 sidebar-wrap">
+                    <div class="sidebar-area">
+                        <div class="widget mb-30">
+                            <div class="widget-ads"><a href="https://themeforest.net/user/themeholy/portfolio"><img
+                                        class="w-100" src="{{ asset('assets/frontend') }}/img/ads/siderbar_ads_1.jpg"
+                                        alt="ads"></a>
+                            </div>
+                        </div>
+                        @if ($liveTV->active == 1)
+                            <div class="widget mb-30">
+                                @if (session()->get('lang') == 'english')
+                                    <div class="text-center text-white py-1 text-bold mb-1"
+                                        style="background-color: #FF1D50; font-weight: 600">Live TV</div>
+                                @else
+                                    <div class="text-center text-white py-1 text-bold mb-1"
+                                        style="background-color: #FF1D50; font-weight: 600">লাইভ টিভি</div>
+                                @endif
+                                {!! $liveTV->embed_code !!}
+                            </div>
+                        @endif
+                        <div class="widget mb-30">
+                            <div class="widget-ads"><a href="https://themeforest.net/user/themeholy/portfolio"><img
+                                        class="w-100" src="{{ asset('assets/frontend') }}/img/ads/siderbar_ads_1.jpg"
+                                        alt="ads"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="space">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h2 class="sec-title has-line">
+                        @php
+                            $fifthcategory = App\Models\Category::where('status', 1)
+                                ->select('id', 'category_name_en', 'category_name_bn')
+                                ->skip(4)
+                                ->first();
+                        @endphp
+                        @if (session()->get('lang') == 'english')
+                            {{ $fifthcategory->category_name_en }}
+                        @else
+                            {{ $fifthcategory->category_name_bn }}
+                        @endif
+                    </h2>
                 </div>
                 <div class="col-auto">
                     <div class="sec-btn">
@@ -305,504 +1012,196 @@
             </div>
             <div class="row th-carousel" id="blog-slide1" data-slide-show="4" data-lg-slide-show="3"
                 data-md-slide-show="2" data-sm-slide-show="2">
-                <div class="col-sm-6 col-xl-4">
-                    <div class="blog-style1">
-                        <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_1.jpg"
-                                alt="blog image"> <a data-theme-color="#00D084" href="blog.html"
-                                class="category">Lifestyle</a></div>
-                        <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Balance harmony and
-                                joy in Every lifestyle.</a></h3>
-                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By - Tnews</a> <a
-                                href="blog.html"><i class="fal fa-calendar-days"></i>23 Mar, 2023</a></div>
+
+                @php
+
+                    $fifthcatpost = App\Models\Post::where('status', 1)
+                        ->where('category_id', $fifthcategory->id)
+                        ->latest('id')
+                        ->select('id', 'category_id', 'user_id', 'title_en', 'title_bn', 'thumbnail', 'created_at')
+                        ->limit(7)
+                        ->get();
+
+                @endphp
+
+                @foreach ($fifthcatpost as $fifthpost)
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="blog-style1">
+                            <div class="blog-img"><img
+                                    src="{{ asset('uploads/thumbnail') }}/{{ $fifthpost->thumbnail }}"
+                                    alt="blog image"> <a
+                                    data-theme-color="{{ $category_colors[$fifthpost->category->id] }}" href="#"
+                                    class="category">
+                                    @if (session()->get('lang') == 'english')
+                                        {{ $fifthpost->category->category_name_en }}
+                                    @else
+                                        {{ $fifthpost->category->category_name_bn }}
+                                    @endif
+                                </a></div>
+                            <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">
+                                    @if (session()->get('lang') == 'english')
+                                        {{ $fifthpost->title_en }}
+                                    @else
+                                        {{ $fifthpost->title_bn }}
+                                    @endif
+                                </a>
+                            </h3>
+                            <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
+                                    {{ $fifthpost->user->name }}</a> <a href="#"><i
+                                        class="fal fa-calendar-days"></i>{{ $fifthpost->created_at->format('d M, Y') }}</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-xl-4">
-                    <div class="blog-style1">
-                        <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_2.jpg"
-                                alt="blog image"> <a data-theme-color="#FF9500" href="blog.html"
-                                class="category">Politics</a></div>
-                        <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Power to the people
-                                for a Better future!</a></h3>
-                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By - Tnews</a> <a
-                                href="blog.html"><i class="fal fa-calendar-days"></i>27 Mar, 2023</a></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-4">
-                    <div class="blog-style1">
-                        <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_3.jpg"
-                                alt="blog image"> <a data-theme-color="#E7473C" href="blog.html"
-                                class="category">Fitness</a></div>
-                        <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Fitness the key to
-                                vitality and Well-being.</a></h3>
-                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By - Tnews</a> <a
-                                href="blog.html"><i class="fal fa-calendar-days"></i>21 Mar, 2023</a></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-4">
-                    <div class="blog-style1">
-                        <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_4.jpg"
-                                alt="blog image"> <a data-theme-color="#00D084" href="blog.html"
-                                class="category">Health</a></div>
-                        <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Embrace bump and
-                                Victory volleyball style.</a></h3>
-                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By - Tnews</a> <a
-                                href="blog.html"><i class="fal fa-calendar-days"></i>20 Mar, 2023</a></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-4">
-                    <div class="blog-style1">
-                        <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_5.jpg"
-                                alt="blog image"> <a data-theme-color="#FF9500" href="blog.html"
-                                class="category">Politics</a></div>
-                        <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Leadership for the
-                                People By the people</a></h3>
-                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By - Tnews</a> <a
-                                href="blog.html"><i class="fal fa-calendar-days"></i>17 Mar, 2023</a></div>
-                    </div>
-                </div>
+                @endforeach
+
+
             </div>
         </div>
-    </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <section class="space">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col">
-                    <h2 class="sec-title has-line">Technology News</h2>
+                    <h2 class="sec-title has-line">
+                        @php
+                            $seventhcategory = App\Models\Category::where('status', 1)
+                                ->select('id', 'category_name_en', 'category_name_bn')
+                                ->skip(6)
+                                ->first();
+                        @endphp
+                        @if (session()->get('lang') == 'english')
+                            {{ $seventhcategory->category_name_en }}
+                        @else
+                            {{ $seventhcategory->category_name_bn }}
+                        @endif
+                    </h2>
                 </div>
                 <div class="col-auto">
                     <div class="sec-btn">
-                        <div class="filter-menu filter-menu-active1"><button data-filter=".game" class="tab-btn active"
-                                type="button">Games</button> <button data-filter=".robotic" class="tab-btn"
-                                type="button">Robotic</button> <button data-filter=".electric" class="tab-btn"
-                                type="button">Electric</button></div>
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                                @if (session()->get('lang') == 'english')
+                                    More
+                                @else
+                                    আরও
+                                @endif
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="filter-active-cat1">
-                <div class="row filter-item active-filter game">
-                    <div class="col-xl-6 mb-35 mb-xl-0">
-                        <div class="">
-                            <div class="blog-style1 style-big">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_2_2.jpg"
-                                        alt="blog image"> <a data-theme-color="#007BFF" href="blog.html"
-                                        class="category">Technology</a>
-                                </div>
-                                <h3 class="box-title-30"><a class="hover-line" href="blog-details.html">Following the
-                                        Moon, they are in Close space. choose the best</a></h3>
-                                <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                        Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>15 Mar,
-                                        2023</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="row gy-4">
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_7.jpg"
-                                            alt="blog image">
-                                        <a data-theme-color="#007BFF" href="blog.html" class="category">Technology</a>
-                                    </div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Game on!
-                                            Stay ahead with Sports updates</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>10 Mar,
-                                            2023</a></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_8.jpg"
-                                            alt="blog image">
-                                        <a data-theme-color="#FF9500" href="blog.html" class="category">Electric</a>
-                                    </div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Electrify
-                                            your world, embrace Sustainable energy.</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>21 Mar,
-                                            2023</a></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_9.jpg"
-                                            alt="blog image">
-                                        <a data-theme-color="#00D084" href="blog.html" class="category">Game</a>
-                                    </div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Level up
-                                            your world, embrace Gaming passion</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>25 Mar,
-                                            2023</a></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img
-                                            src="{{ asset('assets/frontend') }}/img/blog/blog_1_10.jpg" alt="blog image">
-                                        <a data-theme-color="#4E4BD0" href="blog.html" class="category">Robotic</a>
-                                    </div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Robotic
-                                            precision, shaping a World of possibilities.</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>29 Mar,
-                                            2023</a></div>
-                                </div>
-                            </div>
+            <div class="row gy-30 filter-active" style="position: relative; height: 720px;">
+                @php
+
+                $seventhcatpost = App\Models\Post::where('status', 1)
+                    ->where('category_id', $seventhcategory->id)
+                    ->latest('id')
+                    ->select('id', 'category_id', 'user_id', 'title_en', 'title_bn', 'thumbnail', 'created_at')
+                    ->limit(7)
+                    ->get();
+
+            @endphp
+
+            @foreach ($seventhcatpost as $seventhpost)
+                <div class="col-lg-6 two-column filter-item cat1" style="position: absolute; left: 0px; top: 0px;">
+                    <div class="blog-style4">
+                        <div class="blog-img"><img src="{{ asset('uploads/thumbnail') }}/{{ $seventhpost->thumbnail }}"
+                                alt="blog image"></div>
+                        <div class="blog-content"><a href="#" class="category"
+                                style="--theme-color:{{ $category_colors[$seventhpost->category->id] }} ;">@if (session()->get('lang') == 'english')
+                                {{ $seventhpost->category->category_name_en }}
+                            @else
+                                {{ $seventhpost->category->category_name_bn }}
+                            @endif</a>
+                            <h3 class="box-title-22"><a class="hover-line" href="#">@if (session()->get('lang') == 'english')
+                                {{ $seventhpost->title_en }}
+                            @else
+                                {{ $seventhpost->title_bn }}
+                            @endif</a></h3>
+                            <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By - {{ $seventhpost->user->name }}</a> <a
+                                    href="#"><i class="fal fa-calendar-days"></i>{{ $seventhpost->created_at->format('d M, Y') }}</a></div><a
+                                href="#" class="th-btn style2">Read More</a>
                         </div>
                     </div>
                 </div>
-                <div class="row filter-item robotic">
-                    <div class="col-xl-6 mb-35 mb-xl-0">
-                        <div class="">
-                            <div class="blog-style1 style-big">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_2_2.jpg"
-                                        alt="blog image"> <a data-theme-color="#007BFF" href="blog.html"
-                                        class="category">Technology</a>
-                                </div>
-                                <h3 class="box-title-30"><a class="hover-line" href="blog-details.html">Following the
-                                        Moon, they are in Close space. choose the best</a></h3>
-                                <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                        Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>27 Mar,
-                                        2023</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="row gy-4">
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_6.jpg"
-                                            alt="blog image">
-                                        <a data-theme-color="#4E4BD0" href="blog.html" class="category">Sports</a>
-                                    </div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Game on!
-                                            Stay ahead withn Sports updates</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>29 Mar,
-                                            2023</a></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_7.jpg"
-                                            alt="blog image">
-                                        <a data-theme-color="#007BFF" href="blog.html" class="category">Technology</a>
-                                    </div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Game on!
-                                            Stay ahead with Sports updates</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>26 Mar,
-                                            2023</a></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_8.jpg"
-                                            alt="blog image">
-                                        <a data-theme-color="#FF9500" href="blog.html" class="category">Electric</a>
-                                    </div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Electrify
-                                            your world, embrace Sustainable energy.</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>23 Mar,
-                                            2023</a></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_9.jpg"
-                                            alt="blog image">
-                                        <a data-theme-color="#00D084" href="blog.html" class="category">Game</a>
-                                    </div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Level up
-                                            your world, embrace Gaming passion</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>26 Mar,
-                                            2023</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row filter-item electric">
-                    <div class="col-xl-6 mb-35 mb-xl-0">
-                        <div class="">
-                            <div class="blog-style1 style-big">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_2_2.jpg"
-                                        alt="blog image"> <a data-theme-color="#007BFF" href="blog.html"
-                                        class="category">Technology</a>
-                                </div>
-                                <h3 class="box-title-30"><a class="hover-line" href="blog-details.html">Following the
-                                        Moon, they are in Close space. choose the best</a></h3>
-                                <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                        Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>12 Mar,
-                                        2023</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="row gy-4">
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_5.jpg"
-                                            alt="blog image">
-                                        <a data-theme-color="#FF9500" href="blog.html" class="category">Politics</a>
-                                    </div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Leadership
-                                            for the People By the people</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>12 Mar,
-                                            2023</a></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_6.jpg"
-                                            alt="blog image">
-                                        <a data-theme-color="#4E4BD0" href="blog.html" class="category">Sports</a>
-                                    </div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Game
-                                            on! Stay ahead withn Sports updates</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>24
-                                            Mar, 2023</a></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_7.jpg"
-                                            alt="blog image"> <a data-theme-color="#007BFF" href="blog.html"
-                                            class="category">Technology</a></div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Game
-                                            on! Stay ahead with Sports updates</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>29
-                                            Mar, 2023</a></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-sm-6 border-blog two-column">
-                                <div class="blog-style1">
-                                    <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_1_8.jpg"
-                                            alt="blog image"> <a data-theme-color="#FF9500" href="blog.html"
-                                            class="category">Electric</a></div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">Electrify
-                                            your world, embrace Sustainable
-                                            energy.</a></h3>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>28
-                                            Mar, 2023</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            @endforeach
+
             </div>
         </div>
     </section>
-    <div class="container"><a href="https://themeforest.net/user/themeholy/portfolio"><img
-                src="{{ asset('assets/frontend') }}/img/ads/ads_1.jpg" alt="ads" class="w-100"></a></div>
-    <section class="space">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-8">
-                    <h2 class="sec-title has-line">International News</h2>
-                    <div class="row gy-4">
-                        <div class="col-sm-6 border-blog two-column">
-                            <div class="blog-style1">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_4_1.jpg"
-                                        alt="blog image"> <a data-theme-color="#FF9500" href="blog.html"
-                                        class="category">Politics</a>
-                                </div>
-                                <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">Relaxation
-                                        redefined, your beach Resort sanctuary</a></h3>
-                                <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                        Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>10 Mar,
-                                        2023</a></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 border-blog two-column">
-                            <div class="blog-style1">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_4_2.jpg"
-                                        alt="blog image"> <a data-theme-color="#4E4BD0" href="blog.html"
-                                        class="category">Sports</a>
-                                </div>
-                                <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">Game on!
-                                        Embrace the spirit of Competition them</a></h3>
-                                <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                        Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>29 Mar,
-                                        2023</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 mt-35 mt-xl-0">
-                    <div class="nav tab-menu indicator-active" role="tablist"><button class="tab-btn active"
-                            id="nav2-one-tab" data-bs-toggle="tab" data-bs-target="#nav2-one" type="button"
-                            role="tab" aria-controls="nav2-one" aria-selected="true">Tranding</button> <button
-                            class="tab-btn" id="nav2-two-tab" data-bs-toggle="tab" data-bs-target="#nav2-two"
-                            type="button" role="tab" aria-controls="nav2-two" aria-selected="false">Recent</button>
-                        <button class="tab-btn" id="nav2-three-tab" data-bs-toggle="tab" data-bs-target="#nav2-three"
-                            type="button" role="tab" aria-controls="nav2-three"
-                            aria-selected="false">Popular</button>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="nav2-one" role="tabpanel"
-                            aria-labelledby="nav2-one-tab">
-                            <div class="row gy-4">
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_2_1.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#4E4BD0" href="blog.html"
-                                                class="category">Sports</a>
-                                            <h3 class="box-title-20"><a class="hover-line" href="blog-details.html">Fast
-                                                    breaks, slam dunks Basketball
-                                                    thrills.</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>14 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_2_2.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#00D084" href="blog.html"
-                                                class="category">Health</a>
-                                            <h3 class="box-title-20"><a class="hover-line" href="blog-details.html">Life,
-                                                    a canvas, paint your
-                                                    Masterpiece.</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>28 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_2_3.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#E7473C" href="blog.html"
-                                                class="category">Fitness</a>
-                                            <h3 class="box-title-20"><a class="hover-line" href="blog-details.html">Fuel
-                                                    your fire, embrace Fitness
-                                                    goals.</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>29 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="nav2-two" role="tabpanel" aria-labelledby="nav2-two-tab">
-                            <div class="row gy-4">
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_2_2.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#00D084" href="blog.html"
-                                                class="category">Health</a>
-                                            <h3 class="box-title-20"><a class="hover-line" href="blog-details.html">Life,
-                                                    a canvas, paint your
-                                                    Masterpiece.</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>11 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_2_3.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#E7473C" href="blog.html"
-                                                class="category">Fitness</a>
-                                            <h3 class="box-title-20"><a class="hover-line" href="blog-details.html">Fuel
-                                                    your fire, embrace Fitness
-                                                    goals.</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>30 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_2_4.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#59C2D6" href="blog.html"
-                                                class="category">Fashion</a>
-                                            <h3 class="box-title-20"><a class="hover-line"
-                                                    href="blog-details.html">Fashion is an art, express Yourself
-                                                    beautifully</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>21 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="nav2-three" role="tabpanel" aria-labelledby="nav2-three-tab">
-                            <div class="row gy-4">
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_2_3.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#E7473C" href="blog.html"
-                                                class="category">Fitness</a>
-                                            <h3 class="box-title-20"><a class="hover-line" href="blog-details.html">Fuel
-                                                    your fire, embrace Fitness
-                                                    goals.</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>21 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_2_4.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#59C2D6" href="blog.html"
-                                                class="category">Fashion</a>
-                                            <h3 class="box-title-20"><a class="hover-line"
-                                                    href="blog-details.html">Fashion is an art, express Yourself
-                                                    beautifully</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>24 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-md-6 border-blog">
-                                    <div class="blog-style2">
-                                        <div class="blog-img"><img
-                                                src="{{ asset('assets/frontend') }}/img/blog/blog_3_2_5.jpg"
-                                                alt="blog image"></div>
-                                        <div class="blog-content"><a data-theme-color="#E8137D" href="blog.html"
-                                                class="category">Sports</a>
-                                            <h3 class="box-title-20"><a class="hover-line" href="blog-details.html">Tune
-                                                    in, turn up, and let the Music
-                                                    speak</a></h3>
-                                            <div class="blog-meta"><a href="blog.html"><i
-                                                        class="fal fa-calendar-days"></i>28 Mar, 2023</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="space dark-theme bg-title-dark">
         <div class="container">
-            <h2 class="sec-title has-line">Latest Video Playlist</h2>
+            <h2 class="sec-title has-line">
+                @if (session()->get('lang') == 'english')
+                    Video Gallery
+                @else
+                    ভিডিও গ্যালারি
+                @endif
+            </h2>
             <div class="row">
                 <div class="col-xl-4 col-lg-2">
                     <div class="blog-tab" data-asnavfor=".blog-tab-slide">
@@ -902,7 +1301,8 @@
                                         Living: Balancing Mind, Body, and Soul</a></h3>
                                 <div class="blog-meta"><a data-theme-color="#00D084" href="blog.html"
                                         class="category">Health</a> <a href="author.html"><i class="far fa-user"></i>By -
-                                        Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>16 Mar, 2023</a>
+                                        Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>16 Mar,
+                                        2023</a>
                                 </div>
                             </div>
                         </div>
@@ -937,346 +1337,134 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <section class="space">
         <div class="container">
-            <div class="row">
-                <div class="col-xl-9">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h2 class="sec-title has-line">Popular News</h2>
-                        </div>
-                        <div class="col-auto">
-                            <div class="sec-btn">
-                                <div class="filter-menu filter-menu-active"><button data-filter="*"
-                                        class="tab-btn active" type="button">ALL</button> <button data-filter=".cat1"
-                                        class="tab-btn" type="button">Travel</button> <button data-filter=".cat2"
-                                        class="tab-btn" type="button">Politics</button>
-                                    <button data-filter=".cat3" class="tab-btn" type="button">Fitness</button>
-                                    <button data-filter=".cat4" class="tab-btn" type="button">Fashion</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="filter-active">
-                        <div class="border-blog2 filter-item cat1">
-                            <div class="blog-style4">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_6_1.jpg"
-                                        alt="blog image">
-                                </div>
-                                <div class="blog-content"><a data-theme-color="#007BFF" href="blog.html"
-                                        class="category">Travel</a>
-                                    <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">From
-                                            catwalk to campaigns, modeling news revealed Vibrant</a></h3>
-                                    <p class="blog-text">Quisque eget ex rutrum, consequat odio in, tempor purus.
-                                        Mauris neque quam, Tellentesque sit amet rutrum ut, gravida sit amet felis.</p>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>27
-                                            Mar, 2023</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-blog2 filter-item cat4">
-                            <div class="blog-style4">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_6_2.jpg"
-                                        alt="blog image">
-                                </div>
-                                <div class="blog-content"><a data-theme-color="#59C2D6" href="blog.html"
-                                        class="category">Fashion</a>
-                                    <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">Explore,
-                                            wander, immerse: let your travels paint
-                                            stories of life</a></h3>
-                                    <p class="blog-text">Quisque eget ex rutrum, consequat odio in, tempor purus.
-                                        Mauris neque quam, Tellentesque sit amet rutrum ut, gravida sit amet felis.</p>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>28
-                                            Mar, 2023</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-blog2 filter-item cat2">
-                            <div class="blog-style4">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_6_3.jpg"
-                                        alt="blog image">
-                                </div>
-                                <div class="blog-content"><a data-theme-color="#FF9500" href="blog.html"
-                                        class="category">Politics</a>
-                                    <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">Vote
-                                            with conviction, champion change Shape the destiny of politics</a></h3>
-                                    <p class="blog-text">Quisque eget ex rutrum, consequat odio in, tempor purus.
-                                        Mauris neque quam, Tellentesque sit amet rutrum ut, gravida sit amet felis.</p>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>19
-                                            Mar, 2023</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-blog2 filter-item cat1">
-                            <div class="blog-style4">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_6_4.jpg"
-                                        alt="blog image">
-                                </div>
-                                <div class="blog-content"><a data-theme-color="#007BFF" href="blog.html"
-                                        class="category">Travel</a>
-                                    <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">From
-                                            catwalk to campaigns, modeling news Revealed get popular</a></h3>
-                                    <p class="blog-text">Quisque eget ex rutrum, consequat odio in, tempor purus.
-                                        Mauris neque quam, Tellentesque sit amet rutrum ut, gravida sit amet felis.</p>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>14
-                                            Mar, 2023</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-blog2 filter-item cat3">
-                            <div class="blog-style4">
-                                <div class="blog-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog_6_5.jpg"
-                                        alt="blog image">
-                                </div>
-                                <div class="blog-content"><a data-theme-color="#E7473C" href="blog.html"
-                                        class="category">Fitness</a>
-                                    <h3 class="box-title-24"><a class="hover-line" href="blog-details.html">Embrace
-                                            the grind, sweat, dedication Witness your
-                                            fitness transformation.</a></h3>
-                                    <p class="blog-text">Quisque eget ex rutrum, consequat odio in, tempor purus.
-                                        Mauris neque quam, Tellentesque sit amet rutrum ut, gravida sit amet felis.</p>
-                                    <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                            Tnews</a> <a href="blog.html"><i class="fal fa-calendar-days"></i>26
-                                            Mar, 2023</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 mt-35 mt-xl-0 mb-10 sidebar-wrap">
-                    <div class="sidebar-area">
-                        <div class="widget mb-30">
-                            <div class="widget-ads"><a href="https://themeforest.net/user/themeholy/portfolio"><img
-                                        class="w-100" src="{{ asset('assets/frontend') }}/img/ads/siderbar_ads_1.jpg"
-                                        alt="ads"></a>
-                            </div>
-                        </div>
-                        @if ($liveTV->active == 1)
-                            <div class="widget mb-30">
-                                @if (session()->get('lang') == 'english')
-                                    <div class="text-center text-white py-1 text-bold mb-1"
-                                        style="background-color: #FF1D50; font-weight: 600">Live TV</div>
-                                @else
-                                    <div class="text-center text-white py-1 text-bold mb-1"
-                                        style="background-color: #FF1D50; font-weight: 600">লাইভ টিভি</div>
-                                @endif
-
-                                {!! $liveTV->embed_code !!}
-                            </div>
+            <div class="row align-items-center">
+                <div class="col">
+                    <h2 class="sec-title has-line">
+                        @if (session()->get('lang') == 'english')
+                            Country
+                        @else
+                            সারাদেশ
                         @endif
-                        <div class="nav tab-menu indicator-active" role="tablist"><button class="tab-btn active"
-                                id="nav3-one-tab" data-bs-toggle="tab" data-bs-target="#nav3-one" type="button"
-                                role="tab" aria-controls="nav3-one" aria-selected="true">Top Rated</button>
-                            <button class="tab-btn" id="nav3-two-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav3-two" type="button" role="tab" aria-controls="nav3-two"
-                                aria-selected="false">Tranding</button> <button class="tab-btn" id="nav3-three-tab"
-                                data-bs-toggle="tab" data-bs-target="#nav3-three" type="button" role="tab"
-                                aria-controls="nav3-three" aria-selected="false">Recent</button>
-                        </div>
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="nav3-one" role="tabpanel"
-                                aria-labelledby="nav3-one-tab">
-                                <div class="row gy-4">
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_1.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#FF9500" href="blog.html"
-                                                    class="category">Politics</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Stay informed, Navigate the world</a>
-                                                </h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>24 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_2.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#007BFF" href="blog.html"
-                                                    class="category">Travel</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Your beach resort Sanctuary.</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>24 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_3.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#00D084" href="blog.html"
-                                                    class="category">Life Style</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Style your life news For modern
-                                                        living</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>30 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_4.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#4E4BD0" href="blog.html"
-                                                    class="category">Sports</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Score big with the Latest sports
-                                                        news.</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>28 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="nav3-two" role="tabpanel"
-                                aria-labelledby="nav3-two-tab">
-                                <div class="row gy-4">
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_2.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#007BFF" href="blog.html"
-                                                    class="category">Travel</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Your beach resort Sanctuary.</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>20 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_3.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#00D084" href="blog.html"
-                                                    class="category">Life Style</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Style your life news For modern
-                                                        living</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>28 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_4.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#4E4BD0" href="blog.html"
-                                                    class="category">Sports</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Score big with the Latest sports
-                                                        news.</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>20 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_5.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#868101" href="blog.html"
-                                                    class="category">Action</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Adventure awaits, seize the
-                                                        moment</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>26 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="nav3-three" role="tabpanel"
-                                aria-labelledby="nav3-three-tab">
-                                <div class="row gy-4">
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_3.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#00D084" href="blog.html"
-                                                    class="category">Life Style</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Style your life news For modern
-                                                        living</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>23 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_4.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#4E4BD0" href="blog.html"
-                                                    class="category">Sports</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Score big with the Latest sports
-                                                        news.</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>18 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_5.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#868101" href="blog.html"
-                                                    class="category">Action</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">Adventure awaits, seize the
-                                                        moment</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>28 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-12 col-md-6 border-blog">
-                                        <div class="blog-style2">
-                                            <div class="blog-img"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/blog_3_6.jpg"
-                                                    alt="blog image"></div>
-                                            <div class="blog-content"><a data-theme-color="#868101" href="blog.html"
-                                                    class="category">Thriller</a>
-                                                <h3 class="box-title-18"><a class="hover-line"
-                                                        href="blog-details.html">brace yourself for thrilling
-                                                        adventure.</a></h3>
-                                                <div class="blog-meta"><a href="blog.html"><i
-                                                            class="fal fa-calendar-days"></i>14 Mar, 2023</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    </h2>
+                </div>
+                <div class="col-auto">
+                    <div class="sec-btn">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                                @if (session()->get('lang') == 'english')
+                                    More
+                                @else
+                                    আরও
+                                @endif
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row gy-24 filter-active mbn-24" style="position: relative; height: 447.15px;">
+
+                <div class="col-xl-4 col-md-6 filter-item cat1" style="position: absolute; left: 0px; top: 0px;">
+                    <div class="blog-style3 dark-theme">
+                        <div class="blog-img"><img
+                                src="{{ asset('uploads/thumbnail') }}/{{ $countriesBig->thumbnail }}"
+                                alt="blog image"></div>
+                        <div class="blog-content"><a href="#" class="category"
+                                style="--theme-color: {{ $category_colors[$countriesBig->category->id] }};">
+                                @if (session()->get('lang') == 'english')
+                                    {{ $countriesBig->category->category_name_en }}
+                                @else
+                                    {{ $countriesBig->category->category_name_bn }}
+                                @endif
+                            </a>
+                            <h3 class="box-title-24"><a class="hover-line" href="#">
+                                    @if (session()->get('lang') == 'english')
+                                        {{ $countriesBig->title_en }}
+                                    @else
+                                        {{ $countriesBig->title_bn }}
+                                    @endif
+                                </a></h3>
+                            <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
+                                    {{ $countriesBig->user->name }}</a> <a href="#"><i
+                                        class="fal fa-calendar-days"></i>{{ $countriesBig->created_at->format('d M, Y') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @foreach ($countriesSmall as $countrySmall)
+                    <div class="col-xl-4 col-md-6 filter-item cat1"
+                        style="position: absolute; left: 424.667px; top: 0px;">
+                        <div class="blog-style2">
+                            <div class="blog-img img-big"><img
+                                    src="{{ asset('uploads/thumbnail') }}/{{ $countrySmall->thumbnail }}"
+                                    alt="blog image"></div>
+                            <div class="blog-content"><a href="#" class="category"
+                                    style="--theme-color: {{ $category_colors[$countrySmall->category->id] }};">
+                                    @if (session()->get('lang') == 'english')
+                                        {{ $countrySmall->category->category_name_en }}
+                                    @else
+                                        {{ $countrySmall->category->category_name_bn }}
+                                    @endif
+                                </a>
+                                <h3 class="box-title-20"><a class="hover-line" href="#">
+                                        @if (session()->get('lang') == 'english')
+                                            {{ $countrySmall->title_en }}
+                                        @else
+                                            {{ $countrySmall->title_bn }}
+                                        @endif
+                                    </a></h3>
+                                <div class="blog-meta"><a href="#"><i
+                                            class="fal fa-calendar-days"></i>{{ $countrySmall->created_at->format('d M, Y') }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
         </div>
     </section>
+
 @endsection
 @push('script')
 @endpush

@@ -40,7 +40,8 @@
                                     <th>No.</th>
                                     <th>Date</th>
                                     <th>Photo</th>
-                                    <th>Title</th>
+                                    <th>Title Bangla</th>
+                                    <th>Title English</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -53,7 +54,8 @@
                                         <td class="wrap"><img
                                                 src="{{ asset('uploads/photo-gallery') }}/{{ $photo->photo }}"
                                                 alt="image" class="w-50 rounded"></td>
-                                        <td class="wrap">{{ $photo->title }}</td>
+                                        <td class="wrap">{{ $photo->title_bn }}</td>
+                                        <td class="wrap">{{ $photo->title_en }}</td>
                                         <td>
                                             @if ($photo->status == 1)
                                                 <a href="{{ route('photo.changeStatus', ['id' => $photo->id]) }}"
@@ -96,16 +98,31 @@
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-12 mb-2">
-                                                                <label for="title" class="form-label">Photo Title
+                                                                <label for="title_bangla" class="form-label">Photo Title Bangla
                                                                     <span class="text-danger">*</span></label>
                                                                 <input type="text"
-                                                                    class="form-control @error('title')
+                                                                    class="form-control @error('title_bangla')
                                                                 is-invalid
                                                                 @enderror"
-                                                                    id="title" name="title"
-                                                                    value="{{ old('title', $photo->title) }}"
-                                                                    placeholder="Enter photo title">
-                                                                @error('title')
+                                                                    id="title_bangla" name="title_bangla"
+                                                                    value="{{ old('title_bangla', $photo->title_bn) }}"
+                                                                    placeholder="Enter photo title bangla">
+                                                                @error('title_bangla')
+                                                                    <span class="invalid-feedback"
+                                                                        role="alert"><strong>{{ $message }}</strong></span>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-12 mb-2">
+                                                                <label for="title_english" class="form-label">Photo Title English
+                                                                    <span class="text-danger">*</span></label>
+                                                                <input type="text"
+                                                                    class="form-control @error('title_english')
+                                                                is-invalid
+                                                                @enderror"
+                                                                    id="title_english" name="title_english"
+                                                                    value="{{ old('title_english', $photo->title_en) }}"
+                                                                    placeholder="Enter photo title english">
+                                                                @error('title_english')
                                                                     <span class="invalid-feedback"
                                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                                 @enderror
@@ -161,15 +178,30 @@
                                         <div class="row">
 
                                             <div class="col-12 mb-2">
-                                                <label for="title" class="form-label">Photo Title
+                                                <label for="title_bangla" class="form-label">Photo Title Bangla
                                                     <span class="text-danger">*</span></label>
                                                 <input type="text"
-                                                    class="form-control @error('title')
+                                                    class="form-control @error('title_bangla')
                                             is-invalid
                                             @enderror"
-                                                    id="title" name="title" value="{{ old('title') }}"
-                                                    placeholder="Enter photo title ">
-                                                @error('title')
+                                                    id="title_bangla" name="title_bangla" value="{{ old('title_bangla') }}"
+                                                    placeholder="Enter photo title bangla ">
+                                                @error('title_bangla')
+                                                    <span class="invalid-feedback"
+                                                        role="alert"><strong>{{ $message }}</strong></span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-12 mb-2">
+                                                <label for="title_english" class="form-label">Photo Title English
+                                                    <span class="text-danger">*</span></label>
+                                                <input type="text"
+                                                    class="form-control @error('title_english')
+                                            is-invalid
+                                            @enderror"
+                                                    id="title_english" name="title_english" value="{{ old('title_english') }}"
+                                                    placeholder="Enter photo title engliish ">
+                                                @error('title_english')
                                                     <span class="invalid-feedback"
                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                 @enderror

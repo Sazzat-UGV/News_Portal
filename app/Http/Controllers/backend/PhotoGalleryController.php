@@ -33,7 +33,8 @@ class PhotoGalleryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255|unique:photos,title',
+            'title_bangla' => 'required|string|max:255|unique:photos,title_bn',
+            'title_english' => 'required|string|max:255|unique:photos,title_en',
             'photo' => 'required|mimes:jpg,jpeg,png|max:10240',
         ]);
         if ($request->hasFile('photo')) {
@@ -43,7 +44,8 @@ class PhotoGalleryController extends Controller
             $new_photo_location = $photo_loation . $new_photo_name;
             Image::make($uploaded_photo)->resize(500, 310)->save(base_path($new_photo_location));
             $check = Photo::create([
-                'title' => $request->title,
+                'title_bn' => $request->title_bangla,
+                'title_en' => $request->title_english,
                 'photo' => $new_photo_name,
             ]);
             Toastr::success('Photo added successfully!');
@@ -74,7 +76,8 @@ class PhotoGalleryController extends Controller
     {
         $photo = Photo::findOrFail($id);
         $request->validate([
-            'title' => 'required|string|max:255|unique:photos,title,' . $photo->id,
+            'title_bangla' => 'required|string|max:255|unique:photos,title_bn,' . $photo->id,
+            'title_english' => 'required|string|max:255|unique:photos,title_en,' . $photo->id,
             'photo' => 'nullable|mimes:jpg,jpeg,png|max:10240',
         ]);
         if ($request->hasFile('photo')) {
@@ -89,7 +92,8 @@ class PhotoGalleryController extends Controller
             $new_photo_location = $photo_loation . $new_photo_name;
             Image::make($uploaded_photo)->resize(500, 310)->save(base_path($new_photo_location));
             $photo->update([
-                'title' => $request->title,
+                'title_bn' => $request->title_bangla,
+                'title_en' => $request->title_english,
                 'photo' => $new_photo_name,
             ]);
             Toastr::success('Photo updated successfully!');

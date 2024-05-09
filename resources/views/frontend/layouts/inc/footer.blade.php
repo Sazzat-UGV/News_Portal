@@ -53,47 +53,78 @@
                         </div>
                     </div>
                 </div>
+                @php
+                    $recent_news_footer = App\Models\Post::with([
+                        'category:id,category_name_bn,category_name_en',
+                        'user:id,name',
+                    ])
+                        ->where('status', 1)
+                        ->latest('id')
+                        ->select('id', 'category_id', 'user_id', 'title_en', 'title_bn', 'thumbnail', 'created_at')
+                        ->limit(2)
+                        ->get();
+                @endphp
                 <div class="col-md-6 col-xl-auto">
                     <div class="widget footer-widget">
-                        <h3 class="widget_title">Recent Posts</h3>
+                        <h3 class="widget_title">
+                            @if (session()->get('lang') == 'english')
+                                Recent
+                            @else
+                                সাম্প্রতিক
+                            @endif
+                        </h3>
                         <div class="recent-post-wrap">
-                            <div class="recent-post">
-                                <div class="media-img"><a href="blog-details.html"><img
-                                            src="{{ asset('assets/frontend') }}/img/blog/recent-post-2-1.jpg"
-                                            alt="Blog Image"></a>
+                            @foreach ($recent_news_footer as $footer_news)
+                                <div class="recent-post">
+                                    <div class="media-img"><a href="#"><img
+                                                src="{{ asset('uploads/thumbnail') }}/{{ $footer_news->thumbnail }}"
+                                                alt="Blog Image"></a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="post-title"><a class="hover-line" href="#">
+                                                @if (session()->get('lang') == 'english')
+                                                    {{ $footer_news->title_en }}
+                                                @else
+                                                    {{ $footer_news->title_bn }}
+                                                @endif
+                                            </a>
+                                        </h4>
+                                        <div class="recent-post-meta"><a href="#"><i
+                                                    class="fal fa-calendar-days"></i>{{ $footer_news->created_at->format('d M, Y') }}</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="media-body">
-                                    <h4 class="post-title"><a class="hover-line" href="blog-details.html">Equality and
-                                            justice for Every citizen</a>
-                                    </h4>
-                                    <div class="recent-post-meta"><a href="blog.html"><i
-                                                class="fal fa-calendar-days"></i>21 June, 2023</a></div>
-                                </div>
-                            </div>
-                            <div class="recent-post">
-                                <div class="media-img"><a href="blog-details.html"><img
-                                            src="{{ asset('assets/frontend') }}/img/blog/recent-post-2-2.jpg"
-                                            alt="Blog Image"></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="post-title"><a class="hover-line" href="blog-details.html">Key
-                                            eyes on the latest update of technology</a></h4>
-                                    <div class="recent-post-meta"><a href="blog.html"><i
-                                                class="fal fa-calendar-days"></i>22 June, 2023</a></div>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-3">
-                    <div class="widget widget_tag_cloud footer-widget">
-                        <h3 class="widget_title">Popular Tags</h3>
-                        <div class="tagcloud"><a href="blog.html">Sports</a> <a href="blog.html">Politics</a>
-                            <a href="blog.html">Business</a> <a href="blog.html">Music</a> <a href="blog.html">Food</a>
-                            <a href="blog.html">Technology</a> <a href="blog.html">Travels</a> <a
-                                href="blog.html">Health</a> <a href="blog.html">Fashions</a> <a
-                                href="blog.html">Animal</a> <a href="blog.html">Weather</a> <a
-                                href="blog.html">Movies</a>
+                    <div class="widget footer-widget">
+                        <h3 class="widget_title">
+                            @if (session()->get('lang') == 'english')
+                                Photo Gallery
+                            @else
+                                ফটো গ্যালারি
+                            @endif
+                        </h3>
+                        <div class="sidebar-gallery">
+                            @php
+                                $photos = App\Models\Photo::where('status', 1)
+                                    ->select('id', 'photo')
+                                    ->latest('id')
+                                    ->limit(6)
+                                    ->get();
+                            @endphp
+                            @foreach ($photos as $photo)
+                                <div class="gallery-thumb"><img
+                                        src="{{ asset('uploads/photo-gallery') }}/{{ $photo->photo }}"
+                                        alt="Gallery Image"> <a
+                                        href="{{ asset('uploads/photo-gallery') }}/{{ $photo->photo }}"
+                                        class="gallery-btn popup-image"><i class="fab fa-instagram"></i></a></div>
+                            @endforeach
+
+
                         </div>
                     </div>
                 </div>

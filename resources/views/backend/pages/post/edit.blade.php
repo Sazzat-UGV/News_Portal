@@ -233,6 +233,7 @@
                                     General Big Thumbnail
                                 </label>
                             </div>
+                           
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="checkbox" value="1"
                                     @if (old('firstSectionBigThumbnail')) checked
