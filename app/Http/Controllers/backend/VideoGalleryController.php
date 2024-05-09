@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Video;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Image;
 
 class VideoGalleryController extends Controller
 {
@@ -32,13 +33,17 @@ class VideoGalleryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|unique:videos,title',
-            'embed_code' => 'required|string',
+            'title_english' => 'required|string|unique:videos,title_en',
+            'title_bangla' => 'required|string|unique:videos,title_bn',
+            'video_link' => 'required|string',
+            'thumbnail' => 'required|mimes:jpg,jpeg,png|max:10240',
         ]);
-        Video::create([
-            'title' => $request->title,
-            'embed_code' => $request->embed_code,
+        $video=Video::create([
+            'title_en' => $request->title_english,
+            'title_bn' => $request->title_bangla,
+            'video_link' => $request->video_link,
         ]);
+        $this->image_upload($request, $video->id);
         Toastr::success('Video added successfully!');
         return back();
     }
@@ -66,13 +71,17 @@ class VideoGalleryController extends Controller
     {
         $video = Video::findOrFail($id);
         $request->validate([
-            'title' => 'required|string|unique:videos,title,'.$video->id,
-            'embed_code' => 'required|string',
+            'title_english' => 'required|string|unique:videos,title_en,'.$video->id,
+            'title_bangla' => 'required|string|unique:videos,title_bn,'.$video->id,
+            'video_link' => 'required|string',
+            'thumbnail' => 'required|mimes:jpg,jpeg,png|max:10240',
         ]);
         $video->update([
-            'title' => $request->title,
-            'embed_code' => $request->embed_code,
+            'title_en' => $request->title_english,
+            'title_bn' => $request->title_bangla,
+            'video_link' => $request->video_link,
         ]);
+        $this->image_upload($request, $video->id);
         Toastr::success('Video update successfully!');
         return back();
     }
@@ -83,6 +92,9 @@ class VideoGalleryController extends Controller
     public function destroy(string $id)
     {
         $video = Video::findOrFail($id);
+        $photo_location = 'public/uploads/video-gallery/';
+        $old_photo_location = $photo_location . $video->thumbnail;
+        unlink(base_path($old_photo_location));
         $video->delete();
         Toastr::success('Video delete successfully!');
         return back();
@@ -101,5 +113,27 @@ class VideoGalleryController extends Controller
         ]);
         Toastr::success('Status updated!');
         return back();
+    }
+
+    public function image_upload($request, $video_id)
+    {
+        $video = Video::findorFail($video_id);
+
+        if ($request->hasFile('thumbnail')) {
+            if ($video->thumbnail != 'default_thumbnail.jpg') {
+                //delete old photo
+                $photo_location = 'public/uploads/video-gallery/';
+                $old_photo_location = $photo_location . $video->thumbnail;
+                unlink(base_path($old_photo_location));
+            }
+            $photo_loation = 'public/uploads/video-gallery/';
+            $uploaded_photo = $request->file('thumbnail');
+            $new_photo_name = time() . '.' . $uploaded_photo->getClientOriginalExtension();
+            $new_photo_location = $photo_loation . $new_photo_name;
+            Image::make($uploaded_photo)->resize(500, 310)->save(base_path($new_photo_location));
+            $check = $video->update([
+                'thumbnail' => $new_photo_name,
+            ]);
+        }
     }
 }

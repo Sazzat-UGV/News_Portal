@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->foreignId('subcategory_id')->nullable()->constrained('sub_categories')->onDelete('cascade');
-            $table->foreignId('division_id')->constrained('divisions')->onDelete('cascade');
+            $table->foreignId('division_id')->nullable()->constrained('divisions')->onDelete('cascade');
             $table->foreignId('district_id')->nullable()->constrained('districts')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('title_en');
             $table->string('title_bn');
             $table->string('thumbnail')->default('default_thumbnail.jpg');

@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('embed_code');
+            $table->string('title_en');
+            $table->string('title_bn');
+            $table->string('thumbnail')->default('default_thumbnail.jpg');
+            $table->string('video_link');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

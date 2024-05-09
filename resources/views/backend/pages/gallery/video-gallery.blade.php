@@ -4,7 +4,9 @@
 @endsection
 @push('admin_style')
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css"
+        integrity="sha512-In/+MILhf6UMDJU4ZhDL0R0fEpsp4D3Le23m6+ujDWXwl3whwpucJG1PEmI3B07nyJx+875ccs+yX2CqQJUxUw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .wrap {
             white-space: normal !important;
@@ -33,8 +35,10 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Date</th>
-                                    <th>Title</th>
-                                    <th>Embeded Code</th>
+                                    <th>Title Bangla</th>
+                                    <th>Title English</th>
+                                    <th>Thumbnail</th>
+                                    <th>Video Link</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -45,8 +49,12 @@
                                         <th>{{ $index + 1 }}.</th>
                                         <td>{{ $video->created_at->diffForHumans() }}</td>
 
-                                        <td class="wrap">{{ $video->title }}</td>
-                                        <td class="wrap">{{ $video->embed_code }}</td>
+                                        <td class="wrap">{{ $video->title_bn }}</td>
+                                        <td class="wrap">{{ $video->title_en }}</td>
+                                        <td class="wrap"><img
+                                            src="{{ asset('uploads/video-gallery') }}/{{ $video->thumbnail }}"
+                                            alt="image" class="w-50 rounded"></td>
+                                        <td class="wrap">{{ $video->video_link }}</td>
                                         <td>
                                             @if ($video->status == 1)
                                             <a href="{{ route('video.changeStatus', ['id' => $video->id]) }}"
@@ -83,40 +91,70 @@
                                                     </button>
                                                 </div>
                                                 <form action="{{ route('video.update', ['video' => $video->id]) }}"
-                                                    method="POST">
+                                                    method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-12 mb-2">
-                                                                <label for="title" class="form-label">Video Title
+                                                                <label for="title_bangla" class="form-label">Video Title Bangla
                                                                     <span class="text-danger">*</span></label>
                                                                 <input type="text"
-                                                                    class="form-control @error('title')
+                                                                    class="form-control @error('title_bangla')
                                                                 is-invalid
                                                                 @enderror"
-                                                                    id="title" name="title"
-                                                                    value="{{ old('title',$video->title) }}"
-                                                                    placeholder="Enter video title">
-                                                                @error('title')
+                                                                    id="title_bangla" name="title_bangla"
+                                                                    value="{{ old('title_bangla',$video->title_bn) }}"
+                                                                    placeholder="Enter video title bangla">
+                                                                @error('title_bangla')
+                                                                    <span class="invalid-feedback"
+                                                                        role="alert"><strong>{{ $message }}</strong></span>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-12 mb-2">
+                                                                <label for="title_english" class="form-label">Video Title English
+                                                                    <span class="text-danger">*</span></label>
+                                                                <input type="text"
+                                                                    class="form-control @error('title_english')
+                                                                is-invalid
+                                                                @enderror"
+                                                                    id="title_english" name="title_english"
+                                                                    value="{{ old('title_english',$video->title_bn) }}"
+                                                                    placeholder="Enter video title english">
+                                                                @error('title_english')
                                                                     <span class="invalid-feedback"
                                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                                 @enderror
                                                             </div>
 
                                                             <div class="col-12 mb-2">
-                                                                <label for="embed_code" class="form-label">Embed Code
+                                                                <label for="video_link" class="form-label">Video Link
                                                                     <span class="text-danger">*</span></label>
                                                                 <input type="text"
-                                                                    class="form-control @error('embed_code')
+                                                                    class="form-control @error('video_link')
                                                                 is-invalid
                                                                 @enderror"
-                                                                    id="embed_code" name="embed_code"
-                                                                    value="{{ $video->embed_code }}"
+                                                                    id="video_link" name="video_link"
+                                                                    value="{{ $video->video_link }}"
                                                                     placeholder="Enter embed code">
-                                                                @error('embed_code')
+                                                                @error('video_link')
                                                                     <span class="invalid-feedback"
                                                                         role="alert"><strong>{{ $message }}</strong></span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col-12 mb-2">
+                                                                <label for="thumbnail" class="form-label">Thumbnail<span
+                                                                        class="text-danger">*</span></label>
+                                                                <input type="file" name="thumbnail"
+                                                                    data-default-file="{{ asset('uploads/video-gallery') }}/{{ $video->thumbnail }}"
+                                                                    class="form-control  @error('thumbnail')
+                                                                       is-invalid
+                                                                      @enderror">
+                                                                @error('thumbnail')
+                                                                    <span class="invalid-feedback"
+                                                                        role="alert"><strong>{{ $message }}</strong>
+                                                                    </span>
                                                                 @enderror
                                                             </div>
 
@@ -148,38 +186,66 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="{{ route('video.store') }}" method="POST" id="website_insert">
+                                <form action="{{ route('video.store') }}" method="POST" id="website_insert"  enctype="multipart/form-data">
                                     @csrf
                                     <div class="modal-body">
                                         <div class="row">
 
                                             <div class="col-12 mb-2">
-                                                <label for="title" class="form-label">Video Title
+                                                <label for="title_bangla" class="form-label">Video Title Bangla
                                                     <span class="text-danger">*</span></label>
                                                 <input type="text"
-                                                    class="form-control @error('title')
+                                                    class="form-control @error('title_bangla')
                                             is-invalid
                                             @enderror"
-                                                    id="title" name="title" value="{{ old('title') }}"
-                                                    placeholder="Enter video title ">
-                                                @error('title')
+                                                    id="title_bangla" name="title_bangla" value="{{ old('title_bangla') }}"
+                                                    placeholder="Enter video title bangla ">
+                                                @error('title_bangla')
+                                                    <span class="invalid-feedback"
+                                                        role="alert"><strong>{{ $message }}</strong></span>
+                                                @enderror
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <label for="title_english" class="form-label">Video Title English
+                                                    <span class="text-danger">*</span></label>
+                                                <input type="text"
+                                                    class="form-control @error('title_english')
+                                            is-invalid
+                                            @enderror"
+                                                    id="english" name="title_english" value="{{ old('title_english') }}"
+                                                    placeholder="Enter video title english ">
+                                                @error('title_english')
                                                     <span class="invalid-feedback"
                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                 @enderror
                                             </div>
 
                                             <div class="col-12 mb-2">
-                                                <label for="embed_code" class="form-label">Embed Code
+                                                <label for="video_link" class="form-label">Video Link
                                                     <span class="text-danger">*</span></label>
                                                 <input type="text"
-                                                    class="form-control @error('embed_code')
+                                                    class="form-control @error('video_link')
                                             is-invalid
                                             @enderror"
-                                                    id="embed_code" name="embed_code" value="{{ old('embed_code') }}"
+                                                    id="video_link" name="video_link" value="{{ old('video_link') }}"
                                                     placeholder="Enter embed code ">
-                                                @error('embed_code')
+                                                @error('video_link')
                                                     <span class="invalid-feedback"
                                                         role="alert"><strong>{{ $message }}</strong></span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-12 mb-2">
+                                                <label for="thumbnail" class="form-label">Thumbnail<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="file" name="thumbnail"
+                                                    class="form-control dropify @error('thumbnail')
+                                                       is-invalid
+                                                      @enderror">
+                                                @error('thumbnail')
+                                                    <span class="invalid-feedback"
+                                                        role="alert"><strong>{{ $message }}</strong>
+                                                    </span>
                                                 @enderror
                                             </div>
 
@@ -242,6 +308,15 @@
                 });
             });
 
+        });
+    </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
+        integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.dropify').dropify();
         });
     </script>
 @endpush
