@@ -230,18 +230,18 @@
                                     @elseif ($post->first_section_thumbnail == 1)
                                     checked @endif>
                                 <label class="form-check-label" for="generalBigThumbnail">
-                                    General Big Thumbnail
+                                    First Section Big Thumbnail
                                 </label>
                             </div>
-                           
+
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="checkbox" value="1"
-                                    @if (old('firstSectionBigThumbnail')) checked
-                                    @elseif ($post->bigthumbnail == 1)
-                                    checked @endif
-                                    name="firstSectionBigThumbnail" id="firstSectionBigThumbnail">
+                                @if (old('firstSectionBigThumbnail')) checked
+                                @elseif ($post->bigthumbnail == 1)
+                                checked @endif
+                                name="firstSectionBigThumbnail" id="firstSectionBigThumbnail">
                                 <label class="form-check-label" for="firstSectionBigThumbnail">
-                                    First Section Big Thumbnail
+                                    General Big Thumbnail
                                 </label>
                             </div>
                         </div>

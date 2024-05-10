@@ -25,7 +25,8 @@
                         @csrf
 
                         <div class="col-12 mb-2">
-                            <label for="embed_code" class="form-label">Embed Code<span class="text-danger">*</span></label>
+                            <label for="embed_code" class="form-label">Embed Code <span style="font-weight: 800;">( W=20,
+                                    H=200)</span><span class="text-danger">*</span></label>
                             <textarea rows="3" cols="30"
                                 class="form-control @error('embed_code')
                             is-invalid

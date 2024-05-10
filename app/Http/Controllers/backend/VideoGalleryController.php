@@ -33,15 +33,15 @@ class VideoGalleryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title_english' => 'required|string|unique:videos,title_en',
-            'title_bangla' => 'required|string|unique:videos,title_bn',
-            'video_link' => 'required|string',
+            'title_english' => 'required|string|max:255|unique:videos,title_en',
+            'title_bangla' => 'required|string|max:255|unique:videos,title_bn',
+            'video_url' => 'required|string',
             'thumbnail' => 'required|mimes:jpg,jpeg,png|max:10240',
         ]);
-        $video=Video::create([
+        $video = Video::create([
             'title_en' => $request->title_english,
             'title_bn' => $request->title_bangla,
-            'video_link' => $request->video_link,
+            'video_link' => $request->video_url,
         ]);
         $this->image_upload($request, $video->id);
         Toastr::success('Video added successfully!');
@@ -71,15 +71,15 @@ class VideoGalleryController extends Controller
     {
         $video = Video::findOrFail($id);
         $request->validate([
-            'title_english' => 'required|string|unique:videos,title_en,'.$video->id,
-            'title_bangla' => 'required|string|unique:videos,title_bn,'.$video->id,
-            'video_link' => 'required|string',
-            'thumbnail' => 'required|mimes:jpg,jpeg,png|max:10240',
+            'title_english' => 'required|string|max:255|unique:videos,title_en,' . $video->id,
+            'title_bangla' => 'required|string|max:255|unique:videos,title_bn,' . $video->id,
+            'video_url' => 'required|string',
+            'thumbnail' => 'nullable|mimes:jpg,jpeg,png|max:10240',
         ]);
         $video->update([
             'title_en' => $request->title_english,
             'title_bn' => $request->title_bangla,
-            'video_link' => $request->video_link,
+            'video_link' => $request->video_url,
         ]);
         $this->image_upload($request, $video->id);
         Toastr::success('Video update successfully!');

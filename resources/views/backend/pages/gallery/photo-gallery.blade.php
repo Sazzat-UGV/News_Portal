@@ -53,7 +53,7 @@
                                         <td>{{ $photo->created_at->diffForHumans() }}</td>
                                         <td class="wrap"><img
                                                 src="{{ asset('uploads/photo-gallery') }}/{{ $photo->photo }}"
-                                                alt="image" class="w-50 rounded"></td>
+                                                alt="image" class="w-75 rounded"></td>
                                         <td class="wrap">{{ $photo->title_bn }}</td>
                                         <td class="wrap">{{ $photo->title_en }}</td>
                                         <td>
@@ -81,7 +81,8 @@
                                         </td>
                                     </tr>
                                     {{-- edit category modal --}}
-                                    <div class="modal fade" id="editphoto{{ $photo->id }}" tabindex="-1" role="dialog">
+                                    <div class="modal fade" id="editphoto{{ $photo->id }}" tabindex="-1"
+                                        role="dialog">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -98,7 +99,8 @@
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-12 mb-2">
-                                                                <label for="title_bangla" class="form-label">Photo Title Bangla
+                                                                <label for="title_bangla" class="form-label">Photo Title
+                                                                    Bangla
                                                                     <span class="text-danger">*</span></label>
                                                                 <input type="text"
                                                                     class="form-control @error('title_bangla')
@@ -113,7 +115,8 @@
                                                                 @enderror
                                                             </div>
                                                             <div class="col-12 mb-2">
-                                                                <label for="title_english" class="form-label">Photo Title English
+                                                                <label for="title_english" class="form-label">Photo Title
+                                                                    English
                                                                     <span class="text-danger">*</span></label>
                                                                 <input type="text"
                                                                     class="form-control @error('title_english')
@@ -128,13 +131,12 @@
                                                                 @enderror
                                                             </div>
                                                             <div class="col-12 mb-2">
-                                                                <label for="photo" class="form-label">Photo<span
-                                                                        class="text-danger">*</span></label>
+                                                                <label for="photo" class="form-label">Photo</label>
                                                                 <input type="file" name="photo"
                                                                     data-default-file="{{ asset('uploads/photo-gallery') }}/{{ $photo->photo }}"
-                                                                    class="form-control  @error('photo')
+                                                                    class="form-control p-1  @error('photo')
                                                                        is-invalid
-                                                                      @enderror">
+                                                                       @enderror">
                                                                 @error('photo')
                                                                     <span class="invalid-feedback"
                                                                         role="alert"><strong>{{ $message }}</strong>
@@ -184,7 +186,8 @@
                                                     class="form-control @error('title_bangla')
                                             is-invalid
                                             @enderror"
-                                                    id="title_bangla" name="title_bangla" value="{{ old('title_bangla') }}"
+                                                    id="title_bangla" name="title_bangla"
+                                                    value="{{ old('title_bangla') }}"
                                                     placeholder="Enter photo title bangla ">
                                                 @error('title_bangla')
                                                     <span class="invalid-feedback"
@@ -199,7 +202,8 @@
                                                     class="form-control @error('title_english')
                                             is-invalid
                                             @enderror"
-                                                    id="title_english" name="title_english" value="{{ old('title_english') }}"
+                                                    id="title_english" name="title_english"
+                                                    value="{{ old('title_english') }}"
                                                     placeholder="Enter photo title engliish ">
                                                 @error('title_english')
                                                     <span class="invalid-feedback"
@@ -244,7 +248,15 @@
 @push('admin_script')
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
+        integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('.dropify').dropify();
+        });
+    </script>
     <script>
         $(document).ready(function() {
             // Initialize DataTable
@@ -280,15 +292,6 @@
                 });
             });
 
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
-        integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('.dropify').dropify();
         });
     </script>
 @endpush

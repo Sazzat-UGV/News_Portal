@@ -1,13 +1,14 @@
-@php
-    $categories = App\Models\Category::where('status', 1)->select('id', 'category_name_bn', 'category_name_en')->get();
-@endphp
 <div class="th-menu-wrapper">
     <div class="th-menu-area text-center"><button class="th-menu-toggle"><i class="fal fa-times"></i></button>
         <div class="mobile-logo"><a href="{{ route('homepage') }}"><img src="{{ asset('assets/frontend') }}/img/logo.svg"
                     alt="Tnews"></a></div>
         <div class="th-mobile-menu">
             <ul>
-
+                @php
+                    $categories = App\Models\Category::where('status', 1)
+                        ->select('id', 'category_name_bn', 'category_name_en')
+                        ->get();
+                @endphp
                 @foreach ($categories as $category)
                     <li class="menu-item-has-children"><a href="#">
                             @if (session()->get('lang') == 'english')
@@ -35,7 +36,30 @@
                         </ul>
                     </li>
                 @endforeach
-
+                <li class="menu-item-has-children"><a href="#">
+                        @if (session()->get('lang') == 'english')
+                            Gallery
+                        @else
+                            গ্যালারি
+                        @endif
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="#">
+                                @if (session()->get('lang') == 'english')
+                                    Photo Gallery
+                                @else
+                                    ফটো গ্যালারি
+                                @endif
+                            </a></li>
+                        <li><a href="#">
+                                @if (session()->get('lang') == 'english')
+                                    Video Gallery
+                                @else
+                                    ভিডিও গ্যালারি
+                                @endif
+                            </a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -87,7 +111,6 @@
                     <div class="col-auto">
                         <nav class="main-menu d-none d-lg-inline-block">
                             <ul>
-
                                 @foreach ($categories as $category)
                                     <li class="menu-item-has-children"><a href="#">
                                             @if (session()->get('lang') == 'english')
@@ -118,7 +141,29 @@
                                         </ul>
                                     </li>
                                 @endforeach
-
+                                <li class="menu-item-has-children"><a href="#">
+                                        @if (session()->get('lang') == 'english')
+                                            Gallery
+                                        @else
+                                            গ্যালারি
+                                        @endif
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">
+                                                @if (session()->get('lang') == 'english')
+                                                    Photo Gallery
+                                                @else
+                                                    ফটো গ্যালারি
+                                                @endif
+                                            </a></li>
+                                        <li><a href="#">
+                                                @if (session()->get('lang') == 'english')
+                                                    Video Gallery
+                                                @else
+                                                    ভিডিও গ্যালারি
+                                                @endif
+                                            </a></li>
+                                    </ul>
                             </ul>
                         </nav>
                     </div>

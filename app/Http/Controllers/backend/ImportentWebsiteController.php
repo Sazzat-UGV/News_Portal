@@ -33,8 +33,8 @@ class ImportentWebsiteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'website_name_english' => 'required|string|max:50',
-            'website_name_bangla' => 'required|string|max:50',
+            'website_name_english' => 'required|string|max:25',
+            'website_name_bangla' => 'required|string|max:25',
             'website_link' => 'required|string',
         ]);
 
@@ -69,8 +69,8 @@ class ImportentWebsiteController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'website_name_english' => 'required|string|max:50',
-            'website_name_bangla' => 'required|string|max:50',
+            'website_name_english' => 'required|string|max:25',
+            'website_name_bangla' => 'required|string|max:25',
             'website_link' => 'required|string',
         ]);
         $website = Importentwebsite::findOrFail($id);

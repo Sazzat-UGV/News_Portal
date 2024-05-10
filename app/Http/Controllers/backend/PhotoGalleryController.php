@@ -37,20 +37,13 @@ class PhotoGalleryController extends Controller
             'title_english' => 'required|string|max:255|unique:photos,title_en',
             'photo' => 'required|mimes:jpg,jpeg,png|max:10240',
         ]);
-        if ($request->hasFile('photo')) {
-            $photo_loation = 'public/uploads/photo-gallery/';
-            $uploaded_photo = $request->file('photo');
-            $new_photo_name = time() . '.' . $uploaded_photo->getClientOriginalExtension();
-            $new_photo_location = $photo_loation . $new_photo_name;
-            Image::make($uploaded_photo)->resize(500, 310)->save(base_path($new_photo_location));
-            $check = Photo::create([
-                'title_bn' => $request->title_bangla,
-                'title_en' => $request->title_english,
-                'photo' => $new_photo_name,
-            ]);
-            Toastr::success('Photo added successfully!');
-            return back();
-        }
+        $photo_id = Photo::create([
+            'title_bn' => $request->title_bangla,
+            'title_en' => $request->title_english,
+        ]);
+        $this->image_upload($request, $photo_id->id);
+        Toastr::success('Photo added successfully!');
+        return back();
     }
 
     /**
@@ -80,25 +73,12 @@ class PhotoGalleryController extends Controller
             'title_english' => 'required|string|max:255|unique:photos,title_en,' . $photo->id,
             'photo' => 'nullable|mimes:jpg,jpeg,png|max:10240',
         ]);
-        if ($request->hasFile('photo')) {
-            // delete old
-            $photo_location = 'public/uploads/photo-gallery/';
-            $old_photo_location = $photo_location . $photo->photo;
-            unlink(base_path($old_photo_location));
-
-            $photo_loation = 'public/uploads/photo-gallery/';
-            $uploaded_photo = $request->file('photo');
-            $new_photo_name = time() . '.' . $uploaded_photo->getClientOriginalExtension();
-            $new_photo_location = $photo_loation . $new_photo_name;
-            Image::make($uploaded_photo)->resize(500, 310)->save(base_path($new_photo_location));
-            $photo->update([
-                'title_bn' => $request->title_bangla,
-                'title_en' => $request->title_english,
-                'photo' => $new_photo_name,
-            ]);
-            Toastr::success('Photo updated successfully!');
-            return back();
-        }
+        $photo->update([
+            'title_bn' => $request->title_bangla,
+            'title_en' => $request->title_english,
+        ]);
+        $this->image_upload($request, $photo->id);
+        Toastr::success('Photo updated successfully!');
         return back();
     }
 
@@ -108,9 +88,11 @@ class PhotoGalleryController extends Controller
     public function destroy(string $id)
     {
         $photo = Photo::findOrFail($id);
+        //delete old photo
         $photo_location = 'public/uploads/photo-gallery/';
         $old_photo_location = $photo_location . $photo->photo;
         unlink(base_path($old_photo_location));
+
         $photo->delete();
         Toastr::success('Photo delete successfully!');
         return back();
@@ -130,4 +112,32 @@ class PhotoGalleryController extends Controller
         Toastr::success('Status updated!');
         return back();
     }
+
+    public function image_upload($request, $post_id)
+    {
+        $photo = Photo::findOrFail($post_id);
+
+        if ($request->hasFile('photo')) {
+            if ($photo->photo != 'default_photo.jpg') {
+                //delete old photo
+                $photo_location = 'public/uploads/photo-gallery/';
+                $old_photo_location = $photo_location . $photo->photo;
+                unlink(base_path($old_photo_location));
+            }
+            // //delete old photo
+            // $photo_location = 'public/uploads/photo-gallery/';
+            // $old_photo_location = $photo_location . $photo->photo;
+            // unlink(base_path($old_photo_location));
+
+            $photo_loation = 'public/uploads/photo-gallery/';
+            $uploaded_photo = $request->file('photo');
+            $new_photo_name = time() . '.' . $uploaded_photo->getClientOriginalExtension();
+            $new_photo_location = $photo_loation . $new_photo_name;
+            Image::make($uploaded_photo)->resize(500, 310)->save(base_path($new_photo_location));
+            $check = $photo->update([
+                'photo' => $new_photo_name,
+            ]);
+        }
+    }
+
 }

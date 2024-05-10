@@ -5,7 +5,7 @@
                 <div class="col-md-6 col-xl-3">
                     <div class="widget footer-widget">
                         <div class="th-widget-about">
-                            <div class="about-logo"><a href="home-newspaper.html"><img
+                            <div class="about-logo"><a href="{{ route('homepage') }}"><img
                                         src="{{ asset('assets/frontend') }}/img/logo-footer.svg" alt="Tnews"></a>
                             </div>
                             <p class="about-text">Magazines cover a wide subjects, including not limited to
@@ -41,10 +41,12 @@
                             <ul class="menu">
                                 @foreach ($importantWebsits as $website)
                                     @if (session()->get('lang') == 'english')
-                                        <li><a href="{{ $website->website_link }}">{{ $website->website_name_en }}</a>
+                                        <li><a href="{{ $website->website_link }}"
+                                                target="blank">{{ $website->website_name_en }}</a>
                                         </li>
                                     @else
-                                        <li><a href="{{ $website->website_link }}">{{ $website->website_name_bn }}</a>
+                                        <li><a href="{{ $website->website_link }}"
+                                                target="blank">{{ $website->website_name_bn }}</a>
                                         </li>
                                     @endif
                                 @endforeach
@@ -53,14 +55,13 @@
                         </div>
                     </div>
                 </div>
+
+
+
                 @php
-                    $recent_news_footer = App\Models\Post::with([
-                        'category:id,category_name_bn,category_name_en',
-                        'user:id,name',
-                    ])
-                        ->where('status', 1)
+                    $recentfooternews = App\Models\Post::where('status', 1)
                         ->latest('id')
-                        ->select('id', 'category_id', 'user_id', 'title_en', 'title_bn', 'thumbnail', 'created_at')
+                        ->select('id', 'title_en', 'title_bn', 'thumbnail', 'created_at')
                         ->limit(2)
                         ->get();
                 @endphp
@@ -74,7 +75,7 @@
                             @endif
                         </h3>
                         <div class="recent-post-wrap">
-                            @foreach ($recent_news_footer as $footer_news)
+                            @foreach ($recentfooternews as $footer_news)
                                 <div class="recent-post">
                                     <div class="media-img"><a href="#"><img
                                                 src="{{ asset('uploads/thumbnail') }}/{{ $footer_news->thumbnail }}"
@@ -83,14 +84,17 @@
                                     <div class="media-body">
                                         <h4 class="post-title"><a class="hover-line" href="#">
                                                 @if (session()->get('lang') == 'english')
-                                                    {{ $footer_news->title_en }}
+                                                    {{ Str::limit($footer_news->title_en, 60, '') }}
                                                 @else
-                                                    {{ $footer_news->title_bn }}
+                                                    {{ Str::limit($footer_news->title_bn, 60, '') }}
                                                 @endif
                                             </a>
                                         </h4>
                                         <div class="recent-post-meta"><a href="#"><i
-                                                    class="fal fa-calendar-days"></i>{{ $footer_news->created_at->format('d M, Y') }}</a>
+                                                    class="fal fa-calendar-days"></i>
+                                                {{ $footer_news->created_at->format('d M, Y') }}
+
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +117,7 @@
                                 $photos = App\Models\Photo::where('status', 1)
                                     ->select('id', 'photo')
                                     ->latest('id')
-                                    ->limit(6)
+                                    ->limit(9)
                                     ->get();
                             @endphp
                             @foreach ($photos as $photo)
@@ -123,8 +127,6 @@
                                         href="{{ asset('uploads/photo-gallery') }}/{{ $photo->photo }}"
                                         class="gallery-btn popup-image"><i class="fab fa-instagram"></i></a></div>
                             @endforeach
-
-
                         </div>
                     </div>
                 </div>
@@ -135,8 +137,8 @@
         <div class="container">
             <div class="row jusity-content-between align-items-center">
                 <div class="col-lg-5">
-                    <p class="copyright-text">Copyright <i class="fal fa-copyright"></i> 2023 <a
-                            href="home-newspaper.html">Tnews</a>. All Rights Reserved.</p>
+                    <p class="copyright-text">Copyright <i class="fal fa-copyright"></i> {{ date('Y') }} <a
+                            href="{{ route('homepage') }}">Tnews</a>. All Rights Reserved.</p>
                 </div>
             </div>
         </div>

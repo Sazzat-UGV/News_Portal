@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
-            $table->string('photo');
+            $table->string('photo')->default('default_photo.jpg');
             $table->string('title_bn');
             $table->string('title_en');
             $table->boolean('status')->default(true);

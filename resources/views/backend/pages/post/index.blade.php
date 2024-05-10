@@ -36,7 +36,8 @@
                                     <th>Category</th>
                                     <th>Subcategory</th>
                                     <th>Thumbnail</th>
-                                    <th>Title</th>
+                                    <th>Title English</th>
+                                    <th>Title Bangla</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -54,14 +55,15 @@
                                         <td class="wrap"><img
                                                 src="{{ asset('uploads/thumbnail') }}/{{ $post->thumbnail }}" alt="image"
                                                 class="w-50 rounded"></td>
-                                        <td class="wrap">{{ $post->title_en }}</td>
+                                        <td class="wrap">{{ Str::limit($post->title_en, 100, '...') }}</td>
+                                        <td class="wrap">{{ Str::limit($post->title_bn, 100, '...') }}</td>
                                         <td class="d-flex justify-content-center">
                                             <a href="{{ route('post.edit', ['post' => $post->id]) }}"
                                                 class="btn btn-warning  pl-1 p-0 rounded mr-1"><i
                                                     class="fa-solid fa-pen-to-square"></i></a>
 
-                                            <form action="{{ route('post.destroy', ['post' => $post->id]) }}" method="POST"
-                                                class="show_confirm">
+                                            <form action="{{ route('post.destroy', ['post' => $post->id]) }}"
+                                                method="POST" class="show_confirm">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger pl-1 p-0 rounded">

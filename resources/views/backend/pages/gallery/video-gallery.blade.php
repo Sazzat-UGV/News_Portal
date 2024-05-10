@@ -38,7 +38,7 @@
                                     <th>Title Bangla</th>
                                     <th>Title English</th>
                                     <th>Thumbnail</th>
-                                    <th>Video Link</th>
+                                    <th>Video URL</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -52,13 +52,14 @@
                                         <td class="wrap">{{ $video->title_bn }}</td>
                                         <td class="wrap">{{ $video->title_en }}</td>
                                         <td class="wrap"><img
-                                            src="{{ asset('uploads/video-gallery') }}/{{ $video->thumbnail }}"
-                                            alt="image" class="w-50 rounded"></td>
-                                        <td class="wrap">{{ $video->video_link }}</td>
+                                                src="{{ asset('uploads/video-gallery') }}/{{ $video->thumbnail }}"
+                                                alt="image" class="w-50 rounded"></td>
+                                        <td class="wrap"><a href="{{ $video->video_link }}"
+                                                target="blank">{{ $video->video_link }}</a></td>
                                         <td>
                                             @if ($video->status == 1)
-                                            <a href="{{ route('video.changeStatus', ['id' => $video->id]) }}"
-                                                class="badge bg-success">Active</a>
+                                                <a href="{{ route('video.changeStatus', ['id' => $video->id]) }}"
+                                                    class="badge bg-success">Active</a>
                                             @else
                                                 <a href="{{ route('video.changeStatus', ['id' => $video->id]) }}"
                                                     class="badge bg-danger">Deactive</a>
@@ -80,7 +81,8 @@
                                         </td>
                                     </tr>
                                     {{-- edit category modal --}}
-                                    <div class="modal fade" id="editvideo{{ $video->id }}" tabindex="-1" role="dialog">
+                                    <div class="modal fade" id="editvideo{{ $video->id }}" tabindex="-1"
+                                        role="dialog">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -97,14 +99,14 @@
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-12 mb-2">
-                                                                <label for="title_bangla" class="form-label">Video Title Bangla
-                                                                    <span class="text-danger">*</span></label>
+                                                                <label for="title_bangla" class="form-label">Video Title
+                                                                    Bangla<span class="text-danger">*</span></label>
                                                                 <input type="text"
                                                                     class="form-control @error('title_bangla')
                                                                 is-invalid
                                                                 @enderror"
                                                                     id="title_bangla" name="title_bangla"
-                                                                    value="{{ old('title_bangla',$video->title_bn) }}"
+                                                                    value="{{ old('title_bangla', $video->title_bn) }}"
                                                                     placeholder="Enter video title bangla">
                                                                 @error('title_bangla')
                                                                     <span class="invalid-feedback"
@@ -112,14 +114,14 @@
                                                                 @enderror
                                                             </div>
                                                             <div class="col-12 mb-2">
-                                                                <label for="title_english" class="form-label">Video Title English
-                                                                    <span class="text-danger">*</span></label>
+                                                                <label for="title_english" class="form-label">Video Title
+                                                                    English<span class="text-danger">*</span></label>
                                                                 <input type="text"
                                                                     class="form-control @error('title_english')
                                                                 is-invalid
                                                                 @enderror"
                                                                     id="title_english" name="title_english"
-                                                                    value="{{ old('title_english',$video->title_bn) }}"
+                                                                    value="{{ old('title_english', $video->title_en) }}"
                                                                     placeholder="Enter video title english">
                                                                 @error('title_english')
                                                                     <span class="invalid-feedback"
@@ -128,16 +130,16 @@
                                                             </div>
 
                                                             <div class="col-12 mb-2">
-                                                                <label for="video_link" class="form-label">Video Link
-                                                                    <span class="text-danger">*</span></label>
+                                                                <label for="video_url" class="form-label">Video URL<span
+                                                                        class="text-danger">*</span></label>
                                                                 <input type="text"
-                                                                    class="form-control @error('video_link')
+                                                                    class="form-control @error('video_url')
                                                                 is-invalid
                                                                 @enderror"
-                                                                    id="video_link" name="video_link"
-                                                                    value="{{ $video->video_link }}"
-                                                                    placeholder="Enter embed code">
-                                                                @error('video_link')
+                                                                    id="video_url" name="video_url"
+                                                                    value="{{ old('video_url', $video->video_link) }}"
+                                                                    placeholder="Enter video url">
+                                                                @error('video_url')
                                                                     <span class="invalid-feedback"
                                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                                 @enderror
@@ -148,7 +150,7 @@
                                                                         class="text-danger">*</span></label>
                                                                 <input type="file" name="thumbnail"
                                                                     data-default-file="{{ asset('uploads/video-gallery') }}/{{ $video->thumbnail }}"
-                                                                    class="form-control  @error('thumbnail')
+                                                                    class="form-control p-1 @error('thumbnail')
                                                                        is-invalid
                                                                       @enderror">
                                                                 @error('thumbnail')
@@ -186,19 +188,21 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="{{ route('video.store') }}" method="POST" id="website_insert"  enctype="multipart/form-data">
+                                <form action="{{ route('video.store') }}" method="POST" id="website_insert"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="modal-body">
                                         <div class="row">
 
                                             <div class="col-12 mb-2">
-                                                <label for="title_bangla" class="form-label">Video Title Bangla
-                                                    <span class="text-danger">*</span></label>
+                                                <label for="title_bangla" class="form-label">Video Title Bangla<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('title_bangla')
                                             is-invalid
                                             @enderror"
-                                                    id="title_bangla" name="title_bangla" value="{{ old('title_bangla') }}"
+                                                    id="title_bangla" name="title_bangla"
+                                                    value="{{ old('title_bangla') }}"
                                                     placeholder="Enter video title bangla ">
                                                 @error('title_bangla')
                                                     <span class="invalid-feedback"
@@ -206,13 +210,14 @@
                                                 @enderror
                                             </div>
                                             <div class="col-12 mb-2">
-                                                <label for="title_english" class="form-label">Video Title English
-                                                    <span class="text-danger">*</span></label>
+                                                <label for="title_english" class="form-label">Video Title English<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text"
                                                     class="form-control @error('title_english')
                                             is-invalid
                                             @enderror"
-                                                    id="english" name="title_english" value="{{ old('title_english') }}"
+                                                    id="english" name="title_english"
+                                                    value="{{ old('title_english') }}"
                                                     placeholder="Enter video title english ">
                                                 @error('title_english')
                                                     <span class="invalid-feedback"
@@ -221,15 +226,15 @@
                                             </div>
 
                                             <div class="col-12 mb-2">
-                                                <label for="video_link" class="form-label">Video Link
-                                                    <span class="text-danger">*</span></label>
+                                                <label for="video_url" class="form-label">Video URL<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text"
-                                                    class="form-control @error('video_link')
+                                                    class="form-control @error('video_url')
                                             is-invalid
                                             @enderror"
-                                                    id="video_link" name="video_link" value="{{ old('video_link') }}"
-                                                    placeholder="Enter embed code ">
-                                                @error('video_link')
+                                                    id="video_url" name="video_url" value="{{ old('video_url') }}"
+                                                    placeholder="Enter video url">
+                                                @error('video_url')
                                                     <span class="invalid-feedback"
                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                 @enderror
@@ -310,7 +315,7 @@
 
         });
     </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
         integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 

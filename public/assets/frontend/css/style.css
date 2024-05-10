@@ -3298,14 +3298,14 @@ a.text-theme:hover,
   transition: 0.4s ease-in-out;
 }
 .recent-post .media-img:after {
-  content: "\f0c1";
+  content: " ";
   font-family: var(--icon-font);
   position: absolute;
   inset: 0;
   text-align: center;
   line-height: 85px;
   font-size: 24px;
-  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: rgba(0, 0, 0, 0.7); */
   color: var(--theme-color);
   pointer-events: none;
   -webkit-transform: scale(0);

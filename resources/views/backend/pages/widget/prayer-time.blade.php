@@ -26,7 +26,7 @@
 
                         <div class="col-6 mb-2">
                             <label for="fajr" class="form-label">Fajr<span class="text-danger">*</span></label>
-                            <input type="time" name="fajr"
+                            <input type="text" name="fajr"
                                 class="form-control @error('fajr')
                                  is-invalid
                                 @enderror"
@@ -39,7 +39,7 @@
 
                         <div class="col-6 mb-2">
                             <label for="dhuhr" class="form-label">Dhuhr<span class="text-danger">*</span></label>
-                            <input type="time" name="dhuhr"
+                            <input type="text" name="dhuhr"
                                 class="form-control @error('dhuhr')
                                  is-invalid
                                 @enderror"
@@ -52,7 +52,7 @@
 
                         <div class="col-6 mb-2">
                             <label for="asr" class="form-label">Asr<span class="text-danger">*</span></label>
-                            <input type="time" name="asr"
+                            <input type="text" name="asr"
                                 class="form-control @error('asr')
                                  is-invalid
                                 @enderror"
@@ -65,7 +65,7 @@
 
                         <div class="col-6 mb-2">
                             <label for="maghrib" class="form-label">Maghrib<span class="text-danger">*</span></label>
-                            <input type="time" name="maghrib"
+                            <input type="text" name="maghrib"
                                 class="form-control @error('maghrib')
                                  is-invalid
                                 @enderror"
@@ -78,7 +78,7 @@
 
                         <div class="col-6 mb-2">
                             <label for="isha_a" class="form-label">Isha'a<span class="text-danger">*</span></label>
-                            <input type="time" name="isha_a"
+                            <input type="text" name="isha_a"
                                 class="form-control @error('isha_a')
                                  is-invalid
                                 @enderror"
@@ -91,7 +91,7 @@
 
                         <div class="col-6 mb-2">
                             <label for="jumu_ah" class="form-label">Jumu'ah</label>
-                            <input type="time" name="jumu_ah"
+                            <input type="text" name="jumu_ah"
                                 class="form-control @error('jumu_ah')
                                  is-invalid
                                 @enderror"

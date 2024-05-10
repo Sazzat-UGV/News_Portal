@@ -6,9 +6,8 @@
 @endpush
 @section('content')
     @php
-        $categories = App\Models\Category::all();
+        $categories = App\Models\Category::select('id')->get();
         $category_colors = [];
-
         foreach ($categories as $category) {
             switch ($category->id) {
                 case 1:
@@ -42,19 +41,10 @@
         }
     @endphp
 
-
-
     <div>
+        {{-- breaking news section start --}}
         <div class="container">
             <div class="news-area">
-                @php
-                    $breaking_news = App\Models\Post::where('breaking_news', 1)
-                        ->where('status', 1)
-                        ->latest('id')
-                        ->limit(20)
-                        ->select('title_en', 'title_bn')
-                        ->get();
-                @endphp
                 @if (session()->get('lang') == 'english')
                     <div class="title">Breaking News :</div>
                 @else
@@ -73,9 +63,9 @@
                 </div>
             </div>
         </div>
+        {{-- breaking news section end --}}
 
-
-
+        {{-- notice section start --}}
         @if ($notice->active == 1)
             <div class="container mt-1">
                 <div class="news-area">
@@ -99,13 +89,14 @@
                 </div>
             </div>
         @endif
-
+        {{-- notice section end --}}
     </div>
-
 
     <section class="space">
         <div class="container">
             <div class="row">
+
+                {{-- firstsection start --}}
                 <div class="col-xl-3">
                     <div class="row ">
                         @foreach ($first_sections as $first_section)
@@ -126,9 +117,9 @@
                                         </a>
                                         <h3 class="box-title-22"><a class="hover-line" href="#">
                                                 @if (session()->get('lang') == 'english')
-                                                    {{ $first_section->title_en }}
+                                                    {{ Str::limit($first_section->title_en, 40, '') }}
                                                 @else
-                                                    {{ $first_section->title_bn }}
+                                                    {{ Str::limit($first_section->title_bn, 40, '') }}
                                                 @endif
                                             </a></h3>
                                         <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
@@ -139,11 +130,11 @@
                                 </div>
                             </div>
                         @endforeach
-
                     </div>
                 </div>
+                {{-- firstsection end --}}
 
-
+                {{-- firstsection big thumbnail start --}}
                 <div class="col-xl-6 mt-4 mt-xl-0">
                     <div class="dark-theme img-overlay2">
                         <div class="blog-style3">
@@ -174,7 +165,7 @@
                         </div>
                     </div>
                 </div>
-
+                {{-- firstsection big thumbnail end --}}
 
                 <div class="col-xl-3 mt-35 mt-xl-0">
                     <div class="nav tab-menu indicator-active" role="tablist"><button class="tab-btn active"
@@ -194,6 +185,8 @@
                             @endif
                         </button></div>
                     <div class="tab-content">
+
+                        {{-- favourite post start --}}
                         <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
                             <div class="row gy-4">
                                 @foreach ($favourites as $favourite)
@@ -213,9 +206,9 @@
                                                 </a>
                                                 <h3 class="box-title-18"><a class="hover-line" href="#">
                                                         @if (session()->get('lang') == 'english')
-                                                            {{ $favourite->title_en }}
+                                                            {{ Str::limit($favourite->title_en, 50, ' ') }}
                                                         @else
-                                                            {{ $favourite->title_bn }}
+                                                            {{ Str::limit($favourite->title_bn, 50, ' ') }}
                                                         @endif
                                                     </a>
                                                 </h3>
@@ -228,7 +221,9 @@
                                 @endforeach
                             </div>
                         </div>
+                        {{-- favourite post end --}}
 
+                        {{-- recent news end --}}
                         <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
                             <div class="row gy-4">
                                 @foreach ($recent_news as $recent)
@@ -248,9 +243,9 @@
                                                 </a>
                                                 <h3 class="box-title-18"><a class="hover-line" href="#">
                                                         @if (session()->get('lang') == 'english')
-                                                            {{ $recent->title_en }}
+                                                            {{ Str::limit($recent->title_en, 50, '') }}
                                                         @else
-                                                            {{ $recent->title_bn }}
+                                                            {{ Str::limit($recent->title_bn, 50, '') }}
                                                         @endif
                                                     </a>
                                                 </h3>
@@ -269,18 +264,12 @@
         </div>
     </section>
 
-
-
+    {{-- first category start --}}
     <div class="mb-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col">
                     <h2 class="sec-title has-line">
-                        @php
-                            $firstcategory = App\Models\Category::where('status', 1)
-                                ->select('id', 'category_name_en', 'category_name_bn')
-                                ->first();
-                        @endphp
                         @if (session()->get('lang') == 'english')
                             {{ $firstcategory->category_name_en }}
                         @else
@@ -306,47 +295,30 @@
                     <div class="col-xl-6 mb-35 mb-xl-0">
                         <div class="">
                             <div class="blog-style1 style-big">
-                                @php
 
-                                    $firstcatbigpost = App\Models\Post::where('status', 1)
-                                        ->where('category_id', $firstcategory->id)
-                                        ->where('bigthumbnail', 1)
-                                        ->latest('id')
-                                        ->select(
-                                            'id',
-                                            'category_id',
-                                            'user_id',
-                                            'title_en',
-                                            'title_bn',
-                                            'thumbnail',
-                                            'created_at',
-                                        )
-                                        ->first();
-
-                                @endphp
                                 <div class="blog-img"><img
-                                        src="{{ asset('uploads/thumbnail') }}/{{ $firstcatbigpost->thumbnail }}"
+                                        src="{{ asset('uploads/thumbnail') }}/{{ $firstcategorybigpost->thumbnail }}"
                                         alt="blog image"> <a
-                                        data-theme-color="{{ $category_colors[$firstcatbigpost->category->id] }}"
+                                        data-theme-color="{{ $category_colors[$firstcategorybigpost->category->id] }}"
                                         href="#" class="category">
                                         @if (session()->get('lang') == 'english')
-                                            {{ $firstcatbigpost->category->category_name_en }}
+                                            {{ $firstcategorybigpost->category->category_name_en }}
                                         @else
-                                            {{ $firstcatbigpost->category->category_name_bn }}
+                                            {{ $firstcategorybigpost->category->category_name_bn }}
                                         @endif
                                     </a>
                                 </div>
                                 <h3 class="box-title-30"><a class="hover-line" href="#">
                                         @if (session()->get('lang') == 'english')
-                                            {{ $firstcatbigpost->title_en }}
+                                            {{ Str::limit($firstcategorybigpost->title_en, 100, '') }}
                                         @else
-                                            {{ $firstcatbigpost->title_bn }}
+                                            {{ Str::limit($firstcategorybigpost->title_bn, 100, '') }}
                                         @endif
                                     </a>
                                 </h3>
                                 <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
-                                        {{ $firstcatbigpost->user->name }}</a> <a href="#"><i
-                                            class="fal fa-calendar-days"></i>{{ $firstcatbigpost->created_at->format('d M, Y') }}</a>
+                                        {{ $firstcategorybigpost->user->name }}</a> <a href="#"><i
+                                            class="fal fa-calendar-days"></i>{{ $firstcategorybigpost->created_at->format('d M, Y') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -354,26 +326,7 @@
 
                     <div class="col-xl-6">
                         <div class="row gy-4">
-                            @php
-
-                                $firstcatsmallpost = App\Models\Post::where('status', 1)
-                                    ->where('category_id', $firstcategory->id)
-                                    ->where('bigthumbnail', 0)
-                                    ->latest('id')
-                                    ->select(
-                                        'id',
-                                        'category_id',
-                                        'user_id',
-                                        'title_en',
-                                        'title_bn',
-                                        'thumbnail',
-                                        'created_at',
-                                    )
-                                    ->limit(4)
-                                    ->get();
-
-                            @endphp
-                            @foreach ($firstcatsmallpost as $firstsmallpost)
+                            @foreach ($firstcategorysmallpost as $firstsmallpost)
                                 <div class="col-xl-6 col-sm-6 border-blog two-column">
                                     <div class="blog-style1">
                                         <div class="blog-img"><img
@@ -390,9 +343,9 @@
                                         </div>
                                         <h3 class="box-title-22"><a class="hover-line" href="#">
                                                 @if (session()->get('lang') == 'english')
-                                                    {{ $firstsmallpost->title_en }}
+                                                    {{ Str::limit($firstsmallpost->title_en, 50, '') }}
                                                 @else
-                                                    {{ $firstsmallpost->title_bn }}
+                                                    {{ Str::limit($firstsmallpost->title_bn, 50, '') }}
                                                 @endif
                                             </a>
                                         </h3>
@@ -403,38 +356,29 @@
                                     </div>
                                 </div>
                             @endforeach
-
-
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
+    {{-- first category end --}}
 
     <div class="container"><a href="https://themeforest.net/user/themeholy/portfolio"><img
                 src="{{ asset('assets/frontend') }}/img/ads/ads_1.jpg" alt="ads" class="w-100"></a></div>
 
-
+    {{-- second category start --}}
     <section class="space">
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h2 class="sec-title has-line"> @php
-                        $secondcategory = App\Models\Category::where('status', 1)
-                            ->select('id', 'category_name_en', 'category_name_bn')
-                            ->skip(1)
-                            ->first();
-                    @endphp
+                    <h2 class="sec-title has-line">
                         @if (session()->get('lang') == 'english')
                             {{ $secondcategory->category_name_en }}
                         @else
                             {{ $secondcategory->category_name_bn }}
                         @endif
                     </h2>
-
                 </div>
                 <div class="col-auto">
                     <div class="sec-btn">
@@ -450,77 +394,48 @@
                 </div>
                 <div class="col-12">
                     <div class="row gy-4">
-                        @php
-
-                            $secondcatsmallpost = App\Models\Post::where('status', 1)
-                                ->where('category_id', $secondcategory->id)
-                                ->where('bigthumbnail', 0)
-                                ->latest('id')
-                                ->select(
-                                    'id',
-                                    'category_id',
-                                    'user_id',
-                                    'title_en',
-                                    'title_bn',
-                                    'thumbnail',
-                                    'created_at',
-                                )
-                                ->limit(4)
-                                ->get();
-
-                        @endphp
-                        @foreach ($secondcatsmallpost as $secondsmallpost)
+                        @foreach ($secondcategorypost as $secondcatpost)
                             <div class="col-sm-6 col-xl-4">
                                 <div class="blog-style1">
                                     <div class="blog-img"><img
-                                            src="{{ asset('uploads/thumbnail') }}/{{ $secondsmallpost->thumbnail }}"
+                                            src="{{ asset('uploads/thumbnail') }}/{{ $secondcatpost->thumbnail }}"
                                             alt="blog image"> <a
-                                            data-theme-color="{{ $category_colors[$secondsmallpost->category->id] }}"
+                                            data-theme-color="{{ $category_colors[$secondcatpost->category->id] }}"
                                             href="#" class="category">
                                             @if (session()->get('lang') == 'english')
-                                                {{ $secondsmallpost->category->category_name_en }}
+                                                {{ $secondcatpost->category->category_name_en }}
                                             @else
-                                                {{ $secondsmallpost->category->category_name_bn }}
+                                                {{ $secondcatpost->category->category_name_bn }}
                                             @endif
                                         </a></div>
                                     <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">
                                             @if (session()->get('lang') == 'english')
-                                                {{ $secondsmallpost->title_en }}
+                                                {{ Str::limit($secondcatpost->title_en, 100, '') }}
                                             @else
-                                                {{ $secondsmallpost->title_bn }}
+                                                {{ Str::limit($secondcatpost->title_bn, 100, '') }}
                                             @endif
                                         </a></h3>
                                     <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
-                                            {{ $secondsmallpost->user->name }}</a> <a href="blog.html"><i
-                                                class="fal fa-calendar-days"></i>{{ $secondsmallpost->created_at->format('d M, Y') }}</a>
+                                            {{ $secondcatpost->user->name }}</a> <a href="blog.html"><i
+                                                class="fal fa-calendar-days"></i>{{ $secondcatpost->created_at->format('d M, Y') }}</a>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
+    {{-- second category end --}}
 
 
-
-
-
-
+    {{-- third category start --}}
     <div class="mb-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col">
                     <h2 class="sec-title has-line">
-                        @php
-                            $thirdcategory = App\Models\Category::where('status', 1)
-                                ->select('id', 'category_name_en', 'category_name_bn')
-                                ->skip(2)
-                                ->first();
-                        @endphp
                         @if (session()->get('lang') == 'english')
                             {{ $thirdcategory->category_name_en }}
                         @else
@@ -546,47 +461,29 @@
                     <div class="col-xl-6 mb-35 mb-xl-0">
                         <div class="">
                             <div class="blog-style1 style-big">
-                                @php
-
-                                    $thirdcatbigpost = App\Models\Post::where('status', 1)
-                                        ->where('category_id', $thirdcategory->id)
-                                        ->where('bigthumbnail', 1)
-                                        ->latest('id')
-                                        ->select(
-                                            'id',
-                                            'category_id',
-                                            'user_id',
-                                            'title_en',
-                                            'title_bn',
-                                            'thumbnail',
-                                            'created_at',
-                                        )
-                                        ->first();
-
-                                @endphp
                                 <div class="blog-img"><img
-                                        src="{{ asset('uploads/thumbnail') }}/{{ $thirdcatbigpost->thumbnail }}"
+                                        src="{{ asset('uploads/thumbnail') }}/{{ $thirdcategorybigpost->thumbnail }}"
                                         alt="blog image"> <a
-                                        data-theme-color="{{ $category_colors[$thirdcatbigpost->category->id] }}"
+                                        data-theme-color="{{ $category_colors[$thirdcategorybigpost->category->id] }}"
                                         href="#" class="category">
                                         @if (session()->get('lang') == 'english')
-                                            {{ $thirdcatbigpost->category->category_name_en }}
+                                            {{ $thirdcategorybigpost->category->category_name_en }}
                                         @else
-                                            {{ $thirdcatbigpost->category->category_name_bn }}
+                                            {{ $thirdcategorybigpost->category->category_name_bn }}
                                         @endif
                                     </a>
                                 </div>
                                 <h3 class="box-title-30"><a class="hover-line" href="#">
                                         @if (session()->get('lang') == 'english')
-                                            {{ $thirdcatbigpost->title_en }}
+                                            {{ Str::limit($thirdcategorybigpost->title_en, 100, '') }}
                                         @else
-                                            {{ $thirdcatbigpost->title_bn }}
+                                            {{ Str::limit($thirdcategorybigpost->title_bn, 100, '') }}
                                         @endif
                                     </a>
                                 </h3>
                                 <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
-                                        {{ $thirdcatbigpost->user->name }}</a> <a href="#"><i
-                                            class="fal fa-calendar-days"></i>{{ $thirdcatbigpost->created_at->format('d M, Y') }}</a>
+                                        {{ $thirdcategorybigpost->user->name }}</a> <a href="#"><i
+                                            class="fal fa-calendar-days"></i>{{ $thirdcategorybigpost->created_at->format('d M, Y') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -594,26 +491,7 @@
 
                     <div class="col-xl-6">
                         <div class="row gy-4">
-                            @php
-
-                                $thirdcatsmallpost = App\Models\Post::where('status', 1)
-                                    ->where('category_id', $thirdcategory->id)
-                                    ->where('bigthumbnail', 0)
-                                    ->latest('id')
-                                    ->select(
-                                        'id',
-                                        'category_id',
-                                        'user_id',
-                                        'title_en',
-                                        'title_bn',
-                                        'thumbnail',
-                                        'created_at',
-                                    )
-                                    ->limit(4)
-                                    ->get();
-
-                            @endphp
-                            @foreach ($thirdcatsmallpost as $thirdsmallpost)
+                            @foreach ($thirdcategorysmallpost as $thirdsmallpost)
                                 <div class="col-xl-6 col-sm-6 border-blog two-column">
                                     <div class="blog-style1">
                                         <div class="blog-img"><img
@@ -630,9 +508,9 @@
                                         </div>
                                         <h3 class="box-title-22"><a class="hover-line" href="#">
                                                 @if (session()->get('lang') == 'english')
-                                                    {{ $thirdsmallpost->title_en }}
+                                                    {{ Str::limit($thirdsmallpost->title_en, 50, '') }}
                                                 @else
-                                                    {{ $thirdsmallpost->title_bn }}
+                                                    {{ Str::limit($thirdsmallpost->title_bn, 50, '') }}
                                                 @endif
                                             </a>
                                         </h3>
@@ -643,40 +521,24 @@
                                     </div>
                                 </div>
                             @endforeach
-
-
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
-
-
-
+    {{-- third category end --}}
 
     <div class="container"><a href="https://themeforest.net/user/themeholy/portfolio"><img
                 src="{{ asset('assets/frontend') }}/img/ads/ads_1.jpg" alt="ads" class="w-100"></a></div>
 
 
-
-
-
+    {{-- forth category start --}}
     <section class="space">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <h2 class="sec-title has-line">
-                        @php
-                            $forthcategory = App\Models\Category::where('status', 1)
-                                ->select('id', 'category_name_en', 'category_name_bn')
-                                ->skip(3)
-                                ->first();
-                        @endphp
                         @if (session()->get('lang') == 'english')
                             {{ $forthcategory->category_name_en }}
                         @else
@@ -699,122 +561,107 @@
                 </div>
                 <div class="col-12">
                     <div class="row gy-4">
-                        @php
-
-                            $forthcatsmallpost = App\Models\Post::where('status', 1)
-                                ->where('category_id', $forthcategory->id)
-                                ->where('bigthumbnail', 0)
-                                ->latest('id')
-                                ->select(
-                                    'id',
-                                    'category_id',
-                                    'user_id',
-                                    'title_en',
-                                    'title_bn',
-                                    'thumbnail',
-                                    'created_at',
-                                )
-                                ->limit(4)
-                                ->get();
-
-                        @endphp
-                        @foreach ($forthcatsmallpost as $forthsmallpost)
+                        @foreach ($forthcategorypost as $forthcatpost)
                             <div class="col-sm-6 col-xl-4">
                                 <div class="blog-style1">
                                     <div class="blog-img"><img
-                                            src="{{ asset('uploads/thumbnail') }}/{{ $forthsmallpost->thumbnail }}"
+                                            src="{{ asset('uploads/thumbnail') }}/{{ $forthcatpost->thumbnail }}"
                                             alt="blog image"> <a
-                                            data-theme-color="{{ $category_colors[$forthsmallpost->category->id] }}"
+                                            data-theme-color="{{ $category_colors[$forthcatpost->category->id] }}"
                                             href="#" class="category">
                                             @if (session()->get('lang') == 'english')
-                                                {{ $forthsmallpost->category->category_name_en }}
+                                                {{ $forthcatpost->category->category_name_en }}
                                             @else
-                                                {{ $forthsmallpost->category->category_name_bn }}
+                                                {{ $forthcatpost->category->category_name_bn }}
                                             @endif
                                         </a></div>
                                     <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">
                                             @if (session()->get('lang') == 'english')
-                                                {{ $forthsmallpost->title_en }}
+                                                {{ Str::limit($forthcatpost->title_en, 50, '') }}
                                             @else
-                                                {{ $forthsmallpost->title_bn }}
+                                                {{ Str::limit($forthcatpost->title_bn, 50, '') }}
                                             @endif
                                         </a></h3>
                                     <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
-                                            {{ $forthsmallpost->user->name }}</a> <a href="blog.html"><i
-                                                class="fal fa-calendar-days"></i>{{ $forthsmallpost->created_at->format('d M, Y') }}</a>
+                                            {{ $forthcatpost->user->name }}</a> <a href="blog.html"><i
+                                                class="fal fa-calendar-days"></i>{{ $forthcatpost->created_at->format('d M, Y') }}</a>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
+    {{-- forth category end --}}
 
+    {{-- fifth category start --}}
+    <section class="space">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h2 class="sec-title has-line">
+                        @if (session()->get('lang') == 'english')
+                            {{ $fifthcategory->category_name_en }}
+                        @else
+                            {{ $fifthcategory->category_name_bn }}
+                        @endif
+                    </h2>
+                </div>
+                <div class="col-auto">
+                    <div class="sec-btn">
+                        <div class="icon-box"><button data-slick-prev="#blog-slide1" class="slick-arrow default"><i
+                                    class="far fa-arrow-left"></i></button> <button data-slick-next="#blog-slide1"
+                                class="slick-arrow default"><i class="far fa-arrow-right"></i></button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row th-carousel" id="blog-slide1" data-slide-show="4" data-lg-slide-show="3"
+                data-md-slide-show="2" data-sm-slide-show="2">
+                @foreach ($fifthcategorypost as $fifthcatpost)
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="blog-style1">
+                            <div class="blog-img"><img
+                                    src="{{ asset('uploads/thumbnail') }}/{{ $fifthcatpost->thumbnail }}"
+                                    alt="blog image">
+                                <a data-theme-color="{{ $category_colors[$fifthcatpost->category->id] }}" href="#"
+                                    class="category">
+                                    @if (session()->get('lang') == 'english')
+                                        {{ $fifthcatpost->category->category_name_en }}
+                                    @else
+                                        {{ $fifthcatpost->category->category_name_bn }}
+                                    @endif
+                                </a>
+                            </div>
+                            <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">
+                                    @if (session()->get('lang') == 'english')
+                                        {{ Str::limit($fifthcatpost->title_en, 50, '') }}
+                                    @else
+                                        {{ Str::limit($fifthcatpost->title_bn, 50, '') }}
+                                    @endif
+                                </a>
+                            </h3>
+                            <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
+                                    {{ $fifthcatpost->user->name }}</a> <a href="#"><i
+                                        class="fal fa-calendar-days"></i>{{ $fifthcatpost->created_at->format('d M, Y') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    {{-- fifth category end --}}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    {{-- sixth category start --}}
     <section class="space">
         <div class="container">
             <div class="row">
                 <div class="col-xl-9">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h2 class="sec-title has-line"> @php
-                                $sixthcategory = App\Models\Category::where('status', 1)
-                                    ->select('id', 'category_name_en', 'category_name_bn')
-                                    ->skip(5)
-                                    ->first();
-                            @endphp
+                            <h2 class="sec-title has-line">
                                 @if (session()->get('lang') == 'english')
                                     {{ $sixthcategory->category_name_en }}
                                 @else
@@ -836,109 +683,46 @@
                         </div>
                     </div>
                     <div class="filter-active">
-                        @php
-
-                            $sixthcatsmallpost = App\Models\Post::where('status', 1)
-                                ->where('category_id', $sixthcategory->id)
-                                ->latest('id')
-                                ->select(
-                                    'id',
-                                    'category_id',
-                                    'user_id',
-                                    'title_en',
-                                    'title_bn',
-                                    'thumbnail',
-                                    'details_en',
-                                    'details_bn',
-                                    'created_at',
-                                )
-                                ->limit(4)
-                                ->get();
-
-                        @endphp
-                        @foreach ($sixthcatsmallpost as $sixthPost)
+                        @foreach ($sixthcategorypost as $sixthpost)
                             <div class="border-blog2 filter-item cat1">
                                 <div class="blog-style4">
                                     <div class="blog-img"><img
-                                            src="{{ asset('uploads/thumbnail') }}/{{ $sixthPost->thumbnail }}"
+                                            src="{{ asset('uploads/thumbnail') }}/{{ $sixthpost->thumbnail }}"
                                             alt="blog image">
                                     </div>
                                     <div class="blog-content"><a
-                                            data-theme-color="{{ $category_colors[$sixthPost->category->id] }}"
+                                            data-theme-color="{{ $category_colors[$sixthpost->category->id] }}"
                                             href="#" class="category">
                                             @if (session()->get('lang') == 'english')
-                                                {{ $sixthPost->category->category_name_en }}
+                                                {{ $sixthpost->category->category_name_en }}
                                             @else
-                                                {{ $sixthPost->category->category_name_bn }}
+                                                {{ $sixthpost->category->category_name_bn }}
                                             @endif
                                         </a>
                                         <h3 class="box-title-24"><a class="hover-line" href="#">
                                                 @if (session()->get('lang') == 'english')
-                                                    {{ $sixthPost->title_en }}
+                                                    {{ $sixthpost->title_en }}
                                                 @else
-                                                    {{ $sixthPost->title_bn }}
+                                                    {{ $sixthpost->title_bn }}
                                                 @endif
                                             </a></h3>
                                         <p class="blog-text">
                                             @if (session()->get('lang') == 'english')
-                                                {!! Str::limit($sixthPost->details_en, 100, '...') !!}
+                                                {!! Str::limit($sixthpost->details_en, 200, '') !!}
                                             @else
-                                                {!! Str::limit($sixthPost->details_bn, 100, '...') !!}
+                                                {!! Str::limit($sixthpost->details_bn, 200, '') !!}
                                             @endif
                                         </p>
                                         <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                                {{ $sixthPost->user->name }}</a> <a href="blog.html"><i
-                                                    class="fal fa-calendar-days"></i>{{ $sixthPost->created_at->format('d M, Y') }}</a>
+                                                {{ $sixthpost->user->name }}</a> <a href="blog.html"><i
+                                                    class="fal fa-calendar-days"></i>{{ $sixthpost->created_at->format('d M, Y') }}</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-
-
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 <div class="col-xl-3 mt-35 mt-xl-0 mb-10 sidebar-wrap">
                     <div class="sidebar-area">
@@ -960,129 +744,95 @@
                                 {!! $liveTV->embed_code !!}
                             </div>
                         @endif
-                        <div class="widget mb-30">
-                            <div class="widget-ads"><a href="https://themeforest.net/user/themeholy/portfolio"><img
-                                        class="w-100" src="{{ asset('assets/frontend') }}/img/ads/siderbar_ads_1.jpg"
-                                        alt="ads"></a>
+
+                        @if ($prayerTime->active == 1)
+                            <div class="widget mb-30">
+                                @if (session()->get('lang') == 'english')
+                                    <div class="text-center text-white py-1 text-bold mb-1"
+                                        style="background-color: #FF1D50; font-weight: 600">Prayer Time</div>
+                                @else
+                                    <div class="text-center text-white py-1 text-bold mb-1"
+                                        style="background-color: #FF1D50; font-weight: 600">নামাজের সময়সুচি</div>
+                                @endif
+                                <table>
+                                    <tr>
+                                        <th>
+                                            @if (session()->get('lang') == 'english')
+                                                Fajr
+                                            @else
+                                                ফজর
+                                            @endif
+                                        </th>
+                                        <td>{{ $prayerTime->fajr }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @if (session()->get('lang') == 'english')
+                                                Dhuhr
+                                            @else
+                                                যোহর
+                                            @endif
+                                        </th>
+                                        <td>{{ $prayerTime->dhuhr }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @if (session()->get('lang') == 'english')
+                                                Asr
+                                            @else
+                                                আসর
+                                            @endif
+                                        </th>
+                                        <td>{{ $prayerTime->asr }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @if (session()->get('lang') == 'english')
+                                                Maghrib
+                                            @else
+                                                মাগরিব
+                                            @endif
+                                        </th>
+                                        <td>{{ $prayerTime->maghrib }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @if (session()->get('lang') == 'english')
+                                                Isha'a
+                                            @else
+                                                ইশা
+                                            @endif
+                                        </th>
+                                        <td>{{ $prayerTime->isha_a }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @if (session()->get('lang') == 'english')
+                                                Jumu'ah
+                                            @else
+                                                জুমা
+                                            @endif
+                                        </th>
+                                        <td>{{ $prayerTime->jumu_ah }}</td>
+                                    </tr>
+                                </table>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <section class="space">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col">
-                    <h2 class="sec-title has-line">
-                        @php
-                            $fifthcategory = App\Models\Category::where('status', 1)
-                                ->select('id', 'category_name_en', 'category_name_bn')
-                                ->skip(4)
-                                ->first();
-                        @endphp
-                        @if (session()->get('lang') == 'english')
-                            {{ $fifthcategory->category_name_en }}
-                        @else
-                            {{ $fifthcategory->category_name_bn }}
                         @endif
-                    </h2>
-                </div>
-                <div class="col-auto">
-                    <div class="sec-btn">
-                        <div class="icon-box"><button data-slick-prev="#blog-slide1" class="slick-arrow default"><i
-                                    class="far fa-arrow-left"></i></button> <button data-slick-next="#blog-slide1"
-                                class="slick-arrow default"><i class="far fa-arrow-right"></i></button></div>
                     </div>
                 </div>
             </div>
-            <div class="row th-carousel" id="blog-slide1" data-slide-show="4" data-lg-slide-show="3"
-                data-md-slide-show="2" data-sm-slide-show="2">
-
-                @php
-
-                    $fifthcatpost = App\Models\Post::where('status', 1)
-                        ->where('category_id', $fifthcategory->id)
-                        ->latest('id')
-                        ->select('id', 'category_id', 'user_id', 'title_en', 'title_bn', 'thumbnail', 'created_at')
-                        ->limit(7)
-                        ->get();
-
-                @endphp
-
-                @foreach ($fifthcatpost as $fifthpost)
-                    <div class="col-sm-6 col-xl-4">
-                        <div class="blog-style1">
-                            <div class="blog-img"><img
-                                    src="{{ asset('uploads/thumbnail') }}/{{ $fifthpost->thumbnail }}"
-                                    alt="blog image"> <a
-                                    data-theme-color="{{ $category_colors[$fifthpost->category->id] }}" href="#"
-                                    class="category">
-                                    @if (session()->get('lang') == 'english')
-                                        {{ $fifthpost->category->category_name_en }}
-                                    @else
-                                        {{ $fifthpost->category->category_name_bn }}
-                                    @endif
-                                </a></div>
-                            <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">
-                                    @if (session()->get('lang') == 'english')
-                                        {{ $fifthpost->title_en }}
-                                    @else
-                                        {{ $fifthpost->title_bn }}
-                                    @endif
-                                </a>
-                            </h3>
-                            <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
-                                    {{ $fifthpost->user->name }}</a> <a href="#"><i
-                                        class="fal fa-calendar-days"></i>{{ $fifthpost->created_at->format('d M, Y') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-
-
-            </div>
-        </div>
     </section>
+    {{-- sixth category end --}}
 
+    <div class="container"><a href="https://themeforest.net/user/themeholy/portfolio"><img
+                src="{{ asset('assets/frontend') }}/img/ads/ads_1.jpg" alt="ads" class="w-100"></a></div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+    {{-- seventh category start --}}
     <section class="space">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col">
                     <h2 class="sec-title has-line">
-                        @php
-                            $seventhcategory = App\Models\Category::where('status', 1)
-                                ->select('id', 'category_name_en', 'category_name_bn')
-                                ->skip(6)
-                                ->first();
-                        @endphp
                         @if (session()->get('lang') == 'english')
                             {{ $seventhcategory->category_name_en }}
                         @else
@@ -1104,101 +854,42 @@
                 </div>
             </div>
             <div class="row gy-30 filter-active" style="position: relative; height: 720px;">
-                @php
 
-                    $seventhcatpost = App\Models\Post::where('status', 1)
-                        ->where('category_id', $seventhcategory->id)
-                        ->latest('id')
-                        ->select('id', 'category_id', 'user_id', 'title_en', 'title_bn', 'thumbnail', 'created_at')
-                        ->limit(7)
-                        ->get();
-
-                @endphp
-
-                @foreach ($seventhcatpost as $seventhpost)
+                @foreach ($seventhcategorypost as $seventcathpost)
                     <div class="col-lg-6 two-column filter-item cat1" style="position: absolute; left: 0px; top: 0px;">
                         <div class="blog-style4">
                             <div class="blog-img"><img
-                                    src="{{ asset('uploads/thumbnail') }}/{{ $seventhpost->thumbnail }}"
+                                    src="{{ asset('uploads/thumbnail') }}/{{ $seventcathpost->thumbnail }}"
                                     alt="blog image"></div>
                             <div class="blog-content"><a href="#" class="category"
-                                    style="--theme-color:{{ $category_colors[$seventhpost->category->id] }} ;">
+                                    style="--theme-color:{{ $category_colors[$seventcathpost->category->id] }} ;">
                                     @if (session()->get('lang') == 'english')
-                                        {{ $seventhpost->category->category_name_en }}
+                                        {{ $seventcathpost->category->category_name_en }}
                                     @else
-                                        {{ $seventhpost->category->category_name_bn }}
+                                        {{ $seventcathpost->category->category_name_bn }}
                                     @endif
                                 </a>
                                 <h3 class="box-title-22"><a class="hover-line" href="#">
                                         @if (session()->get('lang') == 'english')
-                                            {{ $seventhpost->title_en }}
+                                            {{ Str::limit($seventcathpost->title_en, 50, '') }}
                                         @else
-                                            {{ $seventhpost->title_bn }}
+                                            {{ Str::limit($seventcathpost->title_bn, 50, '') }}
                                         @endif
                                     </a></h3>
                                 <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                        {{ $seventhpost->user->name }}</a> <a href="#"><i
-                                            class="fal fa-calendar-days"></i>{{ $seventhpost->created_at->format('d M, Y') }}</a>
+                                        {{ $seventcathpost->user->name }}</a> <a href="#"><i
+                                            class="fal fa-calendar-days"></i>{{ $seventcathpost->created_at->format('d M, Y') }}</a>
                                 </div><a href="#" class="th-btn style2">Read More</a>
                             </div>
                         </div>
                     </div>
                 @endforeach
-
             </div>
         </div>
     </section>
+    {{-- seventh category end --}}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    {{-- video gallery start --}}
     <div class="space dark-theme bg-title-dark">
         <div class="container">
             <h2 class="sec-title has-line">
@@ -1211,15 +902,6 @@
             <div class="row">
                 <div class="col-xl-4 col-lg-2">
                     <div class="blog-tab" data-asnavfor=".blog-tab-slide">
-                        @php
-
-                            $videos = App\Models\Video::where('status', 1)
-                                ->latest('id')
-                                ->select('id', 'title_en', 'title_bn', 'title_en', 'thumbnail', 'created_at')
-                                ->limit(4)
-                                ->get();
-
-                        @endphp
                         @foreach ($videos as $video)
                             <div class="tab-btn active">
                                 <div class="blog-style2">
@@ -1233,9 +915,9 @@
                                     <div class="blog-content">
                                         <h3 class="box-title-20"><a class="hover-line" href="#">
                                                 @if (session()->get('lang') == 'english')
-                                                    {{ $video->title_en }}
+                                                    {{ Str::limit($video->title_en, 50, '') }}
                                                 @else
-                                                    {{ $video->title_bn }}
+                                                    {{ Str::limit($video->title_bn, 50, '') }}
                                                 @endif
                                             </a>
                                         </h3>
@@ -1262,64 +944,25 @@
                                             class="play-btn popup-video"><i class="fas fa-play"></i></a></div>
                                     <h3 class="box-title-30"><a class="hover-line" href="#">
                                             @if (session()->get('lang') == 'english')
-                                                {{ $video->title_en }}
+                                                {{ Str::limit($video->title_en, 200, '') }}
                                             @else
-                                                {{ $video->title_bn }}
+                                                {{ Str::limit($video->title_bn, 200, '') }}
                                             @endif
                                         </a></h3>
-                                    <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By
-                                            - </a> <a href="blog.html"><i
+                                    <div class="blog-meta"></a> <a href="#"><i
                                                 class="fal fa-calendar-days"></i>{{ $video->created_at->format('d M, Y') }}</a>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {{-- video gallery end --}}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    {{-- all countries start --}}
     <section class="space">
         <div class="container">
             <div class="row align-items-center">
@@ -1347,35 +990,7 @@
             </div>
             <div class="row gy-24 filter-active mbn-24" style="position: relative; height: 447.15px;">
 
-                <div class="col-xl-4 col-md-6 filter-item cat1" style="position: absolute; left: 0px; top: 0px;">
-                    <div class="blog-style3 dark-theme">
-                        <div class="blog-img"><img
-                                src="{{ asset('uploads/thumbnail') }}/{{ $countriesBig->thumbnail }}"
-                                alt="blog image"></div>
-                        <div class="blog-content"><a href="#" class="category"
-                                style="--theme-color: {{ $category_colors[$countriesBig->category->id] }};">
-                                @if (session()->get('lang') == 'english')
-                                    {{ $countriesBig->category->category_name_en }}
-                                @else
-                                    {{ $countriesBig->category->category_name_bn }}
-                                @endif
-                            </a>
-                            <h3 class="box-title-24"><a class="hover-line" href="#">
-                                    @if (session()->get('lang') == 'english')
-                                        {{ $countriesBig->title_en }}
-                                    @else
-                                        {{ $countriesBig->title_bn }}
-                                    @endif
-                                </a></h3>
-                            <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
-                                    {{ $countriesBig->user->name }}</a> <a href="#"><i
-                                        class="fal fa-calendar-days"></i>{{ $countriesBig->created_at->format('d M, Y') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                @foreach ($countriesSmall as $countrySmall)
+                @foreach ($allcountries as $countrySmall)
                     <div class="col-xl-4 col-md-6 filter-item cat1"
                         style="position: absolute; left: 424.667px; top: 0px;">
                         <div class="blog-style2">
@@ -1392,9 +1007,9 @@
                                 </a>
                                 <h3 class="box-title-20"><a class="hover-line" href="#">
                                         @if (session()->get('lang') == 'english')
-                                            {{ $countrySmall->title_en }}
+                                            {{ Str::limit($countrySmall->title_en, 50, '') }}
                                         @else
-                                            {{ $countrySmall->title_bn }}
+                                            {{ Str::limit($countrySmall->title_bn, 50, '') }}
                                         @endif
                                     </a></h3>
                                 <div class="blog-meta"><a href="#"><i
@@ -1408,6 +1023,8 @@
             </div>
         </div>
     </section>
+    {{-- all countries end --}}
+
 
 @endsection
 @push('script')
