@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\SubCategory;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Image;
 
 class PostController extends Controller
@@ -46,10 +47,10 @@ class PostController extends Controller
             'title_english' => 'required|string|max:255',
             'title_bangla' => 'required|string|max:255',
             'thumbnail' => 'required|mimes:jpg,jpeg,png|max:10240',
-            'tags_bangla' => 'required|string|max:255',
-            'tags_english' => 'required|string|max:255',
-            'details_english' => 'required|string|max:10000',
-            'details_bangla' => 'required|string|max:10000',
+            'tags_bangla' => 'required|string|max:50',
+            'tags_english' => 'required|string|max:50',
+            'details_english' => 'required|string',
+            'details_bangla' => 'required|string',
         ]);
 
         $post = Post::create([
@@ -59,7 +60,9 @@ class PostController extends Controller
             'district_id' => $request->district_name,
             'user_id' => auth()->user()->id,
             'title_en' => $request->title_english,
+            'title_slug_en' => Str::slug($request->title_english),
             'title_bn' => $request->title_bangla,
+            'title_slug_bn' => preg_replace('/\s+/u', '-', trim($request->title_bangla)),
             'details_en' => $request->details_english,
             'details_bn' => $request->details_bangla,
             'tags_en' => $request->tags_english,
@@ -109,10 +112,10 @@ class PostController extends Controller
             'title_english' => 'required|string|max:255',
             'title_bangla' => 'required|string|max:255',
             'thumbnail' => 'nullable|mimes:jpg,jpeg,png|max:10240',
-            'tags_bangla' => 'required|string|max:255',
-            'tags_english' => 'required|string|max:255',
-            'details_english' => 'required|string|max:10000',
-            'details_bangla' => 'required|string|max:10000',
+            'tags_bangla' => 'required|string|max:50',
+            'tags_english' => 'required|string|max:50',
+            'details_english' => 'required|string',
+            'details_bangla' => 'required|string',
         ]);
         $post = Post::findOrFail($id);
         $post->update([
@@ -122,7 +125,9 @@ class PostController extends Controller
             'district_id' => $request->district_name,
             'user_id' => auth()->user()->id,
             'title_en' => $request->title_english,
+            'title_slug_en' => Str::slug($request->title_english),
             'title_bn' => $request->title_bangla,
+            'title_slug_bn' => preg_replace('/\s+/u', '-', trim($request->title_bangla)),
             'details_en' => $request->details_english,
             'details_bn' => $request->details_bangla,
             'tags_en' => $request->tags_english,
@@ -131,7 +136,6 @@ class PostController extends Controller
             'first_section' => filled($request->firstSection),
             'status' => filled($request->status),
             'first_section_thumbnail' => filled($request->generalBigThumbnail),
-
             'bigthumbnail' => filled($request->firstSectionBigThumbnail),
             'post_date' => date('Y'),
             'post_month' => date('M'),
@@ -185,7 +189,7 @@ class PostController extends Controller
             $uploaded_photo = $request->file('thumbnail');
             $new_photo_name = time() . '.' . $uploaded_photo->getClientOriginalExtension();
             $new_photo_location = $photo_loation . $new_photo_name;
-            Image::make($uploaded_photo)->resize(500, 310)->save(base_path($new_photo_location));
+            Image::make($uploaded_photo)->resize(896, 500)->save(base_path($new_photo_location));
             $check = $post->update([
                 'thumbnail' => $new_photo_name,
             ]);

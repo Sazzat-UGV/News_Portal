@@ -55,13 +55,18 @@
                         </div>
                     </div>
                 </div>
-
-
-
                 @php
                     $recentfooternews = App\Models\Post::where('status', 1)
                         ->latest('id')
-                        ->select('id', 'title_en', 'title_bn', 'thumbnail', 'created_at')
+                        ->select(
+                            'id',
+                            'title_en',
+                            'title_bn',
+                            'thumbnail',
+                            'created_at',
+                            'title_slug_en',
+                            'title_slug_bn',
+                        )
                         ->limit(2)
                         ->get();
                 @endphp
@@ -82,7 +87,12 @@
                                                 alt="Blog Image"></a>
                                     </div>
                                     <div class="media-body">
-                                        <h4 class="post-title"><a class="hover-line" href="#">
+                                        <h4 class="post-title"><a class="hover-line"
+                                                href="
+
+                                            @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $footer_news->title_slug_en]) }}
+                                            @else
+                                            {{ route('post.detail', ['slug' => $footer_news->title_slug_bn]) }} @endif">
                                                 @if (session()->get('lang') == 'english')
                                                     {{ Str::limit($footer_news->title_en, 60, '') }}
                                                 @else

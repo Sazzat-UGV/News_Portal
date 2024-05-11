@@ -104,10 +104,10 @@
                                 <div class="blog-style3">
                                     <div class="blog-img"><img
                                             src="{{ asset('uploads/thumbnail') }}/{{ $first_section->thumbnail }}"
-                                            alt="blog image">
+                                            alt="news image">
                                     </div>
                                     <div class="blog-content"><a
-                                            data-theme-color=" {{ $category_colors[$first_section->category->id] }}"
+                                            data-theme-color="{{ $category_colors[$first_section->category->id] }}"
                                             href="#" class="category">
                                             @if (session()->get('lang') == 'english')
                                                 {{ $first_section->category->category_name_en }}
@@ -115,7 +115,12 @@
                                                 {{ $first_section->category->category_name_bn }}
                                             @endif
                                         </a>
-                                        <h3 class="box-title-22"><a class="hover-line" href="#">
+                                        <h3 class="box-title-22"><a class="hover-line"
+                                                href="
+
+                                            @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $first_section->title_slug_en]) }}
+                                            @else
+                                            {{ route('post.detail', ['slug' => $first_section->title_slug_bn]) }} @endif">
                                                 @if (session()->get('lang') == 'english')
                                                     {{ Str::limit($first_section->title_en, 40, '') }}
                                                 @else
@@ -140,7 +145,7 @@
                         <div class="blog-style3">
                             <div class="blog-img"><img
                                     src="{{ asset('uploads/thumbnail') }}/{{ $firstSectionBigThumbnail->thumbnail }}"
-                                    alt="blog image"></div>
+                                    alt="news image"></div>
                             <div class="blog-content"><a
                                     data-theme-color=" {{ $category_colors[$firstSectionBigThumbnail->category->id] }}"
                                     href="#" class="category">
@@ -150,7 +155,12 @@
                                         {{ $firstSectionBigThumbnail->category->category_name_bn }}
                                     @endif
                                 </a>
-                                <h3 class="box-title-30"><a class="hover-line" href="#">
+                                <h3 class="box-title-30"><a class="hover-line"
+                                        href="
+
+                                    @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $firstSectionBigThumbnail->title_slug_en]) }}
+                                    @else
+                                    {{ route('post.detail', ['slug' => $firstSectionBigThumbnail->title_slug_bn]) }} @endif">
                                         @if (session()->get('lang') == 'english')
                                             {{ $firstSectionBigThumbnail->title_en }}
                                         @else
@@ -197,14 +207,19 @@
                                                     alt="#"></div>
                                             <div class="blog-content"><a
                                                     data-theme-color="{{ $category_colors[$favourite->category->id] }}"
-                                                    href="blog.html" class="category">
+                                                    href="#" class="category">
                                                     @if (session()->get('lang') == 'english')
                                                         {{ $favourite->category->category_name_en }}
                                                     @else
                                                         {{ $favourite->category->category_name_bn }}
                                                     @endif
                                                 </a>
-                                                <h3 class="box-title-18"><a class="hover-line" href="#">
+                                                <h3 class="box-title-18"><a class="hover-line"
+                                                        href="
+
+                                                    @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $favourite->title_slug_en]) }}
+                                                    @else
+                                                    {{ route('post.detail', ['slug' => $favourite->title_slug_bn]) }} @endif">
                                                         @if (session()->get('lang') == 'english')
                                                             {{ Str::limit($favourite->title_en, 50, ' ') }}
                                                         @else
@@ -241,7 +256,10 @@
                                                         {{ $recent->category->category_name_bn }}
                                                     @endif
                                                 </a>
-                                                <h3 class="box-title-18"><a class="hover-line" href="#">
+                                                <h3 class="box-title-18"><a class="hover-line"
+                                                        href="@if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $recent->title_slug_en]) }}
+                                                    @else
+                                                    {{ route('post.detail', ['slug' => $recent->title_slug_bn]) }} @endif">
                                                         @if (session()->get('lang') == 'english')
                                                             {{ Str::limit($recent->title_en, 50, '') }}
                                                         @else
@@ -298,7 +316,7 @@
 
                                 <div class="blog-img"><img
                                         src="{{ asset('uploads/thumbnail') }}/{{ $firstcategorybigpost->thumbnail }}"
-                                        alt="blog image"> <a
+                                        alt="news image"> <a
                                         data-theme-color="{{ $category_colors[$firstcategorybigpost->category->id] }}"
                                         href="#" class="category">
                                         @if (session()->get('lang') == 'english')
@@ -308,7 +326,12 @@
                                         @endif
                                     </a>
                                 </div>
-                                <h3 class="box-title-30"><a class="hover-line" href="#">
+                                <h3 class="box-title-30"><a class="hover-line"
+                                        href="
+
+                                    @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $firstcategorybigpost->title_slug_en]) }}
+                                    @else
+                                    {{ route('post.detail', ['slug' => $firstcategorybigpost->title_slug_bn]) }} @endif">
                                         @if (session()->get('lang') == 'english')
                                             {{ Str::limit($firstcategorybigpost->title_en, 100, '') }}
                                         @else
@@ -331,7 +354,7 @@
                                     <div class="blog-style1">
                                         <div class="blog-img"><img
                                                 src="{{ asset('uploads/thumbnail') }}/{{ $firstsmallpost->thumbnail }}"
-                                                alt="blog image"> <a
+                                                alt="news image"> <a
                                                 data-theme-color="{{ $category_colors[$firstsmallpost->category->id] }}"
                                                 href="#" class="category">
                                                 @if (session()->get('lang') == 'english')
@@ -341,7 +364,12 @@
                                                 @endif
                                             </a>
                                         </div>
-                                        <h3 class="box-title-22"><a class="hover-line" href="#">
+                                        <h3 class="box-title-22"><a class="hover-line"
+                                                href="
+
+                                            @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $firstsmallpost->title_slug_en]) }}
+                                            @else
+                                            {{ route('post.detail', ['slug' => $firstsmallpost->title_slug_bn]) }} @endif">
                                                 @if (session()->get('lang') == 'english')
                                                     {{ Str::limit($firstsmallpost->title_en, 50, '') }}
                                                 @else
@@ -349,7 +377,7 @@
                                                 @endif
                                             </a>
                                         </h3>
-                                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
+                                        <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
                                                 {{ $firstsmallpost->user->name }}</a> <a href="#"><i
                                                     class="fal fa-calendar-days"></i>{{ $firstsmallpost->created_at->format('d M, Y') }}</a>
                                         </div>
@@ -399,7 +427,7 @@
                                 <div class="blog-style1">
                                     <div class="blog-img"><img
                                             src="{{ asset('uploads/thumbnail') }}/{{ $secondcatpost->thumbnail }}"
-                                            alt="blog image"> <a
+                                            alt="news image"> <a
                                             data-theme-color="{{ $category_colors[$secondcatpost->category->id] }}"
                                             href="#" class="category">
                                             @if (session()->get('lang') == 'english')
@@ -408,7 +436,12 @@
                                                 {{ $secondcatpost->category->category_name_bn }}
                                             @endif
                                         </a></div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">
+                                    <h3 class="box-title-22"><a class="hover-line"
+                                            href="
+
+                                        @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $secondcatpost->title_slug_en]) }}
+                                        @else
+                                        {{ route('post.detail', ['slug' => $secondcatpost->title_slug_bn]) }} @endif">
                                             @if (session()->get('lang') == 'english')
                                                 {{ Str::limit($secondcatpost->title_en, 100, '') }}
                                             @else
@@ -416,7 +449,7 @@
                                             @endif
                                         </a></h3>
                                     <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
-                                            {{ $secondcatpost->user->name }}</a> <a href="blog.html"><i
+                                            {{ $secondcatpost->user->name }}</a> <a href="#"><i
                                                 class="fal fa-calendar-days"></i>{{ $secondcatpost->created_at->format('d M, Y') }}</a>
                                     </div>
                                 </div>
@@ -463,7 +496,7 @@
                             <div class="blog-style1 style-big">
                                 <div class="blog-img"><img
                                         src="{{ asset('uploads/thumbnail') }}/{{ $thirdcategorybigpost->thumbnail }}"
-                                        alt="blog image"> <a
+                                        alt="news image"> <a
                                         data-theme-color="{{ $category_colors[$thirdcategorybigpost->category->id] }}"
                                         href="#" class="category">
                                         @if (session()->get('lang') == 'english')
@@ -473,7 +506,11 @@
                                         @endif
                                     </a>
                                 </div>
-                                <h3 class="box-title-30"><a class="hover-line" href="#">
+                                <h3 class="box-title-30"><a class="hover-line"
+                                        href="
+                                    @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $thirdcategorybigpost->title_slug_en]) }}
+                                    @else
+                                    {{ route('post.detail', ['slug' => $thirdcategorybigpost->title_slug_bn]) }} @endif">
                                         @if (session()->get('lang') == 'english')
                                             {{ Str::limit($thirdcategorybigpost->title_en, 100, '') }}
                                         @else
@@ -496,7 +533,7 @@
                                     <div class="blog-style1">
                                         <div class="blog-img"><img
                                                 src="{{ asset('uploads/thumbnail') }}/{{ $thirdsmallpost->thumbnail }}"
-                                                alt="blog image"> <a
+                                                alt="news image"> <a
                                                 data-theme-color="{{ $category_colors[$thirdsmallpost->category->id] }}"
                                                 href="#" class="category">
                                                 @if (session()->get('lang') == 'english')
@@ -506,7 +543,10 @@
                                                 @endif
                                             </a>
                                         </div>
-                                        <h3 class="box-title-22"><a class="hover-line" href="#">
+                                        <h3 class="box-title-22"><a class="hover-line"
+                                                href="@if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $thirdsmallpost->title_slug_en]) }}
+                                            @else
+                                            {{ route('post.detail', ['slug' => $thirdsmallpost->title_slug_bn]) }} @endif">
                                                 @if (session()->get('lang') == 'english')
                                                     {{ Str::limit($thirdsmallpost->title_en, 50, '') }}
                                                 @else
@@ -514,7 +554,7 @@
                                                 @endif
                                             </a>
                                         </h3>
-                                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
+                                        <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
                                                 {{ $thirdsmallpost->user->name }}</a> <a href="#"><i
                                                     class="fal fa-calendar-days"></i>{{ $thirdsmallpost->created_at->format('d M, Y') }}</a>
                                         </div>
@@ -566,7 +606,7 @@
                                 <div class="blog-style1">
                                     <div class="blog-img"><img
                                             src="{{ asset('uploads/thumbnail') }}/{{ $forthcatpost->thumbnail }}"
-                                            alt="blog image"> <a
+                                            alt="news image"> <a
                                             data-theme-color="{{ $category_colors[$forthcatpost->category->id] }}"
                                             href="#" class="category">
                                             @if (session()->get('lang') == 'english')
@@ -575,7 +615,12 @@
                                                 {{ $forthcatpost->category->category_name_bn }}
                                             @endif
                                         </a></div>
-                                    <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">
+                                    <h3 class="box-title-22"><a class="hover-line"
+                                            href="
+
+                                        @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $forthcatpost->title_slug_en]) }}
+                                        @else
+                                        {{ route('post.detail', ['slug' => $forthcatpost->title_slug_bn]) }} @endif">
                                             @if (session()->get('lang') == 'english')
                                                 {{ Str::limit($forthcatpost->title_en, 50, '') }}
                                             @else
@@ -583,7 +628,7 @@
                                             @endif
                                         </a></h3>
                                     <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
-                                            {{ $forthcatpost->user->name }}</a> <a href="blog.html"><i
+                                            {{ $forthcatpost->user->name }}</a> <a href="#"><i
                                                 class="fal fa-calendar-days"></i>{{ $forthcatpost->created_at->format('d M, Y') }}</a>
                                     </div>
                                 </div>
@@ -624,7 +669,7 @@
                         <div class="blog-style1">
                             <div class="blog-img"><img
                                     src="{{ asset('uploads/thumbnail') }}/{{ $fifthcatpost->thumbnail }}"
-                                    alt="blog image">
+                                    alt="news image">
                                 <a data-theme-color="{{ $category_colors[$fifthcatpost->category->id] }}" href="#"
                                     class="category">
                                     @if (session()->get('lang') == 'english')
@@ -634,7 +679,12 @@
                                     @endif
                                 </a>
                             </div>
-                            <h3 class="box-title-22"><a class="hover-line" href="blog-details.html">
+                            <h3 class="box-title-22"><a class="hover-line"
+                                    href="
+
+                                @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $fifthcatpost->title_slug_en]) }}
+                                @else
+                                {{ route('post.detail', ['slug' => $fifthcatpost->title_slug_bn]) }} @endif">
                                     @if (session()->get('lang') == 'english')
                                         {{ Str::limit($fifthcatpost->title_en, 50, '') }}
                                     @else
@@ -688,7 +738,7 @@
                                 <div class="blog-style4">
                                     <div class="blog-img"><img
                                             src="{{ asset('uploads/thumbnail') }}/{{ $sixthpost->thumbnail }}"
-                                            alt="blog image">
+                                            alt="news image">
                                     </div>
                                     <div class="blog-content"><a
                                             data-theme-color="{{ $category_colors[$sixthpost->category->id] }}"
@@ -699,7 +749,12 @@
                                                 {{ $sixthpost->category->category_name_bn }}
                                             @endif
                                         </a>
-                                        <h3 class="box-title-24"><a class="hover-line" href="#">
+                                        <h3 class="box-title-24"><a class="hover-line"
+                                                href="
+
+                                            @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $sixthpost->title_slug_en]) }}
+                                            @else
+                                            {{ route('post.detail', ['slug' => $sixthpost->title_slug_bn]) }} @endif">
                                                 @if (session()->get('lang') == 'english')
                                                     {{ $sixthpost->title_en }}
                                                 @else
@@ -713,8 +768,8 @@
                                                 {!! Str::limit($sixthpost->details_bn, 200, '') !!}
                                             @endif
                                         </p>
-                                        <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
-                                                {{ $sixthpost->user->name }}</a> <a href="blog.html"><i
+                                        <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
+                                                {{ $sixthpost->user->name }}</a> <a href="#"><i
                                                     class="fal fa-calendar-days"></i>{{ $sixthpost->created_at->format('d M, Y') }}</a>
                                         </div>
                                     </div>
@@ -860,7 +915,7 @@
                         <div class="blog-style4">
                             <div class="blog-img"><img
                                     src="{{ asset('uploads/thumbnail') }}/{{ $seventcathpost->thumbnail }}"
-                                    alt="blog image"></div>
+                                    alt="news image"></div>
                             <div class="blog-content"><a href="#" class="category"
                                     style="--theme-color:{{ $category_colors[$seventcathpost->category->id] }} ;">
                                     @if (session()->get('lang') == 'english')
@@ -869,17 +924,33 @@
                                         {{ $seventcathpost->category->category_name_bn }}
                                     @endif
                                 </a>
-                                <h3 class="box-title-22"><a class="hover-line" href="#">
+                                <h3 class="box-title-22"><a class="hover-line"
+                                        href="
+
+                                    @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $seventcathpost->title_slug_en]) }}
+                                    @else
+                                    {{ route('post.detail', ['slug' => $seventcathpost->title_slug_bn]) }} @endif">
                                         @if (session()->get('lang') == 'english')
                                             {{ Str::limit($seventcathpost->title_en, 50, '') }}
                                         @else
                                             {{ Str::limit($seventcathpost->title_bn, 50, '') }}
                                         @endif
                                     </a></h3>
-                                <div class="blog-meta"><a href="author.html"><i class="far fa-user"></i>By -
+                                <div class="blog-meta"><a href="#"><i class="far fa-user"></i>By -
                                         {{ $seventcathpost->user->name }}</a> <a href="#"><i
                                             class="fal fa-calendar-days"></i>{{ $seventcathpost->created_at->format('d M, Y') }}</a>
-                                </div><a href="#" class="th-btn style2">Read More</a>
+                                </div><a
+                                    href="
+                                @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $seventcathpost->title_slug_en]) }}
+                                @else
+                                {{ route('post.detail', ['slug' => $seventcathpost->title_slug_bn]) }} @endif"
+                                    class="th-btn style2">
+                                    @if (session()->get('lang') == 'english')
+                                        Read More
+                                    @else
+                                        আরও পড়ুন
+                                    @endif
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -907,7 +978,7 @@
                                 <div class="blog-style2">
                                     <div class="blog-img img-100"><img
                                             src="{{ asset('uploads/video-gallery') }}/{{ $video->thumbnail }}"
-                                            alt="blog image">
+                                            alt="news image">
                                         <div class="icon"><i class="fal fa-waveform-lines"></i></div><a
                                             href="{{ $video->video_link }}" class="play-btn popup-video"><i
                                                 class="fas fa-play"></i></a>
@@ -940,7 +1011,7 @@
                                 <div class="blog-style8">
                                     <div class="blog-img"><img
                                             src="{{ asset('uploads/video-gallery') }}/{{ $video->thumbnail }}"
-                                            alt="blog image"> <a href="{{ $video->video_link }}"
+                                            alt="news image"> <a href="{{ $video->video_link }}"
                                             class="play-btn popup-video"><i class="fas fa-play"></i></a></div>
                                     <h3 class="box-title-30"><a class="hover-line" href="#">
                                             @if (session()->get('lang') == 'english')
@@ -990,30 +1061,35 @@
             </div>
             <div class="row gy-24 filter-active mbn-24" style="position: relative; height: 447.15px;">
 
-                @foreach ($allcountries as $countrySmall)
+                @foreach ($allcountries as $country)
                     <div class="col-xl-4 col-md-6 filter-item cat1"
                         style="position: absolute; left: 424.667px; top: 0px;">
                         <div class="blog-style2">
                             <div class="blog-img img-big"><img
-                                    src="{{ asset('uploads/thumbnail') }}/{{ $countrySmall->thumbnail }}"
-                                    alt="blog image"></div>
+                                    src="{{ asset('uploads/thumbnail') }}/{{ $country->thumbnail }}" alt="news image">
+                            </div>
                             <div class="blog-content"><a href="#" class="category"
-                                    style="--theme-color: {{ $category_colors[$countrySmall->category->id] }};">
+                                    style="--theme-color: {{ $category_colors[$country->category->id] }};">
                                     @if (session()->get('lang') == 'english')
-                                        {{ $countrySmall->category->category_name_en }}
+                                        {{ $country->category->category_name_en }}
                                     @else
-                                        {{ $countrySmall->category->category_name_bn }}
+                                        {{ $country->category->category_name_bn }}
                                     @endif
                                 </a>
-                                <h3 class="box-title-20"><a class="hover-line" href="#">
+                                <h3 class="box-title-20"><a class="hover-line"
+                                        href="
+
+                                    @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $country->title_slug_en]) }}
+                                    @else
+                                    {{ route('post.detail', ['slug' => $country->title_slug_bn]) }} @endif">
                                         @if (session()->get('lang') == 'english')
-                                            {{ Str::limit($countrySmall->title_en, 50, '') }}
+                                            {{ Str::limit($country->title_en, 50, '') }}
                                         @else
-                                            {{ Str::limit($countrySmall->title_bn, 50, '') }}
+                                            {{ Str::limit($country->title_bn, 50, '') }}
                                         @endif
                                     </a></h3>
                                 <div class="blog-meta"><a href="#"><i
-                                            class="fal fa-calendar-days"></i>{{ $countrySmall->created_at->format('d M, Y') }}</a>
+                                            class="fal fa-calendar-days"></i>{{ $country->created_at->format('d M, Y') }}</a>
                                 </div>
                             </div>
                         </div>
