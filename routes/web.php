@@ -15,6 +15,7 @@ use App\Http\Controllers\backend\PrayerTimeController;
 use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\backend\SubcategoryController;
 use App\Http\Controllers\backend\VideoGalleryController;
+use App\Http\Controllers\frontend\AllPostController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\LanguageController as FrontendLanguageController;
 use App\Http\Controllers\frontend\PostDetailsController;
@@ -31,6 +32,15 @@ Route::prefix('/')->group(function () {
 
     // post details route
     Route::get('details/{slug}', [PostDetailsController::class, 'postDetail'])->name('post.detail');
+
+    // category wise post route
+    Route::get('news/{slug}/all', [AllPostController::class, 'categoryAllPost'])->name('post.categoryAll');
+
+    // subcategory wise post route
+    Route::get('news/{category}/{subcategory}/all', [AllPostController::class, 'subCategoryAllPost'])->name('post.subCategoryAll');
+
+    // country post route
+    Route::get('country/news/all', [AllPostController::class, 'countryAllPost'])->name('post.countryAll');
 });
 
 Route::prefix('/admin')->group(function () {

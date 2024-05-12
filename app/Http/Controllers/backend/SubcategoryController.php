@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\SubCategory;
-use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class SubcategoryController extends Controller
 {
@@ -42,7 +43,9 @@ class SubcategoryController extends Controller
         SubCategory::create([
             'category_id' => $request->category_name,
             'subcategory_name_en' => $request->subcategory_name_english,
+            'subcategory_name_slug_en'=>Str::slug($request->subcategory_name_english),
             'subcategory_name_bn' => $request->subcategory_name_bangla,
+            'subcategory_name_slug_bn' => preg_replace('/\s+/u', '-', trim($request->subcategory_name_bangla)),
         ]);
         Toastr::success('Subcategory added successfully!');
         return redirect()->route('subcategory.index');
@@ -80,7 +83,9 @@ class SubcategoryController extends Controller
         $subcategory->update([
             'category_id' => $request->category_name,
             'subcategory_name_en' => $request->subcategory_name_english,
+            'subcategory_name_slug_en'=>Str::slug($request->subcategory_name_english),
             'subcategory_name_bn' => $request->subcategory_name_bangla,
+            'subcategory_name_slug_bn' => preg_replace('/\s+/u', '-', trim($request->subcategory_name_bangla)),
         ]);
         Toastr::success('Subcategory update successfully!');
         return redirect()->route('subcategory.index');
@@ -96,7 +101,7 @@ class SubcategoryController extends Controller
         Toastr::success('Subcategory delete successfully!');
         return back();
     }
-    
+
 
     public function changeStatus($id)
     {

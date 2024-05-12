@@ -5,7 +5,7 @@
 @push('style')
 @endpush
 @section('content')
-    @php
+@php
         $categories = App\Models\Category::select('id')->get();
         $category_colors = [];
         foreach ($categories as $category) {
@@ -32,7 +32,7 @@
                     $category_colors[$category->id] = '#59C2D6';
                     break;
                 case 8:
-                    $category_colors[$category->id] = '#4E4BD0';
+                    $category_colors[$category->id] = '#FF6500';
                     break;
                 default:
                     $category_colors[$category->id] = '#59C2D6';
@@ -108,7 +108,10 @@
                                     </div>
                                     <div class="blog-content"><a
                                             data-theme-color="{{ $category_colors[$first_section->category->id] }}"
-                                            href="#" class="category">
+                                            href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $first_section->category->category_name_slug_en]) }}
+                                        @else
+                                        {{ route('post.categoryAll', ['slug' => $first_section->category->category_name_slug_bn]) }} @endif"
+                                            class="category">
                                             @if (session()->get('lang') == 'english')
                                                 {{ $first_section->category->category_name_en }}
                                             @else
@@ -148,7 +151,10 @@
                                     alt="news image"></div>
                             <div class="blog-content"><a
                                     data-theme-color=" {{ $category_colors[$firstSectionBigThumbnail->category->id] }}"
-                                    href="#" class="category">
+                                    href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $firstSectionBigThumbnail->category->category_name_slug_en]) }}
+                                @else
+                                {{ route('post.categoryAll', ['slug' => $firstSectionBigThumbnail->category->category_name_slug_bn]) }} @endif"
+                                    class="category">
                                     @if (session()->get('lang') == 'english')
                                         {{ $firstSectionBigThumbnail->category->category_name_en }}
                                     @else
@@ -207,7 +213,10 @@
                                                     alt="#"></div>
                                             <div class="blog-content"><a
                                                     data-theme-color="{{ $category_colors[$favourite->category->id] }}"
-                                                    href="#" class="category">
+                                                    href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $favourite->category->category_name_slug_en]) }}
+                                                @else
+                                                {{ route('post.categoryAll', ['slug' => $favourite->category->category_name_slug_bn]) }} @endif"
+                                                    class="category">
                                                     @if (session()->get('lang') == 'english')
                                                         {{ $favourite->category->category_name_en }}
                                                     @else
@@ -249,7 +258,10 @@
                                                     alt="#"></div>
                                             <div class="blog-content"><a
                                                     data-theme-color="{{ $category_colors[$recent->category->id] }}"
-                                                    href="#" class="category">
+                                                    href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $recent->category->category_name_slug_en]) }}
+                                                @else
+                                                {{ route('post.categoryAll', ['slug' => $recent->category->category_name_slug_bn]) }} @endif"
+                                                    class="category">
                                                     @if (session()->get('lang') == 'english')
                                                         {{ $recent->category->category_name_en }}
                                                     @else
@@ -297,7 +309,10 @@
                 </div>
                 <div class="col-auto">
                     <div class="sec-btn">
-                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active"
+                                href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $firstcategory->category_name_slug_en]) }}
+                        @else
+                        {{ route('post.categoryAll', ['slug' => $firstcategory->category_name_slug_bn]) }} @endif">
                                 @if (session()->get('lang') == 'english')
                                     More
                                 @else
@@ -318,7 +333,10 @@
                                         src="{{ asset('uploads/thumbnail') }}/{{ $firstcategorybigpost->thumbnail }}"
                                         alt="news image"> <a
                                         data-theme-color="{{ $category_colors[$firstcategorybigpost->category->id] }}"
-                                        href="#" class="category">
+                                        href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $firstcategorybigpost->category->category_name_slug_en]) }}
+                                    @else
+                                    {{ route('post.categoryAll', ['slug' => $firstcategorybigpost->category->category_name_slug_bn]) }} @endif"
+                                        class="category">
                                         @if (session()->get('lang') == 'english')
                                             {{ $firstcategorybigpost->category->category_name_en }}
                                         @else
@@ -356,7 +374,10 @@
                                                 src="{{ asset('uploads/thumbnail') }}/{{ $firstsmallpost->thumbnail }}"
                                                 alt="news image"> <a
                                                 data-theme-color="{{ $category_colors[$firstsmallpost->category->id] }}"
-                                                href="#" class="category">
+                                                href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $firstsmallpost->category->category_name_slug_en]) }}
+                                            @else
+                                            {{ route('post.categoryAll', ['slug' => $firstsmallpost->category->category_name_slug_bn]) }} @endif"
+                                                class="category">
                                                 @if (session()->get('lang') == 'english')
                                                     {{ $firstsmallpost->category->category_name_en }}
                                                 @else
@@ -366,7 +387,6 @@
                                         </div>
                                         <h3 class="box-title-22"><a class="hover-line"
                                                 href="
-
                                             @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $firstsmallpost->title_slug_en]) }}
                                             @else
                                             {{ route('post.detail', ['slug' => $firstsmallpost->title_slug_bn]) }} @endif">
@@ -410,7 +430,10 @@
                 </div>
                 <div class="col-auto">
                     <div class="sec-btn">
-                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active"
+                                href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $secondcategory->category_name_slug_en]) }}
+                        @else
+                        {{ route('post.categoryAll', ['slug' => $secondcategory->category_name_slug_bn]) }} @endif">
                                 @if (session()->get('lang') == 'english')
                                     More
                                 @else
@@ -429,7 +452,10 @@
                                             src="{{ asset('uploads/thumbnail') }}/{{ $secondcatpost->thumbnail }}"
                                             alt="news image"> <a
                                             data-theme-color="{{ $category_colors[$secondcatpost->category->id] }}"
-                                            href="#" class="category">
+                                            href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $secondcatpost->category->category_name_slug_en]) }}
+                                        @else
+                                        {{ route('post.categoryAll', ['slug' => $secondcatpost->category->category_name_slug_bn]) }} @endif"
+                                            class="category">
                                             @if (session()->get('lang') == 'english')
                                                 {{ $secondcatpost->category->category_name_en }}
                                             @else
@@ -478,7 +504,10 @@
                 </div>
                 <div class="col-auto">
                     <div class="sec-btn">
-                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active"
+                                href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $thirdcategory->category_name_slug_en]) }}
+                        @else
+                        {{ route('post.categoryAll', ['slug' => $thirdcategory->category_name_slug_bn]) }} @endif">
                                 @if (session()->get('lang') == 'english')
                                     More
                                 @else
@@ -498,7 +527,10 @@
                                         src="{{ asset('uploads/thumbnail') }}/{{ $thirdcategorybigpost->thumbnail }}"
                                         alt="news image"> <a
                                         data-theme-color="{{ $category_colors[$thirdcategorybigpost->category->id] }}"
-                                        href="#" class="category">
+                                        href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $thirdcategorybigpost->category->category_name_slug_en]) }}
+                                    @else
+                                    {{ route('post.categoryAll', ['slug' => $thirdcategorybigpost->category->category_name_slug_bn]) }} @endif"
+                                        class="category">
                                         @if (session()->get('lang') == 'english')
                                             {{ $thirdcategorybigpost->category->category_name_en }}
                                         @else
@@ -535,7 +567,10 @@
                                                 src="{{ asset('uploads/thumbnail') }}/{{ $thirdsmallpost->thumbnail }}"
                                                 alt="news image"> <a
                                                 data-theme-color="{{ $category_colors[$thirdsmallpost->category->id] }}"
-                                                href="#" class="category">
+                                                href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $thirdsmallpost->category->category_name_slug_en]) }}
+                                            @else
+                                            {{ route('post.categoryAll', ['slug' => $thirdsmallpost->category->category_name_slug_bn]) }} @endif"
+                                                class="category">
                                                 @if (session()->get('lang') == 'english')
                                                     {{ $thirdsmallpost->category->category_name_en }}
                                                 @else
@@ -589,7 +624,10 @@
                 </div>
                 <div class="col-auto">
                     <div class="sec-btn">
-                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active"
+                                href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $forthcategory->category_name_slug_en]) }}
+                        @else
+                        {{ route('post.categoryAll', ['slug' => $forthcategory->category_name_slug_bn]) }} @endif">
                                 @if (session()->get('lang') == 'english')
                                     More
                                 @else
@@ -608,7 +646,10 @@
                                             src="{{ asset('uploads/thumbnail') }}/{{ $forthcatpost->thumbnail }}"
                                             alt="news image"> <a
                                             data-theme-color="{{ $category_colors[$forthcatpost->category->id] }}"
-                                            href="#" class="category">
+                                            href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $forthcatpost->category->category_name_slug_en]) }}
+                                        @else
+                                        {{ route('post.categoryAll', ['slug' => $forthcatpost->category->category_name_slug_bn]) }} @endif"
+                                            class="category">
                                             @if (session()->get('lang') == 'english')
                                                 {{ $forthcatpost->category->category_name_en }}
                                             @else
@@ -670,7 +711,10 @@
                             <div class="blog-img"><img
                                     src="{{ asset('uploads/thumbnail') }}/{{ $fifthcatpost->thumbnail }}"
                                     alt="news image">
-                                <a data-theme-color="{{ $category_colors[$fifthcatpost->category->id] }}" href="#"
+                                <a data-theme-color="{{ $category_colors[$fifthcatpost->category->id] }}"
+                                    href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $fifthcatpost->category->category_name_slug_en]) }}
+                                @else
+                                {{ route('post.categoryAll', ['slug' => $fifthcatpost->category->category_name_slug_bn]) }} @endif"
                                     class="category">
                                     @if (session()->get('lang') == 'english')
                                         {{ $fifthcatpost->category->category_name_en }}
@@ -721,7 +765,10 @@
                         </div>
                         <div class="col-auto">
                             <div class="sec-btn">
-                                <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                                <div class="filter-menu filter-menu-active1"><a class="tab-btn active"
+                                        href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $sixthcategory->category_name_slug_en]) }}
+                                @else
+                                {{ route('post.categoryAll', ['slug' => $sixthcategory->category_name_slug_bn]) }} @endif">
                                         @if (session()->get('lang') == 'english')
                                             More
                                         @else
@@ -742,7 +789,10 @@
                                     </div>
                                     <div class="blog-content"><a
                                             data-theme-color="{{ $category_colors[$sixthpost->category->id] }}"
-                                            href="#" class="category">
+                                            href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $sixthpost->category->category_name_slug_en]) }}
+                                        @else
+                                        {{ route('post.categoryAll', ['slug' => $sixthpost->category->category_name_slug_bn]) }} @endif"
+                                            class="category">
                                             @if (session()->get('lang') == 'english')
                                                 {{ $sixthpost->category->category_name_en }}
                                             @else
@@ -751,7 +801,6 @@
                                         </a>
                                         <h3 class="box-title-24"><a class="hover-line"
                                                 href="
-
                                             @if (session()->get('lang') == 'english') {{ route('post.detail', ['slug' => $sixthpost->title_slug_en]) }}
                                             @else
                                             {{ route('post.detail', ['slug' => $sixthpost->title_slug_bn]) }} @endif">
@@ -897,7 +946,10 @@
                 </div>
                 <div class="col-auto">
                     <div class="sec-btn">
-                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active"
+                                href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $seventhcategory->category_name_slug_en]) }}
+                        @else
+                        {{ route('post.categoryAll', ['slug' => $seventhcategory->category_name_slug_bn]) }} @endif">
                                 @if (session()->get('lang') == 'english')
                                     More
                                 @else
@@ -916,7 +968,11 @@
                             <div class="blog-img"><img
                                     src="{{ asset('uploads/thumbnail') }}/{{ $seventcathpost->thumbnail }}"
                                     alt="news image"></div>
-                            <div class="blog-content"><a href="#" class="category"
+                            <div class="blog-content"><a
+                                    href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $seventcathpost->category->category_name_slug_en]) }}
+                            @else
+                            {{ route('post.categoryAll', ['slug' => $seventcathpost->category->category_name_slug_bn]) }} @endif"
+                                    class="category"
                                     style="--theme-color:{{ $category_colors[$seventcathpost->category->id] }} ;">
                                     @if (session()->get('lang') == 'english')
                                         {{ $seventcathpost->category->category_name_en }}
@@ -1048,7 +1104,8 @@
                 </div>
                 <div class="col-auto">
                     <div class="sec-btn">
-                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active" href="#">
+                        <div class="filter-menu filter-menu-active1"><a class="tab-btn active"
+                                href="{{ route('post.countryAll') }}">
                                 @if (session()->get('lang') == 'english')
                                     More
                                 @else
@@ -1068,7 +1125,12 @@
                             <div class="blog-img img-big"><img
                                     src="{{ asset('uploads/thumbnail') }}/{{ $country->thumbnail }}" alt="news image">
                             </div>
-                            <div class="blog-content"><a href="#" class="category"
+                            <div class="blog-content"><a
+                                    href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $country->category->category_name_slug_en]) }}
+                            @else
+                            {{ route('post.categoryAll', ['slug' => $country->category->category_name_slug_bn]) }} @endif
+"
+                                    class="category"
                                     style="--theme-color: {{ $category_colors[$country->category->id] }};">
                                     @if (session()->get('lang') == 'english')
                                         {{ $country->category->category_name_en }}

@@ -19,13 +19,26 @@
                         </a>
                         <ul class="sub-menu">
                             @php
-                                $subcategories = App\Models\SubCategory::where('category_id', $category->id)
+                                $subcategories = App\Models\SubCategory::with(
+                                    'category:id,category_name_slug_bn,category_name_slug_en',
+                                )
+                                    ->where('category_id', $category->id)
                                     ->where('status', 1)
-                                    ->select('id', 'subcategory_name_bn', 'subcategory_name_en')
+                                    ->select(
+                                        'id',
+                                        'subcategory_name_bn',
+                                        'subcategory_name_en',
+                                        'category_id',
+                                        'subcategory_name_slug_bn',
+                                        'subcategory_name_slug_en',
+                                    )
                                     ->get();
                             @endphp
                             @foreach ($subcategories as $subcategory)
-                                <li><a href="#">
+                                <li><a
+                                        href="@if (session()->get('lang') == 'english') {{ route('post.subCategoryAll', ['category' => $subcategory->category->category_name_slug_en, 'subcategory' => $subcategory->subcategory_name_slug_en]) }}
+                                @else
+                                {{ route('post.subCategoryAll', ['category' => $subcategory->category->category_name_slug_bn, 'subcategory' => $subcategory->subcategory_name_slug_bn]) }} @endif">
                                         @if (session()->get('lang') == 'english')
                                             {{ $subcategory->subcategory_name_en }}
                                         @else
@@ -121,16 +134,26 @@
                                         </a>
                                         <ul class="sub-menu">
                                             @php
-                                                $subcategories = App\Models\SubCategory::where(
-                                                    'category_id',
-                                                    $category->id,
+                                                $subcategories = App\Models\SubCategory::with(
+                                                    'category:id,category_name_slug_bn,category_name_slug_en',
                                                 )
+                                                    ->where('category_id', $category->id)
                                                     ->where('status', 1)
-                                                    ->select('id', 'subcategory_name_bn', 'subcategory_name_en')
+                                                    ->select(
+                                                        'id',
+                                                        'subcategory_name_bn',
+                                                        'subcategory_name_en',
+                                                        'category_id',
+                                                        'subcategory_name_slug_bn',
+                                                        'subcategory_name_slug_en',
+                                                    )
                                                     ->get();
                                             @endphp
                                             @foreach ($subcategories as $subcategory)
-                                                <li><a href="#">
+                                                <li><a
+                                                        href="@if (session()->get('lang') == 'english') {{ route('post.subCategoryAll', ['category' => $subcategory->category->category_name_slug_en, 'subcategory' => $subcategory->subcategory_name_slug_en]) }}
+                                                @else
+                                                {{ route('post.subCategoryAll', ['category' => $subcategory->category->category_name_slug_bn, 'subcategory' => $subcategory->subcategory_name_slug_bn]) }} @endif">
                                                         @if (session()->get('lang') == 'english')
                                                             {{ $subcategory->subcategory_name_en }}
                                                         @else

@@ -46,7 +46,10 @@
         <div class="container">
             <ul class="breadcumb-menu">
 
-                <li><a href="#">
+                <li><a
+                        href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $postdetails->category->category_name_slug_en]) }}
+                @else
+                {{ route('post.categoryAll', ['slug' => $postdetails->category->category_name_slug_bn]) }} @endif">
                         @if (session()->get('lang') == 'english')
                             {{ $postdetails->category->category_name_en }}
                         @else
@@ -76,7 +79,10 @@
                 {{-- post details start --}}
                 <div class="col-xxl-9 col-lg-8">
                     <div class="th-blog blog-single"><a data-theme-color="{{ $category_colors[$postdetails->category->id] }}"
-                            href="#" class="category">
+                            href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $postdetails->category->category_name_slug_en]) }}
+                        @else
+                        {{ route('post.categoryAll', ['slug' => $postdetails->category->category_name_slug_bn]) }} @endif"
+                            class="category">
                             @if (session()->get('lang') == 'english')
                                 {{ $postdetails->category->category_name_en }}
                             @else
@@ -143,8 +149,7 @@
                                 {{-- related tag  end --}}
 
                                 <div class="my-4 py-lg-2">
-                                    <a href="https://themeforest.net/user/themeholy/portfolio"><img
-                                            class="light-img w-100"
+                                    <a href="https://themeforest.net/user/themeholy/portfolio"><img class="light-img w-100"
                                             src="{{ asset('assets/frontend') }}/img/ads/ads_blog_1.jpg" alt="Ads">
                                         <img class="dark-img w-100"
                                             src="{{ asset('assets/frontend') }}/img/ads/ads_blog_1_dark.jpg"
@@ -425,7 +430,10 @@
                                                 src="{{ asset('uploads/thumbnail') }}/{{ $rpost->thumbnail }}"
                                                 alt="news image"> <a
                                                 data-theme-color="{{ $category_colors[$rpost->category->id] }}"
-                                                href="#" class="category">
+                                                href="@if (session()->get('lang') == 'english') {{ route('post.categoryAll', ['slug' => $rpost->category->category_name_slug_en]) }}
+                                            @else
+                                            {{ route('post.categoryAll', ['slug' => $rpost->category->category_name_slug_bn]) }} @endif"
+                                                class="category">
                                                 @if (session()->get('lang') == 'english')
                                                     {{ $rpost->category->category_name_en }}
                                                 @else

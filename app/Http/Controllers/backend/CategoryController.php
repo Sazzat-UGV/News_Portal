@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class CategoryController extends Controller
 {
@@ -38,7 +39,9 @@ class CategoryController extends Controller
 
         $category = Category::create([
             'category_name_en' => $request->category_name_english,
+            'category_name_slug_en'=>Str::slug($request->category_name_english),
             'category_name_bn' => $request->category_name_bangla,
+            'category_name_slug_bn' => preg_replace('/\s+/u', '-', trim($request->category_name_bangla)),
         ]);
         Toastr::success('Category added successfully!');
         return back();
@@ -72,7 +75,9 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->update([
             'category_name_en' => $request->category_name_english,
+            'category_name_slug_en'=>Str::slug($request->category_name_english),
             'category_name_bn' => $request->category_name_bangla,
+            'category_name_slug_bn' => preg_replace('/\s+/u', '-', trim($request->category_name_bangla)),
         ]);
         Toastr::success('Category updated successfully!');
         return back();

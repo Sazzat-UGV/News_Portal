@@ -5135,8 +5135,9 @@ ol.wp-block-rss {
   margin-bottom: 30px;
 }
 .th-pagination ul {
-  margin: 0;
-  padding: 0;
+  /* margin: 0;
+  padding: 0; */
+  margin: auto 0;
 }
 .th-pagination li {
   display: inline-block;
@@ -5175,6 +5176,7 @@ ol.wp-block-rss {
   background-color: var(--theme-color);
   border-color: var(--theme-color);
 }
+
 
 /* Small devices */
 @media (max-width: 767px) {
