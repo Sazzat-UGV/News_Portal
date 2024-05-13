@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\backend\AdminController;
+use App\Http\Controllers\backend\AdsController;
 use App\Http\Controllers\backend\auth\LoginController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\DashboardController;
@@ -115,5 +116,14 @@ Route::prefix('/admin')->group(function () {
             Route::post('notice', [NoticeController::class, 'noticeUpdate'])->name('notice.widgetUpdate');
             Route::get('notice/status', [NoticeController::class, 'changeStatus'])->name('notice.changeStatus');
         });
+
+        // ads routes
+        Route::prefix('ads')->group(function () {
+            Route::get('index', [AdsController::class, 'adsIndex'])->name('ads.Index');
+            Route::post('store', [AdsController::class, 'adsStore'])->name('ads.Store');
+            Route::put('update/{id}', [AdsController::class, 'adsUpdate'])->name('ads.Update');
+            Route::delete('delete/{id}', [AdsController::class, 'adsDelete'])->name('ads.Delete');
+        });
+
     });
 });

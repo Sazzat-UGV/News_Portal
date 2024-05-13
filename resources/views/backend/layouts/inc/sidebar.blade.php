@@ -121,6 +121,14 @@
                     </li>
                 </ul>
             </li>
+
+            <li class>
+                <a href="{{ route('ads.Index') }}">
+                    <span class="pcoded-micon"><i class="feather icon-headphones"></i></span>
+                    <span class="pcoded-mtext">Advertisement</span>
+                </a>
+            </li>
+
             <li class="pcoded-hasmenu">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="feather icon-grid"></i></span>
