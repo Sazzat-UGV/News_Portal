@@ -19,6 +19,16 @@
                         <i class="feather icon-maximize full-screen"></i>
                     </a>
                 </li>
+                @php
+                    $livetv = App\Models\Livetv::first();
+                @endphp
+                <li>
+                    @if ($livetv->active == 1)
+                        <a href="{{ route('liveTV.changeStatus') }}"><i class="fa-solid fa-tv text-success"></i></a>
+                    @else
+                        <a href="{{ route('liveTV.changeStatus') }}"><i class="fa-solid fa-tv text-danger"></i></a>
+                    @endif
+                </li>
             </ul>
             <ul class="nav-right">
                 <li class="user-profile header-notification">

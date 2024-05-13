@@ -49,30 +49,7 @@
                         </ul>
                     </li>
                 @endforeach
-                <li class="menu-item-has-children"><a href="#">
-                        @if (session()->get('lang') == 'english')
-                            Gallery
-                        @else
-                            গ্যালারি
-                        @endif
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="#">
-                                @if (session()->get('lang') == 'english')
-                                    Photo Gallery
-                                @else
-                                    ফটো গ্যালারি
-                                @endif
-                            </a></li>
-                        <li><a href="#">
-                                @if (session()->get('lang') == 'english')
-                                    Video Gallery
-                                @else
-                                    ভিডিও গ্যালারি
-                                @endif
-                            </a></li>
-                    </ul>
-                </li>
+
             </ul>
         </div>
     </div>
@@ -164,30 +141,7 @@
                                         </ul>
                                     </li>
                                 @endforeach
-                                <li class="menu-item-has-children"><a href="#">
-                                        @if (session()->get('lang') == 'english')
-                                            Gallery
-                                        @else
-                                            গ্যালারি
-                                        @endif
-                                    </a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">
-                                                @if (session()->get('lang') == 'english')
-                                                    Photo Gallery
-                                                @else
-                                                    ফটো গ্যালারি
-                                                @endif
-                                            </a></li>
-                                        <li><a href="#">
-                                                @if (session()->get('lang') == 'english')
-                                                    Video Gallery
-                                                @else
-                                                    ভিডিও গ্যালারি
-                                                @endif
-                                            </a></li>
-                                    </ul>
-                            </ul>
+                        
                         </nav>
                     </div>
                     <div class="col-auto">
