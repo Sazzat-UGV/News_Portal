@@ -149,11 +149,14 @@
                                 {{-- related tag  end --}}
 
                                 <div class="my-4 py-lg-2">
-                                    <a href="https://themeforest.net/user/themeholy/portfolio"><img class="light-img w-100"
-                                            src="{{ asset('assets/frontend') }}/img/ads/ads_blog_1.jpg" alt="Ads">
-                                        <img class="dark-img w-100"
-                                            src="{{ asset('assets/frontend') }}/img/ads/ads_blog_1_dark.jpg"
-                                            alt="Ads"></a>
+
+                                    @if (isset($ads5))
+                                        <a href="{{ $ads5->link }}" target="blank"><img class="light-img w-100"
+                                                src="{{ asset('uploads/ads') }}/{{ $ads5->ads }}" alt="Ads">
+                                            <img class="dark-img w-100"
+                                                src="{{ asset('uploads/ads') }}/{{ $ads5->ads }}" alt="Ads"></a>
+                                    @endif
+
                                 </div>
 
                             </div>
@@ -510,10 +513,13 @@
                         </div>
                         {{-- recent news end --}}
 
+
                         <div class="widget">
-                            <div class="widget-ads"><a href="https://themeforest.net/user/themeholy/portfolio"><img
-                                        class="w-100" src="{{ asset('assets/frontend') }}/img/ads/siderbar_ads_1.jpg"
-                                        alt="ads"></a></div>
+                            @if (isset($ads6))
+                            <div class="widget-ads"><a href="{{ $ads6->link }}" target="blank"><img
+                                class="w-100" src="{{ asset('uploads/ads') }}/{{ $ads6->ads }}"
+                                alt="Ads"></a></div>
+                            @endif
                         </div>
 
                         {{-- popular tags start --}}

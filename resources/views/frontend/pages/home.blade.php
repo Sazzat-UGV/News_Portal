@@ -411,9 +411,10 @@
         </div>
     </div>
     {{-- first category end --}}
-
-    <div class="container"><a href="https://themeforest.net/user/themeholy/portfolio"><img
-                src="{{ asset('assets/frontend') }}/img/ads/ads_1.jpg" alt="ads" class="w-100"></a></div>
+@if (isset($ads1))
+<div class="container"><a href="{{ $ads1->link }}" target="blank"><img
+            src="{{ asset('uploads/ads') }}/{{ $ads1->ads }}" alt="ads" class="w-100"></a></div>
+@endif
 
     {{-- second category start --}}
     <section class="space">
@@ -604,9 +605,10 @@
     </div>
     {{-- third category end --}}
 
-    <div class="container"><a href="https://themeforest.net/user/themeholy/portfolio"><img
-                src="{{ asset('assets/frontend') }}/img/ads/ads_1.jpg" alt="ads" class="w-100"></a></div>
-
+    @if (isset($ads2))
+    <div class="container"><a href="{{ $ads2->link }}" target="blank"><img
+                src="{{ asset('uploads/ads') }}/{{ $ads2->ads }}" alt="ads" class="w-100"></a></div>
+    @endif
 
     {{-- forth category start --}}
     <section class="space">
@@ -830,12 +832,16 @@
 
                 <div class="col-xl-3 mt-35 mt-xl-0 mb-10 sidebar-wrap">
                     <div class="sidebar-area">
+
                         <div class="widget mb-30">
-                            <div class="widget-ads"><a href="https://themeforest.net/user/themeholy/portfolio"><img
-                                        class="w-100" src="{{ asset('assets/frontend') }}/img/ads/siderbar_ads_1.jpg"
-                                        alt="ads"></a>
+                            @if (isset($ads3))
+                            <div class="widget-ads"><a href="{{ $ads3->link }}" target="blank"><img
+                                class="w-100" src="{{ asset('uploads/ads') }}/{{ $ads3->ads }}"
+                                alt="ads"></a>
                             </div>
+                            @endif
                         </div>
+
                         @if ($liveTV->active == 1)
                             <div class="widget mb-30">
                                 @if (session()->get('lang') == 'english')
@@ -928,8 +934,11 @@
     </section>
     {{-- sixth category end --}}
 
-    <div class="container"><a href="https://themeforest.net/user/themeholy/portfolio"><img
-                src="{{ asset('assets/frontend') }}/img/ads/ads_1.jpg" alt="ads" class="w-100"></a></div>
+    @if (isset($ads4))
+    <div class="container"><a href="{{ $ads4->link }}" target="blank"><img
+        src="{{ asset('uploads/ads') }}/{{ $ads4->ads }}" alt="ads" class="w-100"></a></div>
+    @endif
+
 
     {{-- seventh category start --}}
     <section class="space">

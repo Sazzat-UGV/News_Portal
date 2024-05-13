@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ads;
 use App\Models\Category;
 use App\Models\Livetv;
 use App\Models\Notice;
@@ -70,6 +71,12 @@ class HomeController extends Controller
         // all country news
         $allcountries = Post::with(['category:id,category_name_bn,category_name_en,category_name_slug_bn,category_name_slug_en', 'user:id,name'])->where('status', 1)->whereNotNull('division_id')->latest('id')->select('id', 'category_id', 'user_id', 'title_en', 'title_slug_en', 'title_slug_bn', 'title_bn', 'thumbnail', 'created_at')->limit(12)->get();
 
+        //ads
+        $ads1 = Ads::where('type', 'horizontal')->select('id', 'link', 'ads', 'type')->first();
+        $ads2 = Ads::where('type', 'horizontal')->select('id', 'link', 'ads', 'type')->skip(1)->first();
+        $ads3 = Ads::where('type', 'vertical')->select('id', 'link', 'ads', 'type')->first();
+        $ads4 = Ads::where('type', 'horizontal')->select('id', 'link', 'ads', 'type')->skip(2)->first();
+
         return view('frontend.pages.home', compact(
             'breaking_news',
             'notice',
@@ -97,6 +104,10 @@ class HomeController extends Controller
             'seventhcategorypost',
             'videos',
             'allcountries',
+            'ads1',
+            'ads2',
+            'ads3',
+            'ads4',
         ));
     }
 }

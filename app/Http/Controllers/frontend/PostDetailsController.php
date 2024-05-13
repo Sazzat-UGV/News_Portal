@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\frontend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Ads;
 use App\Models\Post;
+use App\Http\Controllers\Controller;
 
 class PostDetailsController extends Controller
 {
@@ -24,12 +25,18 @@ class PostDetailsController extends Controller
         // releted_tag
         $releted_tags = Post::select('id', 'tags_en', 'tags_bn', 'title_slug_en', 'title_slug_bn')->whereNot('title_slug_en', $slug)->orWhereNot('title_slug_bn', $slug)->inRandomOrder()->limit(4)->get();
 
+        //ads
+        $ads5 = Ads::where('type', 'horizontal')->select('id', 'link', 'ads', 'type')->skip(3)->first();
+        $ads6 = Ads::where('type', 'vertical')->select('id', 'link', 'ads', 'type')->skip(1)->first();
+
         return view('frontend.pages.post-details', compact(
             'postdetails',
             'recent_news',
             'populartags',
             'releted_post',
-            'releted_tags'
+            'releted_tags',
+            'ads5',
+            'ads6',
         ));
     }
 }

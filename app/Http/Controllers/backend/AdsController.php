@@ -12,7 +12,7 @@ class AdsController extends Controller
 {
     public function adsIndex()
     {
-        $ads = Ads::latest()->get();
+        $ads = Ads::get();
         return view('backend.pages.ads.vertical', compact('ads'));
     }
 
@@ -104,7 +104,7 @@ class AdsController extends Controller
                 $uploaded_photo = $request->file('ads');
                 $new_photo_name = time() . '.' . $uploaded_photo->getClientOriginalExtension();
                 $new_photo_location = $photo_location . $new_photo_name;
-                Image::make($uploaded_photo)->resize(912, 100)->save(base_path($new_photo_location));
+                Image::make($uploaded_photo)->resize(912, 92)->save(base_path($new_photo_location));
                 $check = $ads->update([
                     'ads' => $new_photo_name,
                 ]);
