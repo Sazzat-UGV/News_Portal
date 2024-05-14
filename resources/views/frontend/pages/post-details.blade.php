@@ -3,6 +3,9 @@
     Details
 @endsection
 @push('style')
+    <script type="text/javascript"
+        src="https://platform-api.sharethis.com/js/sharethis.js#property=66439debbe17b9001974c692&product=sticky-share-buttons&source=platform"
+        async="async"></script>
 @endpush
 @section('content')
     @php
@@ -130,8 +133,11 @@
                                     @else
                                         {!! $postdetails->details_bn !!}
                                     @endif
-
                                 </div>
+
+                                <!-- ShareThis BEGIN -->
+                                <div class="sharethis-sticky-share-buttons"></div>
+                                <!-- ShareThis END -->
 
                                 {{-- related tag  start --}}
                                 <div class="blog-tag">
@@ -173,244 +179,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div class="blog-author">
-                        <div class="auhtor-img"><img src="{{ asset('assets/frontend') }}/img/blog/blog-author.jpg"
-                                alt="Blog Author Image">
-                        </div>
-                        <div class="media-body">
-                            <div class="author-top">
-                                <div>
-                                    <h3 class="author-name"><a class="text-inherit" href="team-details.html">Ronald
-                                            Richards</a></h3><span class="author-desig">Founder & CEO</span>
-                                </div>
-                                <div class="social-links"><a href="https://facebook.com/" target="_blank"><i
-                                            class="fab fa-facebook-f"></i></a> <a href="https://twitter.com/"
-                                        target="_blank"><i class="fab fa-twitter"></i></a> <a href="https://linkedin.com/"
-                                        target="_blank"><i class="fab fa-linkedin-in"></i></a> <a
-                                        href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                            <p class="author-text">Adventurer and passionate travel blogger. With a backpack full of
-                                stories and a camera in hand, she takes her readers on exhilarating journeys around the
-                                world.</p>
-                        </div>
-                    </div>
-                    <div class="th-comments-wrap">
-                        <h2 class="blog-inner-title h3">Comments (03)</h2>
-                        <ul class="comment-list">
-                            <li class="th-comment-item">
-                                <div class="th-post-comment">
-                                    <div class="comment-avater"><img
-                                            src="{{ asset('assets/frontend') }}/img/blog/comment-author-1.jpg"
-                                            alt="Comment Author"></div>
-                                    <div class="comment-content"><span class="commented-on"><i
-                                                class="fas fa-calendar-alt"></i>14 March, 2023</span>
-                                        <h3 class="name">Brooklyn Simmons</h3>
-                                        <p class="text">Your sport blog is simply fantastic! The in-depth analysis,
-                                            engaging writing style, and up-to-date coverage of various sports events
-                                            make it a must-visit for any sports enthusiast.</p>
-                                        <div class="reply_and_edit"><a href="blog-details.html" class="reply-btn"><i
-                                                    class="fas fa-reply"></i>Reply</a></div>
-                                    </div>
-                                </div>
-                                <ul class="children">
-                                    <li class="th-comment-item">
-                                        <div class="th-post-comment">
-                                            <div class="comment-avater"><img
-                                                    src="{{ asset('assets/frontend') }}/img/blog/comment-author-2.jpg"
-                                                    alt="Comment Author"></div>
-                                            <div class="comment-content"><span class="commented-on"><i
-                                                        class="fas fa-calendar-alt"></i>15 March, 2023</span>
-                                                <h3 class="name">Marvin McKinney</h3>
-                                                <p class="text">Whether it's breaking news, expert opinions, or
-                                                    inspiring athlete profiles, your blog delivers a winning combination
-                                                    of excitement and information that keeps.</p>
-                                                <div class="reply_and_edit"><a href="blog-details.html"
-                                                        class="reply-btn"><i class="fas fa-reply"></i>Reply</a></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="th-comment-item">
-                                <div class="th-post-comment">
-                                    <div class="comment-avater"><img
-                                            src="{{ asset('assets/frontend') }}/img/blog/comment-author-3.jpg"
-                                            alt="Comment Author"></div>
-                                    <div class="comment-content"><span class="commented-on"><i
-                                                class="fas fa-calendar-alt"></i>16 March, 2023</span>
-                                        <h3 class="name">Ronald Richards</h3>
-                                        <p class="text">The way you seamlessly blend statistical insights with
-                                            compelling storytelling creates an immersive and captivating reading
-                                            experience. Whether it's the latest match updates, behind-the-scenes
-                                            glimpses.</p>
-                                        <div class="reply_and_edit"><a href="blog-details.html" class="reply-btn"><i
-                                                    class="fas fa-reply"></i>Reply</a></div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="th-comment-form">
-                        <div class="form-title">
-                            <h3 class="blog-inner-title mb-2">Leave a Comment</h3>
-                            <p class="form-text">Your email address will not be published. Required fields are marked *
-                            </p>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 form-group"><input type="text" placeholder="Your Name*"
-                                    class="form-control"> <i class="far fa-user"></i></div>
-                            <div class="col-md-6 form-group"><input type="text" placeholder="Your Email*"
-                                    class="form-control"> <i class="far fa-envelope"></i></div>
-                            <div class="col-12 form-group"><input type="text" placeholder="Website"
-                                    class="form-control"> <i class="far fa-globe"></i></div>
-                            <div class="col-12 form-group">
-                                <textarea placeholder="Write a Comment*" class="form-control"></textarea> <i class="far fa-pencil"></i>
-                            </div>
-                            <div class="col-12 form-group mb-0"><button class="th-btn">Post Comment</button></div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                     {{--  related post start --}}
                     <div class="related-post-wrapper pt-30 mb-30">
@@ -527,9 +295,9 @@
 
                         <div class="widget">
                             @if (isset($ads6))
-                                <div class="widget-ads"><a href="{{ $ads6->link }}" target="blank"><img
-                                            class="w-100" src="{{ asset('uploads/ads') }}/{{ $ads6->ads }}"
-                                            alt="Ads"></a></div>
+                                <div class="widget-ads"><a href="{{ $ads6->link }}" target="blank"><img class="w-100"
+                                            src="{{ asset('uploads/ads') }}/{{ $ads6->ads }}" alt="Ads"></a>
+                                </div>
                             @endif
                         </div>
 
