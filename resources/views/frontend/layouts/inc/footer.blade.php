@@ -156,8 +156,11 @@
         <div class="container">
             <div class="row jusity-content-between align-items-center">
                 <div class="col-lg-5">
+                    @php
+                    $seos = App\Models\Seo::first();
+                @endphp
                     <p class="copyright-text">Copyright <i class="fal fa-copyright"></i> {{ date('Y') }} <a
-                            href="{{ route('homepage') }}">Tnews</a>. All Rights Reserved.</p>
+                            href="{{ route('homepage') }}">{{ $seos->meta_title }}</a>. All Rights Reserved.</p>
                 </div>
             </div>
         </div>

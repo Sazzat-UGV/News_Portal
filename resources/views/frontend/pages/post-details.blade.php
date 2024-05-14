@@ -109,11 +109,19 @@
                             <div class="blog-content">
 
                                 <div class="blog-info-wrap">
-                                    <button class="blog-info print_btn">Print : <i class="fas fa-print"></i></button>
-                                    <a class="blog-info" href="mailto:">Email : <i class="fas fa-envelope"></i> </a>
-                                    <button class="blog-info ms-sm-auto">15k <i class="fas fa-thumbs-up"></i></button> <span
-                                        class="blog-info">126k <i class="fas fa-eye"></i></span>
-                                    <span class="blog-info">12k <i class="fas fa-share-nodes"></i></span>
+                                    <a
+                                        href=" @if (session()->get('lang') == 'english') {{ route('post.tagAll', ['slug' => $postdetails->tags_en]) }}
+                                        @else
+                                        {{ route('post.tagAll', ['slug' => $postdetails->tags_bn]) }} @endif">
+                                        <button class="blog-info ms-sm-auto">
+                                            @if (session()->get('lang') == 'english')
+                                                {{ $postdetails->tags_en }}
+                                            @else
+                                                {{ $postdetails->tags_bn }}
+                                            @endif
+                                            <i class="fas fa-tags"></i>
+                                        </button>
+                                    </a>
                                 </div>
 
                                 <div class="content">
@@ -136,7 +144,10 @@
                                     </h6>
                                     <div class="tagcloud">
                                         @foreach ($releted_tags as $rtag)
-                                            <a href="#">
+                                            <a
+                                                href=" @if (session()->get('lang') == 'english') {{ route('post.tagAll', ['slug' => $rtag->tags_en]) }}
+                                                @else
+                                                {{ route('post.tagAll', ['slug' => $rtag->tags_bn]) }} @endif">
                                                 @if (session()->get('lang') == 'english')
                                                     {{ $rtag->tags_en }}
                                                 @else
@@ -516,9 +527,9 @@
 
                         <div class="widget">
                             @if (isset($ads6))
-                            <div class="widget-ads"><a href="{{ $ads6->link }}" target="blank"><img
-                                class="w-100" src="{{ asset('uploads/ads') }}/{{ $ads6->ads }}"
-                                alt="Ads"></a></div>
+                                <div class="widget-ads"><a href="{{ $ads6->link }}" target="blank"><img
+                                            class="w-100" src="{{ asset('uploads/ads') }}/{{ $ads6->ads }}"
+                                            alt="Ads"></a></div>
                             @endif
                         </div>
 
@@ -533,7 +544,10 @@
                             </h3>
                             <div class="tagcloud">
                                 @foreach ($populartags as $tag)
-                                    <a href="#">
+                                    <a
+                                        href=" @if (session()->get('lang') == 'english') {{ route('post.tagAll', ['slug' => $tag->tags_en]) }}
+                                       @else
+                                       {{ route('post.tagAll', ['slug' => $tag->tags_bn]) }} @endif">
                                         @if (session()->get('lang') == 'english')
                                             {{ $tag->tags_en }}
                                         @else
