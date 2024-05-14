@@ -13,7 +13,7 @@ class AdsController extends Controller
     public function adsIndex()
     {
         $ads = Ads::get();
-        return view('backend.pages.ads.vertical', compact('ads'));
+        return view('backend.pages.ads.ads', compact('ads'));
     }
 
     public function adsStore(Request $request)
