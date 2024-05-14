@@ -7,9 +7,12 @@ use App\Models\Ads;
 use App\Models\Category;
 use App\Models\District;
 use App\Models\Division;
+use App\Models\Importentwebsite;
+use App\Models\Photo;
 use App\Models\Post;
 use App\Models\SubCategory;
 use App\Models\User;
+use App\Models\Video;
 
 class DashboardController extends Controller
 {
@@ -23,6 +26,9 @@ class DashboardController extends Controller
         $active_post = Post::where('status', 1)->count();
         $ads = Ads::count();
         $user = User::count();
+        $photo=Photo::count();
+        $video=Video::count();
+        $website=Importentwebsite::count();
 
         return view('backend.pages.dashboard', compact(
             'category',
@@ -33,7 +39,10 @@ class DashboardController extends Controller
             'total_post',
             'active_post',
             'ads',
-            'user'
+            'user',
+            'photo',
+            'video',
+            'website'
         ));
     }
 }

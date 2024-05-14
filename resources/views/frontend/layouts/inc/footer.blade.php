@@ -5,11 +5,20 @@
                 <div class="col-md-6 col-xl-3">
                     <div class="widget footer-widget">
                         <div class="th-widget-about">
+                            @php
+                                $website_setting = App\Models\Setting::first();
+                            @endphp
                             <div class="about-logo"><a href="{{ route('homepage') }}"><img
-                                        src="{{ asset('assets/frontend') }}/img/logo-footer.svg" alt="Tnews"></a>
+                                        src="{{ asset('uploads/setting') }}/{{ $website_setting->logo }}"
+                                        alt="Tnews"></a>
                             </div>
-                            <p class="about-text">Magazines cover a wide subjects, including not limited to
-                                fashion, lifestyle, health, politics, business, Entertainment, sports, science,</p>
+                            <p class="about-text">
+                                @if (session()->get('lang') == 'english')
+                                    {{ $website_setting->short_description_en }}
+                                @else
+                                    {{ $website_setting->short_description_bn }}
+                                @endif
+                            </p>
                             @php
                                 $social = App\Models\Social::first();
                             @endphp

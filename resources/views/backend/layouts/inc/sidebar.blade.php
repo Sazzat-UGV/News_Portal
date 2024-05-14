@@ -169,6 +169,11 @@
                             <span class="pcoded-mtext">Important Website</span>
                         </a>
                     </li>
+                    <li class=" ">
+                        <a href="{{ route('website.settingPage') }}">
+                            <span class="pcoded-mtext">Website Setting</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

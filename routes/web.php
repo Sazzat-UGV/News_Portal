@@ -96,6 +96,10 @@ Route::prefix('/admin')->group(function () {
             // seo setting routes
             Route::get('seo', [SettingController::class, 'seoSettingPage'])->name('seo.settingPage');
             Route::post('seo', [SettingController::class, 'seoSettingUpdate'])->name('seo.settingUpdate');
+
+            // website setting routes
+            Route::get('website', [SettingController::class, 'websiteSettingPage'])->name('website.settingPage');
+            Route::post('website', [SettingController::class, 'websiteSettingUpdate'])->name('website.settingUpdate');
         });
 
         // widget routes

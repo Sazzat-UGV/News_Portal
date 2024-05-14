@@ -1,7 +1,12 @@
+@php
+    $website_setting = App\Models\Setting::first();
+    $seos = App\Models\Seo::first();
+@endphp
 <div class="th-menu-wrapper">
     <div class="th-menu-area text-center"><button class="th-menu-toggle"><i class="fal fa-times"></i></button>
-        <div class="mobile-logo"><a href="{{ route('homepage') }}"><img src="{{ asset('assets/frontend') }}/img/logo.svg"
-                    alt="Tnews"></a></div>
+        <div class="mobile-logo"><a href="{{ route('homepage') }}"><img
+                    src="{{ asset('uploads/setting') }}/{{ $website_setting->logo }}" alt="{{ $seos->meta_title }}"></a>
+        </div>
         <div class="th-mobile-menu">
             <ul>
                 @php
@@ -64,7 +69,8 @@
 
                 <div class="col-auto d-none d-lg-inline-block">
                     <div class="header-logo"><a href="{{ route('homepage') }}"><img
-                                src="{{ asset('assets/frontend') }}/img/logo.svg" alt="Tnews"></a></div>
+                                src="{{ asset('uploads/setting') }}/{{ $website_setting->logo }}"
+                                alt="{{ $seos->meta_title }}"></a></div>
                 </div>
                 <div class="col-auto text-center text-md-end">
                     <div class="header-icon">
@@ -96,7 +102,8 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="col-auto d-lg-none d-block">
                         <div class="header-logo"><a href="{{ route('homepage') }}"><img
-                                    src="{{ asset('assets/frontend') }}/img/logo-white.svg" alt="Tnews"></a></div>
+                                    src="{{ asset('uploads/setting') }}/{{ $website_setting->logo }}"
+                                    alt="{{ $seos->meta_title }}"></a></div>
                     </div>
                     <div class="col-auto">
                         <nav class="main-menu d-none d-lg-inline-block">
@@ -141,7 +148,7 @@
                                         </ul>
                                     </li>
                                 @endforeach
-                        
+
                         </nav>
                     </div>
                     <div class="col-auto">

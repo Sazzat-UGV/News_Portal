@@ -1,5 +1,7 @@
-<link rel="icon" type="image/png" sizes="192x192"
-    href="{{ asset('assets/frontend') }}/img/favicons/android-icon-192x192.png">
+@php
+    $website_setting = App\Models\Setting::first();
+@endphp
+<link rel="icon" type="image/png" sizes="192x192" href="{{ asset('uploads/setting') }}/{{ $website_setting->favicon }}">
 <link rel="manifest" href="{{ asset('assets/frontend') }}/img/favicons/manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>

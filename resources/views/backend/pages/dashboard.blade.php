@@ -111,6 +111,46 @@
             </div>
         </div>
 
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-c-lite-green update-card">
+                <div class="card-block">
+                    <div class="row align-items-end">
+                        <div class="col-8">
+                            <h4 class="text-white">{{ $photo }}</h4>
+                            <h6 class="text-white m-b-0">Photo in Gallery</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-c-pink update-card">
+                <div class="card-block">
+                    <div class="row align-items-end">
+                        <div class="col-8">
+                            <h4 class="text-white">{{ $video }}</h4>
+                            <h6 class="text-white m-b-0">Video in Gallery</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-c-lite-green update-card">
+                <div class="card-block">
+                    <div class="row align-items-end">
+                        <div class="col-8">
+                            <h4 class="text-white">{{ $website }}</h4>
+                            <h6 class="text-white m-b-0">Important Website</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection
 @push('admin_script')

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Seo;
+use App\Models\Setting;
 use App\Models\Social;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Image;
 
 class SettingController extends Controller
 {
@@ -64,5 +66,71 @@ class SettingController extends Controller
         ]);
         Toastr::success('SEO setting updated successfully!');
         return back();
+    }
+
+    public function websiteSettingPage()
+    {
+        $setting = Setting::first();
+        return view('backend.pages.setting.website-setting', compact('setting'));
+    }
+
+    public function websiteSettingUpdate(Request $request)
+    {
+        $request->validate([
+            'logo' => 'nullable|mimes:jpg,jpeg,png,svg|max:10240',
+            'favicon' => 'nullable|mimes:jpg,jpeg,png,svg|max:10240',
+            'short_description_english' => 'required|string',
+            'short_description_bangla' => 'required|string',
+        ]);
+        $setting = Setting::first();
+        $setting->update([
+            'short_description_en' => $request->short_description_english,
+            'short_description_bn' => $request->short_description_bangla,
+        ]);
+
+        $this->image_upload($request, $setting->id);
+        Toastr::success('Setting updated successfully!');
+        return back();
+    }
+
+    public function image_upload($request, $setting_id)
+    {
+        $setting = Setting::findorFail($setting_id);
+
+        if ($request->hasFile('logo')) {
+            if ($setting->logo) {
+                //delete old photo
+                $photo_location = 'public/uploads/setting/';
+                $old_photo_location = $photo_location . $setting->logo;
+                unlink(base_path($old_photo_location));
+            }
+
+            $photo_loation = 'public/uploads/setting/';
+            $uploaded_photo = $request->file('logo');
+            $new_photo_name = 'logo' . '.' . $uploaded_photo->getClientOriginalExtension();
+            $new_photo_location = $photo_loation . $new_photo_name;
+            $upload = $uploaded_photo->move(public_path('uploads/setting'), $new_photo_name);
+            $check = $setting->update([
+                'logo' => $new_photo_name,
+            ]);
+        }
+
+        if ($request->hasFile('favicon')) {
+            if ($setting->favicon) {
+                //delete old photo
+                $photo_location = 'public/uploads/setting/';
+                $old_photo_location = $photo_location . $setting->favicon;
+                unlink(base_path($old_photo_location));
+            }
+
+            $photo_loation = 'public/uploads/setting/';
+            $uploaded_photo = $request->file('favicon');
+            $new_photo_name = 'favicon' . '.' . $uploaded_photo->getClientOriginalExtension();
+            $new_photo_location = $photo_loation . $new_photo_name;
+            Image::make($uploaded_photo)->resize(192, 192)->save(base_path($new_photo_location));
+            $check = $setting->update([
+                'favicon' => $new_photo_name,
+            ]);
+        }
     }
 }
