@@ -26,7 +26,16 @@ class User extends Authenticatable
         'address',
         'image',
         'dob',
-        'is_admin',
+        'category',
+        'subcategory',
+        'division',
+        'district',
+        'post',
+        'widget',
+        'ads',
+        'permission',
+        'gallery',
+        'setting',
     ];
 
     /**

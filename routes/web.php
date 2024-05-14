@@ -13,6 +13,7 @@ use App\Http\Controllers\backend\NoticeController;
 use App\Http\Controllers\backend\PhotoGalleryController;
 use App\Http\Controllers\backend\PostController;
 use App\Http\Controllers\backend\PrayerTimeController;
+use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\backend\SubcategoryController;
 use App\Http\Controllers\backend\TagSearchController;
@@ -79,6 +80,7 @@ Route::prefix('/admin')->group(function () {
         Route::resource('setting/importent/website', ImportentWebsiteController::class);
         Route::resource('gallery/photo', PhotoGalleryController::class);
         Route::resource('gallery/video', VideoGalleryController::class);
+        Route::resource('role',RoleController::class);
 
         //ajax routes
         Route::get('change/category/status/{id}', [CategoryController::class, 'changeStatus']);
