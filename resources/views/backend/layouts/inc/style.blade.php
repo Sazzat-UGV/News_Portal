@@ -1,4 +1,4 @@
-<link rel="icon" href="{{ asset('assets/backend') }}/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="{{ asset('assets/backend/images/favicon.ico') }}" type="image/x-icon">
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 

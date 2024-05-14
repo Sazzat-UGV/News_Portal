@@ -5,7 +5,7 @@
                 <i class="feather icon-menu"></i>
             </a>
             <a href="{{ route('admin.dashboard') }}">
-                <img class="img-fluid" src="{{ asset('assets/backend') }}/images/logo.png" alt="Theme-Logo" />
+                <img class="img-fluid" src="{{ asset('assets/backend/images/logo.png') }}" alt="Theme-Logo" />
             </a>
             <a class="mobile-options">
                 <i class="feather icon-more-horizontal"></i>
